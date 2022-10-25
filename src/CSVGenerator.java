@@ -32,18 +32,15 @@
 import java.io.IOException;
 import java.util.*;
 
-import org.dblp.mmdb.Field;
 import org.dblp.mmdb.Person;
-import org.dblp.mmdb.PersonName;
 import org.dblp.mmdb.Publication;
 import org.dblp.mmdb.RecordDb;
 import org.dblp.mmdb.RecordDbInterface;
-import org.dblp.mmdb.TableOfContents;
 import org.xml.sax.SAXException;
 
 
 @SuppressWarnings("javadoc")
-public class CSVgenerator {
+public class CSVGenerator {
 
     public static void main(String[] args) {
 
@@ -51,7 +48,7 @@ public class CSVgenerator {
         System.setProperty("entityExpansionLimit", "1000");
 
         if (args.length != 2) {
-            System.err.format("Usage: java %s <dblp-xml-file> <dblp-dtd-file>\n", CSVgenerator.class.getName());
+            System.err.format("Usage: java %s <dblp-xml-file> <dblp-dtd-file>\n", CSVGenerator.class.getName());
             System.exit(0);
         }
         String dblpXmlFilename = args[0];
@@ -74,8 +71,6 @@ public class CSVgenerator {
 
 
         // MIO CODICE
-        CSVWriter csvWriter = new CSVWriter();
-
 
         // Authors + Author -> pubs relation
         List<List<String>> list_authors = new ArrayList<>();
@@ -95,8 +90,8 @@ public class CSVgenerator {
 
             // author_pubs_relation.csv
             List<String> row_author_pubs = new ArrayList<>();
-            row_author_pubs.add(person.getPrimaryName().name());
-            person.getPublications().forEach(p -> row_author_pubs.add(p.getFields("title").stream().map(t -> t.value()).toList().get(0)));
+            row_author_pubs.add(person.getPid());
+            person.getPublications().forEach(p -> row_author_pubs.add(p.getKey()));
             list_author_pubs.add(row_author_pubs);
 
 
@@ -112,16 +107,24 @@ public class CSVgenerator {
 
             // publications.csv
             List<String> row_pub = new ArrayList<>();
-            publication.getFields().forEach(f -> row_pub.add(f.value()));
+            row_pub.add(publication.getKey());
+            row_pub.add(PublicationUtils.getID(publication));
+            row_pub.add(publication.getTag());
+            row_pub.add(PublicationUtils.getTitle(publication));
+            row_pub.add(String.valueOf(publication.getYear()));
+            row_pub.add(publication.getMdate());
+            row_pub.add(PublicationUtils.getPages(publication));
+            row_pub.add(PublicationUtils.getURL(publication));
+            //publication.getFields().forEach(f -> row_pub.add(f.value()));
             list_pubs.add(row_pub);
 
             i++;
         }
 
         try {
-            csvWriter.givenDataArray_whenConvertToCSV(list_authors, "authors.csv");
-            csvWriter.givenDataArray_whenConvertToCSV(list_pubs, "publications.csv");
-            csvWriter.givenDataArray_whenConvertToCSV(list_author_pubs, "author_pubs_relation.csv");
+            CSVWriter.givenDataArray_whenConvertToCSV(list_authors, "authors.csv");
+            CSVWriter.givenDataArray_whenConvertToCSV(list_pubs, "publications.csv");
+            CSVWriter.givenDataArray_whenConvertToCSV(list_author_pubs, "author_pubs_relation.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
