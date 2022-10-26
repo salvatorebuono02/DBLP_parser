@@ -77,8 +77,7 @@ public class CSVGenerator {
         List<List<String>> list_author_pubs = new ArrayList<>();
         int i = 0;
         for (Person person : dblp.getPersons()) {
-            if (i == 100)
-                break;
+           // if (i == 1000) break;
 
             // authors.csv
             List<String> row_author = new ArrayList<>();
@@ -95,15 +94,14 @@ public class CSVGenerator {
             list_author_pubs.add(row_author_pubs);
 
 
-            i++;
+            //i++;
         }
 
         // Publications
         List<List<String>> list_pubs = new ArrayList<>();
-        i = 0;
+        //i = 0;
         for (Publication publication : dblp.getPublications()) {
-            if(i == 100)
-                break;
+            // if(i == 1000) break;
 
             // publications.csv
             List<String> row_pub = new ArrayList<>();
@@ -118,7 +116,7 @@ public class CSVGenerator {
             //publication.getFields().forEach(f -> row_pub.add(f.value()));
             list_pubs.add(row_pub);
 
-            i++;
+            //i++;
         }
 
         try {
@@ -129,7 +127,25 @@ public class CSVGenerator {
             e.printStackTrace();
         }
 
-
+        // Alex's code below
+        List<List<String>> publications_list = new ArrayList<>();
+        //i = 0;
+        for (Publication publication : dblp.getPublications()) {
+            switch(publication.getTag()) {
+                case "book":
+                    // code block
+                    break;
+                case "article":
+                    // code block
+                    break;
+                case "phdthesis":
+                    // code block
+                    break;
+                case "incollection":
+                    // code block
+                    break;
+            }
+        }
 
         /*
         System.out.println("finding longest person name in dblp ...");
