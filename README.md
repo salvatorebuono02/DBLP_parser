@@ -10,3 +10,5 @@
 [here](https://polimi365-my.sharepoint.com/:f:/g/personal/10669287_polimi_it/EqgdVVaB5NhGncXjMW6NudoBjouwLLTXhpZmn6y1zS7D1A?e=LCsFw9)
 
 NB: ‘‘‘ dblp_2015_cut.xml ‘‘‘ è stato tagliato a caso, quindi ci potrebbero essere degli errori a livello di dati ma compila comunque.
+## Configuration Setup
+  
