@@ -135,6 +135,7 @@ public class CSVGenerator {
         List<List<String>> list_incollection = new ArrayList<>();
         List<List<String>> list_proceeding = new ArrayList<>();
         List<List<String>> list_inproceeding = new ArrayList<>();
+        List<List<String>> list_pub_in_pubs= new ArrayList<>();
 
         for (Publication publication : dblp.getPublications()) {
 
@@ -144,6 +145,7 @@ public class CSVGenerator {
             List<String> row_incollection=new ArrayList<>();
             List<String> row_proceeding=new ArrayList<>();
             List<String> row_inproceeding=new ArrayList<>();
+            List<String> row_pub_pubs=new ArrayList<>();
             if(!PublicationUtils.getID(publication).isEmpty()) {
                 switch(publication.getTag()) {
                     /*case "book":
@@ -194,7 +196,7 @@ public class CSVGenerator {
                         row_incollection.add(PublicationUtils.getCrossRef(publication));
                         list_incollection.add(row_incollection);
                         break;*/
-                    case "proceedings":
+                    /*case "proceedings":
                         row_proceeding.add(publication.getKey());
                         row_proceeding.add(PublicationUtils.getID(publication));
                         row_proceeding.add(PublicationUtils.getTitle(publication));
@@ -213,20 +215,35 @@ public class CSVGenerator {
                         row_inproceeding.add(PublicationUtils.getPages(publication));
                         row_inproceeding.add(PublicationUtils.getURL(publication));
                         row_inproceeding.add(PublicationUtils.getCrossRef(publication));
-                        list_inproceeding.add(row_inproceeding);
+                        list_inproceeding.add(row_inproceeding);*/
                 }
+
+                row_pub_pubs.add(publication.getKey());
+                if(publication.getToc()!=null && !publication.getToc().getPublications().isEmpty()){
+                    publication.getToc().getPublications().forEach(p->row_pub_pubs.add(p.getKey()));
+                }
+                list_pub_in_pubs.add(row_pub_pubs);
             }
 
+
+
+
+            /*// author_pubs_relation.csv
+            List<String> row_author_pubs = new ArrayList<>();
+            row_author_pubs.add(person.getPid());
+            person.getPublications().forEach(p -> row_author_pubs.add(p.getKey()));
+            list_author_pubs.add(row_author_pubs);*/
 
         }
 
         try {
-            CSVWriter.givenDataArray_whenConvertToCSV(list_article, "articles.csv");
+            /*CSVWriter.givenDataArray_whenConvertToCSV(list_article, "articles.csv");
             CSVWriter.givenDataArray_whenConvertToCSV(list_book, "books.csv");
             CSVWriter.givenDataArray_whenConvertToCSV(list_thesis, "thesis.csv");
             CSVWriter.givenDataArray_whenConvertToCSV(list_incollection, "incollection.csv");
             CSVWriter.givenDataArray_whenConvertToCSV(list_proceeding, "proceedings.csv");
-            CSVWriter.givenDataArray_whenConvertToCSV(list_inproceeding, "inproceedings.csv");
+            CSVWriter.givenDataArray_whenConvertToCSV(list_inproceeding, "inproceedings.csv");*/
+            CSVWriter.givenDataArray_whenConvertToCSV(list_pub_in_pubs,"relatedPublication");
         } catch (IOException e) {
             e.printStackTrace();
         }
