@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 public abstract class CSVWriter {
 
-    public static void givenDataArray_whenConvertToCSV(List<List<String>> dataLines, String CSVFileName) throws IOException {
+    public static void convertToCSV(List<List<String>> dataLines, String CSVFileName) throws IOException {
         File csvOutputFile = new File(CSVFileName);
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             dataLines.stream()

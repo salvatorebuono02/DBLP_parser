@@ -45,4 +45,10 @@ public abstract class PublicationUtils {
         return crossref.value();
     }
 
+    public static String getSchool(Publication publication) {
+        Field school = publication.getFields("school").stream().findFirst().orElse(null);
+        if (school == null)
+            return "";
+        return school.value();
+    }
 }
