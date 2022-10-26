@@ -11,4 +11,4 @@
 
 NB: ‘‘‘ dblp_2015_cut.xml ‘‘‘ è stato tagliato a caso, quindi ci potrebbero essere degli errori a livello di dati ma compila comunque.
 ## Configuration Setup
-  
+![alt text](https://github.com/salvatorebuono02/DBLP_parser/blob/master/setup.png)
