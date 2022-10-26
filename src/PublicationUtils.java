@@ -38,4 +38,11 @@ public abstract class PublicationUtils {
         return URL.value();
     }
 
+    public static String getCrossRef(Publication publication){
+        Field crossref = publication.getFields("cite").stream().findFirst().orElse(null);
+        if (crossref == null)
+            return "";
+        return crossref.value();
+    }
+
 }
