@@ -1,6 +1,7 @@
 import org.dblp.mmdb.Field;
 import org.dblp.mmdb.Publication;
 import org.dblp.mmdb.PublicationIDType;
+import org.dblp.mmdb.Record;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,16 +51,18 @@ public abstract class PublicationUtils {
     }
 
     public static List<String> getCitations(Publication publication){
-        return publication.getFields("cite").stream().map(Field::value).collect(Collectors.toList());
+        if(!publication.getFields("cite").isEmpty())
+            return publication.getFields("cite").stream().map(Field::value).collect(Collectors.toList());
+        return new ArrayList<>();
     }
 
     public static List<String> getPublicationsIn(Publication context){
-        if(context.getToc() !=null){
-            List<String> pubs=context.getToc().getPublications().stream().map(p->p.getKey()).collect(Collectors.toList());
+        if(context.getToc() != null){
+            List<String> pubs = context.getToc().getPublications().stream().map(Record::getKey).collect(Collectors.toList());
             pubs.remove(context.getKey());
             return pubs;
         }
-        return null;
+        return new ArrayList<>();
     }
 
 

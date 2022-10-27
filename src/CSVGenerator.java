@@ -76,13 +76,11 @@ public class CSVGenerator {
         List<List<String>> list_authors = new ArrayList<>();
         List<List<String>> list_author_pubs = new ArrayList<>(); // relation author->PRODUCE->publication
         List<List<String>> list_publication = new ArrayList<>();
-        //todo converti tabella come author pubs
         List<List<String>> list_pub_in_pubs = new ArrayList<>();
-        //todo converti tabella come author pubs
         List<List<String>> list_context_pubs = new ArrayList<>();
         int i = 0;
         for (Person person : dblp.getPersons()) {
-            if(i == 400) break;
+            if(i == 20000) break;
 
             // authors.csv
             if (!person.getPublications().isEmpty()) {
@@ -93,13 +91,10 @@ public class CSVGenerator {
                 list_authors.add(row_author);
 
                 // author_pubs_relation.csv
-                for(Publication p: person.getPublications()) {
-                    List<String> row_author_pubs = new ArrayList<>();
-                    if (!util_pubs.contains(p))
-                        util_pubs.add(p);
-                    row_author_pubs.add(person.getPid());
-                    row_author_pubs.add(p.getKey());
-                    list_author_pubs.add(row_author_pubs);
+                for(Publication p : person.getPublications()) {
+                    if (!util_pubs.contains(p)) util_pubs.add(p);
+                    // Adding the following pair: < key of the author, key of the publication written by that author >
+                    list_author_pubs.add(Arrays.asList(person.getPid(), p.getKey()));
                 }
                 i++;
             }
@@ -109,7 +104,6 @@ public class CSVGenerator {
         for (Publication publication : util_pubs) {
             List<String> entry_publication = new ArrayList<>();
             List<String> row_pub_pubs = new ArrayList<>();
-            List<String> row_context_pubs = new ArrayList<>();
 
             entry_publication.add(publication.getKey());
             entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
@@ -119,23 +113,32 @@ public class CSVGenerator {
             entry_publication.add(PublicationUtils.getPages(publication));
             entry_publication.add(PublicationUtils.getURL(publication));
             entry_publication.add(publication.getTag());
+
+            // context_pubs_relation.csv
             if (publication.getTag().equals("proceedings")) {
-                if(PublicationUtils.getPublicationsIn(publication)!=null){
-                    row_context_pubs.add(publication.getKey());
-                    row_context_pubs.addAll(PublicationUtils.getPublicationsIn(publication));
-                    list_context_pubs.add(row_context_pubs);
+                // publications in the given proceeding (i.e. the context of publication)
+                List<String> pubs_in_proceedings = PublicationUtils.getPublicationsIn(publication);
+                if(!pubs_in_proceedings.isEmpty()){
+                    pubs_in_proceedings.forEach(p -> {
+                        // Adding the following pair: < key of the context, key of the publication presented in that context >
+                        list_context_pubs.add(Arrays.asList(publication.getKey(), p));
+                     });
                 }
             }
+
             entry_publication.add(PublicationUtils.getCrossRef(publication));
             entry_publication.add(publication.getMdate());
             list_publication.add(entry_publication);
 
-            // pub_pubs_relation.csv (citation of each publication)
+            // pub_pubs_relation.csv (citations of a publication)
+            // TODO è inutile farlo per i proceedings
+            // TODO handle those values: "..."
             List<String> citations = PublicationUtils.getCitations(publication);
-            if (citations != null) {
-                row_pub_pubs.add(publication.getKey());
-                citations.forEach(c->row_pub_pubs.add(c));
-                list_pub_in_pubs.add(row_pub_pubs);
+            if (!citations.isEmpty()) {
+                citations.forEach(c -> {
+                    // Adding the following pair: < key of the publication, key of another publication cited in that publication >
+                    list_pub_in_pubs.add(Arrays.asList(publication.getKey(), c));
+                });
             }
         }
 
