@@ -22,7 +22,7 @@ public abstract class PublicationUtils {
         return pages.value();
     }
 
-    public static String getID(Publication publication) {
+    public static String getTypeOfISBN(Publication publication) {
         Field DOI = publication.getFields("ee").stream().findFirst().orElse(null); // DOI not always present... we should distinguish each type of pubs (some has ISBN)
         Field ISBN = publication.getFields("isbn").stream().findFirst().orElse(null);
         if ( //publication.getIdTypes().contains(PublicationIDType.DOI) &&
