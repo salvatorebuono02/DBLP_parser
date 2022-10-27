@@ -44,7 +44,7 @@ public class CSVGenerator {
 
     public static void main(String[] args) {
 
-        final int MAX_ROWS = 20000;
+        final int MAX_ROWS = 30000;
         final String RESULTS_DIRECTORY_PATH = "results/";
 
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
@@ -142,6 +142,8 @@ public class CSVGenerator {
         List<List<String>> list_proceeding = new ArrayList<>();
         List<List<String>> list_inproceeding = new ArrayList<>();
         List<List<String>> list_pub_in_pubs = new ArrayList<>();
+        List<List<String>> list_context_pubs = new ArrayList<>();
+
 
         i = 0;
         for (Publication publication : dblp.getPublications()) {
@@ -155,6 +157,8 @@ public class CSVGenerator {
             List<String> row_proceeding = new ArrayList<>();
             List<String> row_inproceeding = new ArrayList<>();
             List<String> row_pub_pubs = new ArrayList<>();
+            List<String> row_context_pubs = new ArrayList<>();
+
 
             if(!PublicationUtils.getID(publication).isEmpty()) {
                 switch(publication.getTag()) {
@@ -163,9 +167,9 @@ public class CSVGenerator {
                         row_book.add(publication.getKey());
                         row_book.add(PublicationUtils.getID(publication));
                         row_book.add(PublicationUtils.getTitle(publication));
-                        if (publication.getBooktitle() != null) row_book.add(publication.getBooktitle().getTitle()); //always null??
+                        //if (publication.getBooktitle() != null) row_book.add(publication.getBooktitle().getTitle()); //always null??
                         row_book.add(String.valueOf(publication.getYear()));
-                        // TODO add "publisher" field
+                        row_book.add(PublicationUtils.getPublisher(publication));
                         row_book.add(PublicationUtils.getPages(publication));
                         row_book.add(PublicationUtils.getURL(publication));
                         row_book.add(PublicationUtils.getCrossRef(publication));
@@ -207,7 +211,7 @@ public class CSVGenerator {
                         list_incollection.add(row_incollection);
                         break;
                     case "proceedings":
-                        // TODO add "booktitle" (maybe already done with .getBooktitle()) and "publisher" fields
+                        // TODO add "booktitle" (maybe already done with .getBooktitle()) and "publisher" fields and "editor"s
                         row_proceeding.add(publication.getKey());
                         row_proceeding.add(PublicationUtils.getID(publication));
                         row_proceeding.add(PublicationUtils.getTitle(publication));
@@ -217,12 +221,22 @@ public class CSVGenerator {
                         row_proceeding.add(PublicationUtils.getCrossRef(publication));
                         row_proceeding.add(publication.getMdate());
                         list_proceeding.add(row_proceeding);
+
+
+                        // context_pubs_relation.csv
+                        if(PublicationUtils.getPublicationsIn(publication)!=null){
+                            row_context_pubs.add(publication.getKey());
+                            row_context_pubs.addAll(PublicationUtils.getPublicationsIn(publication));
+                            list_context_pubs.add(row_context_pubs);
+                        }
+
                         break;
                     case "inproceedings":
                         // TODO add "booktitle" (maybe already done with .getBooktitle())
                         row_inproceeding.add(publication.getKey());
                         row_inproceeding.add(PublicationUtils.getID(publication));
                         row_inproceeding.add(PublicationUtils.getTitle(publication));
+                        row_inproceeding.add(publication.getBooktitle().getTitle());
                         row_inproceeding.add(String.valueOf(publication.getYear()));
                         row_inproceeding.add(PublicationUtils.getPages(publication));
                         row_inproceeding.add(PublicationUtils.getURL(publication));
@@ -232,12 +246,19 @@ public class CSVGenerator {
                         break;
                 }
 
-                // pub_pubs_relation.csv
-                if(publication.getToc()!=null && !publication.getToc().getPublications().isEmpty()){
+
+
+                // pub_pubs_relation.csv (citation of each publication)
+                List<String> citations = PublicationUtils.getCitations(publication);
+                if (citations != null) {
                     row_pub_pubs.add(publication.getKey());
-                    publication.getToc().getPublications().forEach(p->row_pub_pubs.add(p.getKey()));
+                    citations.forEach(c->row_pub_pubs.add(c));
                     list_pub_in_pubs.add(row_pub_pubs);
                 }
+
+                // relation of a publication with its context
+                // context_pubs_relation.csv
+
             }
 
             i++;
@@ -252,7 +273,8 @@ public class CSVGenerator {
             CSVWriter.convertToCSV(list_incollection, RESULTS_DIRECTORY_PATH + "incollection.csv");
             CSVWriter.convertToCSV(list_proceeding, RESULTS_DIRECTORY_PATH + "proceedings.csv");
             CSVWriter.convertToCSV(list_inproceeding, RESULTS_DIRECTORY_PATH + "inproceedings.csv");
-            CSVWriter.convertToCSV(list_pub_in_pubs,RESULTS_DIRECTORY_PATH + "related_pubs_relation.csv");
+            CSVWriter.convertToCSV(list_pub_in_pubs,RESULTS_DIRECTORY_PATH + "pub_pubs_relation.csv");
+            CSVWriter.convertToCSV(list_context_pubs,RESULTS_DIRECTORY_PATH + "context_pubs_relation.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
