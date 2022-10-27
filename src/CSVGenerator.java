@@ -76,23 +76,23 @@ public class CSVGenerator {
         List<List<String>> list_authors = new ArrayList<>();
         List<List<String>> list_author_pubs = new ArrayList<>(); // relation author->PRODUCE->publication
         List<List<String>> list_publication = new ArrayList<>();
+        //todo converti tabella come author pubs
         List<List<String>> list_pub_in_pubs = new ArrayList<>();
+        //todo converti tabella come author pubs
         List<List<String>> list_context_pubs = new ArrayList<>();
         int i = 0;
         for (Person person : dblp.getPersons()) {
-
             if(i == 400) break;
 
             // authors.csv
-            List<String> row_author = new ArrayList<>();
-            row_author.add(person.getPid());
-            row_author.add(person.getPrimaryName().name());
-            person.getFields("url").forEach(u -> row_author.add(u.value()));
-            list_authors.add(row_author);
+            if (!person.getPublications().isEmpty()) {
+                List<String> row_author = new ArrayList<>();
+                row_author.add(person.getPid());
+                row_author.add(person.getPrimaryName().name());
+                person.getFields("url").forEach(u -> row_author.add(u.value()));
+                list_authors.add(row_author);
 
-            // author_pubs_relation.csv
-
-            if (person.getPublications() != null) {
+                // author_pubs_relation.csv
                 for(Publication p: person.getPublications()) {
                     List<String> row_author_pubs = new ArrayList<>();
                     if (!util_pubs.contains(p))
@@ -101,109 +101,41 @@ public class CSVGenerator {
                     row_author_pubs.add(p.getKey());
                     list_author_pubs.add(row_author_pubs);
                 }
+                i++;
             }
-            i++;
         }
 
         // construct all type of publication csv starting from the util publication list
         for (Publication publication : util_pubs) {
-            List<String> row_articles = new ArrayList<>();
-            List<String> row_book = new ArrayList<>();
-            List<String> row_thesis = new ArrayList<>();
-            List<String> row_incollection = new ArrayList<>();
-            List<String> row_proceeding = new ArrayList<>();
-            List<String> row_inproceeding = new ArrayList<>();
+            List<String> entry_publication = new ArrayList<>();
             List<String> row_pub_pubs = new ArrayList<>();
             List<String> row_context_pubs = new ArrayList<>();
 
-            if(!PublicationUtils.getTypeOfISBN(publication).isEmpty()) {
-                row_book.add(publication.getKey());
-                row_book.add(PublicationUtils.getTypeOfISBN(publication));
-                row_book.add(PublicationUtils.getTitle(publication));
-                row_book.add(String.valueOf(publication.getYear()));
-                row_book.add(PublicationUtils.getPublisher(publication));
-                row_book.add(PublicationUtils.getPages(publication));
-                row_book.add(PublicationUtils.getURL(publication));
-                row_book.add(publication.getTag());
-                if (publication.getTag().equals("proceedings")) {
-                    if(PublicationUtils.getPublicationsIn(publication)!=null){
-                        row_context_pubs.add(publication.getKey());
-                        row_context_pubs.addAll(PublicationUtils.getPublicationsIn(publication));
-                        list_context_pubs.add(row_context_pubs);
-                    }
+            entry_publication.add(publication.getKey());
+            entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
+            entry_publication.add(PublicationUtils.getTitle(publication));
+            entry_publication.add(String.valueOf(publication.getYear()));
+            entry_publication.add(PublicationUtils.getPublisher(publication));
+            entry_publication.add(PublicationUtils.getPages(publication));
+            entry_publication.add(PublicationUtils.getURL(publication));
+            entry_publication.add(publication.getTag());
+            if (publication.getTag().equals("proceedings")) {
+                if(PublicationUtils.getPublicationsIn(publication)!=null){
+                    row_context_pubs.add(publication.getKey());
+                    row_context_pubs.addAll(PublicationUtils.getPublicationsIn(publication));
+                    list_context_pubs.add(row_context_pubs);
                 }
-                row_book.add(PublicationUtils.getCrossRef(publication));
-                row_book.add(publication.getMdate());
-                list_publication.add(row_book);
+            }
+            entry_publication.add(PublicationUtils.getCrossRef(publication));
+            entry_publication.add(publication.getMdate());
+            list_publication.add(entry_publication);
 
-                /*switch(publication.getTag()) {
-                    // TODO add "cite" field for the citations (don't know if all the types can have this field)
-                    case "book":
-                        row_book.add(publication.getKey());
-                        row_book.add(PublicationUtils.getTypeOfISBN(publication));
-                        row_book.add(PublicationUtils.getTitle(publication));
-                        row_book.add(String.valueOf(publication.getYear()));
-                        row_book.add(PublicationUtils.getPublisher(publication));
-                        row_book.add(PublicationUtils.getPages(publication));
-                        row_book.add(PublicationUtils.getURL(publication));
-                        row_book.add(PublicationUtils.getCrossRef(publication));
-                        row_book.add(publication.getMdate());
-                        list_publication.add(row_book);
-                        break;
-                    case "article":
-                        row_articles.add(publication.getKey());
-                        row_articles.add(PublicationUtils.getTypeOfISBN(publication));
-                        row_articles.add(PublicationUtils.getTitle(publication));
-                        row_articles.add(String.valueOf(publication.getYear()));
-                        row_articles.add(PublicationUtils.getPages(publication));
-                        row_articles.add(PublicationUtils.getURL(publication));
-                        row_articles.add(PublicationUtils.getCrossRef(publication));
-                        row_articles.add(publication.getMdate());
-                        list_article.add(row_articles);
-                        break;
-                    case "phdthesis","masterthesis":
-                        row_thesis.add(publication.getKey());
-                        row_thesis.add(PublicationUtils.getTypeOfISBN(publication));
-                        row_thesis.add(PublicationUtils.getTitle(publication));
-                        row_thesis.add(String.valueOf(publication.getYear()));
-                        row_thesis.add(PublicationUtils.getPages(publication));
-                        row_thesis.add(PublicationUtils.getSchool(publication));
-                        row_thesis.add(PublicationUtils.getURL(publication));
-                        row_thesis.add(PublicationUtils.getCrossRef(publication));
-                        row_thesis.add(publication.getMdate());
-                        list_thesis.add(row_thesis);
-                        break;
-                    case "incollection":
-                        row_incollection.add(publication.getKey());
-                        row_incollection.add(PublicationUtils.getTypeOfISBN(publication));
-                        row_incollection.add(PublicationUtils.getTitle(publication));
-                        row_incollection.add(String.valueOf(publication.getYear()));
-                        row_incollection.add(PublicationUtils.getPages(publication));
-                        row_incollection.add(PublicationUtils.getURL(publication));
-                        row_incollection.add(PublicationUtils.getCrossRef(publication));
-                        row_incollection.add(publication.getMdate());
-                        list_incollection.add(row_incollection);
-                        break;
-                    case "proceedings":
-                        // TODO add "booktitle" (maybe already done with .getBooktitle()) and "publisher" fields and "editor"s
-                        row_proceeding.add(publication.getKey());
-                        row_proceeding.add(PublicationUtils.getTypeOfISBN(publication));
-                        row_proceeding.add(PublicationUtils.getTitle(publication));
-                        row_proceeding.add(String.valueOf(publication.getYear()));
-                        row_proceeding.add(PublicationUtils.getPages(publication));
-                        row_proceeding.add(PublicationUtils.getURL(publication));
-                        row_proceeding.add(PublicationUtils.getCrossRef(publication));
-                        row_proceeding.add(publication.getMdate());
-                        list_proceeding.add(row_proceeding);
-                                */
-
-                // pub_pubs_relation.csv (citation of each publication)
-                List<String> citations = PublicationUtils.getCitations(publication);
-                if (citations != null) {
-                    row_pub_pubs.add(publication.getKey());
-                    citations.forEach(c->row_pub_pubs.add(c));
-                    list_pub_in_pubs.add(row_pub_pubs);
-                }
+            // pub_pubs_relation.csv (citation of each publication)
+            List<String> citations = PublicationUtils.getCitations(publication);
+            if (citations != null) {
+                row_pub_pubs.add(publication.getKey());
+                citations.forEach(c->row_pub_pubs.add(c));
+                list_pub_in_pubs.add(row_pub_pubs);
             }
         }
 
@@ -214,10 +146,9 @@ public class CSVGenerator {
             CSVWriter.convertToCSV(list_pub_in_pubs,RESULTS_DIRECTORY_PATH + "pub_pubs_relation.csv");
             CSVWriter.convertToCSV(list_context_pubs,RESULTS_DIRECTORY_PATH + "context_pubs_relation.csv");
         } catch (IOException e) {
+            System.out.println("xxx");
             e.printStackTrace();
         }
-
-        // CODICE DI PROVA
 
         /*
         System.out.println("finding longest person name in dblp ...");
