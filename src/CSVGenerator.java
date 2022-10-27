@@ -44,6 +44,7 @@ public class CSVGenerator {
     public static void main(String[] args) {
 
         final String RESULTS_DIRECTORY_PATH = "results/";
+        final int MAX_ROWS = 20000;
 
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
         System.setProperty("entityExpansionLimit", "1000");
@@ -70,7 +71,7 @@ public class CSVGenerator {
         }
         System.out.format("MMDB ready: %d publs, %d pers\n\n", dblp.numberOfPublications(), dblp.numberOfPersons());
 
-        // list of all publications we want to insert in the database
+        // list of all publications we want to insert into the database
         List<Publication> util_pubs = new ArrayList<>();
         // List of authors in the database
         List<List<String>> list_authors = new ArrayList<>();
@@ -80,7 +81,7 @@ public class CSVGenerator {
         List<List<String>> list_context_pubs = new ArrayList<>();
         int i = 0;
         for (Person person : dblp.getPersons()) {
-            if(i == 20000) break;
+            if(i == MAX_ROWS) break;
 
             // authors.csv
             if (!person.getPublications().isEmpty()) {
@@ -91,31 +92,36 @@ public class CSVGenerator {
                 list_authors.add(row_author);
 
                 // author_pubs_relation.csv
-                for(Publication p : person.getPublications()) {
-                    if (!util_pubs.contains(p)) util_pubs.add(p);
+                for(Publication publication : person.getPublications()) {
+                    //TODO remove the proceedings (or adding in another relation for person - EDITOR_OF -> proceedings
+                    if (!util_pubs.contains(publication)) util_pubs.add(publication);
                     // Adding the following pair: < key of the author, key of the publication written by that author >
-                    list_author_pubs.add(Arrays.asList(person.getPid(), p.getKey()));
+                    list_author_pubs.add(Arrays.asList(person.getPid(), publication.getKey()));
                 }
                 i++;
             }
         }
 
-        // construct all type of publication csv starting from the util publication list
+        // construct all types of publication csv starting from the util publication list
+        // publications.csv
         for (Publication publication : util_pubs) {
             List<String> entry_publication = new ArrayList<>();
-            List<String> row_pub_pubs = new ArrayList<>();
 
+            // TODO add publication.getToc() to util_contexts
+
+            // TODO handle editor
             entry_publication.add(publication.getKey());
             entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
             entry_publication.add(PublicationUtils.getTitle(publication));
             entry_publication.add(String.valueOf(publication.getYear()));
-            entry_publication.add(PublicationUtils.getPublisher(publication));
+            entry_publication.add(PublicationUtils.getPublisher(publication)); // TODO dovrebbe essere solo su proceedings
             entry_publication.add(PublicationUtils.getPages(publication));
-            entry_publication.add(PublicationUtils.getURL(publication));
+            entry_publication.add(PublicationUtils.getURL(publication)); // TODO non ha senso se pub è proceedings
             entry_publication.add(publication.getTag());
 
             // context_pubs_relation.csv
             if (publication.getTag().equals("proceedings")) {
+                // TODO add publication in util_contexts if not present ... and after cycle over all the util_contexts
                 // publications in the given proceeding (i.e. the context of publication)
                 List<String> pubs_in_proceedings = PublicationUtils.getPublicationsIn(publication);
                 if(!pubs_in_proceedings.isEmpty()){
