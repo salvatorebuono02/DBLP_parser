@@ -43,7 +43,7 @@ public class CSVGenerator {
 
         final String RESULTS_DIRECTORY_PATH = "results/";
         final int INIT_NUM_PERSONS = 10;
-        final int MAX_AUTHORS = 1000;
+        final int MAX_AUTHORS = 300;
 
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
         System.setProperty("entityExpansionLimit", "1000");
@@ -72,10 +72,12 @@ public class CSVGenerator {
 
         // list of all publications we want to insert into the database
         List<Publication> util_pubs = new ArrayList<>();
+        List<Publication> util_context=new ArrayList<>();
         // List of authors in the database
         List<List<String>> list_authors = new ArrayList<>();
         List<List<String>> list_author_pubs = new ArrayList<>(); // relation author->PRODUCE->publication
         List<List<String>> list_publication = new ArrayList<>();
+        List<List<String>> list_proceeding=new ArrayList<>();
         List<List<String>> list_pub_in_pubs = new ArrayList<>();
         List<List<String>> list_context_pubs = new ArrayList<>();
 
@@ -135,11 +137,37 @@ public class CSVGenerator {
 
                     }
                     //TODO remove the proceedings (or adding in another relation for person - EDITOR_OF -> proceedings
-                    if (!util_pubs.contains(publication)) util_pubs.add(publication);
-                    // Adding the following pair: < key of the author, key of the publication written by that author >
-                    list_author_pubs.add(Arrays.asList(person.getPid(), publication.getKey()));
+                    if(!Objects.equals(publication.getTag(), "proceedings")){
+                        if (!util_pubs.contains(publication)) util_pubs.add(publication);
+                        // Adding the following pair: < key of the author, key of the publication written by that author >
+                        list_author_pubs.add(Arrays.asList(person.getPid(), publication.getKey()));
+                    }
+                    else {
+                        if(!util_context.contains(publication)) util_context.add(publication);
+                    }
                 }
             }
+        }
+
+        for (Publication publication:util_context){
+            List<String> entry_publication = new ArrayList<>();
+            entry_publication.add(publication.getKey());
+            entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
+            entry_publication.add(PublicationUtils.getTitle(publication));
+            entry_publication.add(String.valueOf(publication.getYear()));
+            entry_publication.add(PublicationUtils.getPublisher(publication));
+            entry_publication.add(PublicationUtils.getURL(publication));
+            entry_publication.add(publication.getTag());
+
+            //context_pub_relation.csv
+            List<String> pubs_in_proceedings = PublicationUtils.getPublicationsIn(publication);
+            if(!pubs_in_proceedings.isEmpty()){
+                pubs_in_proceedings.forEach(p -> {
+                    // Adding the following pair: < key of the context, key of the publication presented in that context >
+                    list_context_pubs.add(Arrays.asList(publication.getKey(), p));
+                });
+            }
+            list_proceeding.add(entry_publication);
         }
 
         // construct all types of publication csv starting from the util publication list
@@ -147,38 +175,20 @@ public class CSVGenerator {
         for (Publication publication : util_pubs) {
             List<String> entry_publication = new ArrayList<>();
 
-            // TODO add publication.getToc() to util_contexts
 
             // TODO handle editor
             entry_publication.add(publication.getKey());
             entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
             entry_publication.add(PublicationUtils.getTitle(publication));
             entry_publication.add(String.valueOf(publication.getYear()));
-            entry_publication.add(PublicationUtils.getPublisher(publication)); // TODO dovrebbe essere solo su proceedings
             entry_publication.add(PublicationUtils.getPages(publication));
-            entry_publication.add(PublicationUtils.getURL(publication)); // TODO non ha senso se pub è proceedings
             entry_publication.add(publication.getTag());
 
-            // context_pubs_relation.csv
-            if (publication.getTag().equals("proceedings")) {
-                // TODO add publication in util_contexts if not present ... and after cycle over all the util_contexts
-                // publications in the given proceeding (i.e. the context of publication)
-                List<String> pubs_in_proceedings = PublicationUtils.getPublicationsIn(publication);
-                if(!pubs_in_proceedings.isEmpty()){
-                    pubs_in_proceedings.forEach(p -> {
-                        // Adding the following pair: < key of the context, key of the publication presented in that context >
-                        list_context_pubs.add(Arrays.asList(publication.getKey(), p));
-                     });
-                }
-            }
 
             entry_publication.add(PublicationUtils.getCrossRef(publication));
             entry_publication.add(publication.getMdate());
             list_publication.add(entry_publication);
 
-            // pub_pubs_relation.csv (citations of a publication)
-            // TODO è inutile farlo per i proceedings
-            // TODO handle those values: "..."
             List<String> citations = PublicationUtils.getCitations(publication);
             if (!citations.isEmpty()) {
                 citations.forEach(c -> {
@@ -194,8 +204,8 @@ public class CSVGenerator {
             CSVWriter.convertToCSV(list_publication, RESULTS_DIRECTORY_PATH + "publications.csv");
             CSVWriter.convertToCSV(list_pub_in_pubs,RESULTS_DIRECTORY_PATH + "pub_pubs_relation.csv");
             CSVWriter.convertToCSV(list_context_pubs,RESULTS_DIRECTORY_PATH + "context_pubs_relation.csv");
+            CSVWriter.convertToCSV(list_proceeding,RESULTS_DIRECTORY_PATH + "proceedings.csv");
         } catch (IOException e) {
-            System.out.println("xxx");
             e.printStackTrace();
         }
 
@@ -272,5 +282,6 @@ public class CSVGenerator {
         System.out.println("done.");
          */
     }
+
 }
 
