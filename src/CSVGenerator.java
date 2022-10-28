@@ -43,7 +43,7 @@ public class CSVGenerator {
 
         final String RESULTS_DIRECTORY_PATH = "results/";
         final int INIT_NUM_PERSONS = 10;
-        final int MAX_AUTHORS = 300;
+        final int MAX_AUTHORS = 1000;
 
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
         System.setProperty("entityExpansionLimit", "1000");
@@ -70,20 +70,24 @@ public class CSVGenerator {
         }
         System.out.format("MMDB ready: %d publs, %d pers\n\n", dblp.numberOfPublications(), dblp.numberOfPersons());
 
-        // list of all publications we want to insert into the database
-        List<Publication> util_pubs = new ArrayList<>();
-        List<Publication> util_context=new ArrayList<>();
+
         // List of authors in the database
         List<List<String>> list_authors = new ArrayList<>();
         List<List<String>> list_author_pubs = new ArrayList<>(); // relation author->PRODUCE->publication
-        List<List<String>> list_publication = new ArrayList<>();
-        List<List<String>> list_proceeding=new ArrayList<>();
+        List<List<String>> list_publications = new ArrayList<>();
+        List<List<String>> list_contexts = new ArrayList<>();
         List<List<String>> list_pub_in_pubs = new ArrayList<>();
         List<List<String>> list_context_pubs = new ArrayList<>();
 
-
-        Set<Person> authors_map = new HashSet<>();
+        // set of authors that we will consider
         List<Person> authors = new ArrayList<>();
+        //List<Person> authors = new ArrayList<>();
+
+        // set of publications we need to insert into the database given authors
+        Set<Publication> util_pubs = new HashSet<>();
+        // set of contexts we need to insert into the database given authors
+        Set<Publication> util_contexts = new HashSet<>();
+
         int i = 0;
         for (Person person : dblp.getPersons()) {
             if (i == INIT_NUM_PERSONS) break;
@@ -92,12 +96,13 @@ public class CSVGenerator {
         }
 
         boolean stopAddingAuthors = false;
-        Map<String, Boolean> visited = new HashMap<>();
-        while (!authors.isEmpty()) {
+        //Map<String, Boolean> visited = new HashMap<>();
+        for (int count = 0; count < authors.size(); count++){
 
-            //Person person = authors_map.iterator().next();
-            Person person = authors.remove(0);
-            visited.put(person.getPid(), true);
+            Person person = authors.get(count);
+            System.out.println("popping " + person.getPrimaryName().name() + ", " + person.getPid());
+            //Person person = authors.get(i);
+            //visited.put(person.getPid(), true);
 
             // authors.csv
             if (!person.getPublications().isEmpty()) {
@@ -121,35 +126,45 @@ public class CSVGenerator {
                         List<String> coautors = publication.getNames().stream().map(PersonName::name).filter(n -> !n.equals(person.getPrimaryName().name())).toList();
                         for (String coauthor : coautors) {
                             Person coauthor_person = dblp.getPersonByName(coauthor);
-                            String coauthor_person_pid = coauthor_person.getPid();
 
+                            /*
+                            String coauthor_person_pid = coauthor_person.getPid();
                             // i need to insert in the map the coauthors never seen
                             if (!visited.containsKey(coauthor_person_pid))
                                 visited.put(coauthor_person_pid, false);
 
-                            if (!visited.get(coauthor_person_pid)) {
-                                visited.put(coauthor_person_pid, true);
+
+
+                            if (!authors.contains(coauthor_person)) {
+                                // visited.put(coauthor_person_pid, true);
                                 if (authors.size() > MAX_AUTHORS) stopAddingAuthors = true;
                                 //System.out.println("adding " + coauthor_person_pid);
                                 authors.add(coauthor_person);
                             }
+
+                             */
+
+                            if (authors.size() > MAX_AUTHORS) stopAddingAuthors = true;
+
+                            if (!authors.contains(coauthor_person)) authors.add(coauthor_person);
                         }
 
                     }
                     //TODO remove the proceedings (or adding in another relation for person - EDITOR_OF -> proceedings
                     if(!Objects.equals(publication.getTag(), "proceedings")){
-                        if (!util_pubs.contains(publication)) util_pubs.add(publication);
+                        util_pubs.add(publication);
                         // Adding the following pair: < key of the author, key of the publication written by that author >
                         list_author_pubs.add(Arrays.asList(person.getPid(), publication.getKey()));
                     }
                     else {
-                        if(!util_context.contains(publication)) util_context.add(publication);
+                        util_contexts.add(publication);
                     }
                 }
             }
         }
 
-        for (Publication publication:util_context){
+        // proceedings.csv
+        for (Publication publication : util_contexts){
             List<String> entry_publication = new ArrayList<>();
             entry_publication.add(publication.getKey());
             entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
@@ -167,7 +182,7 @@ public class CSVGenerator {
                     list_context_pubs.add(Arrays.asList(publication.getKey(), p));
                 });
             }
-            list_proceeding.add(entry_publication);
+            list_contexts.add(entry_publication);
         }
 
         // construct all types of publication csv starting from the util publication list
@@ -187,8 +202,10 @@ public class CSVGenerator {
 
             entry_publication.add(PublicationUtils.getCrossRef(publication));
             entry_publication.add(publication.getMdate());
-            list_publication.add(entry_publication);
+            list_publications.add(entry_publication);
 
+            // pub_pubs_relation.csv (citations of a publication)
+            // TODO è inutile farlo per i proceedings
             List<String> citations = PublicationUtils.getCitations(publication);
             if (!citations.isEmpty()) {
                 citations.forEach(c -> {
@@ -201,10 +218,10 @@ public class CSVGenerator {
         try {
             CSVWriter.convertToCSV(list_authors, RESULTS_DIRECTORY_PATH + "authors.csv");
             CSVWriter.convertToCSV(list_author_pubs, RESULTS_DIRECTORY_PATH + "author_pubs_relation.csv");
-            CSVWriter.convertToCSV(list_publication, RESULTS_DIRECTORY_PATH + "publications.csv");
+            CSVWriter.convertToCSV(list_publications, RESULTS_DIRECTORY_PATH + "publications.csv");
             CSVWriter.convertToCSV(list_pub_in_pubs,RESULTS_DIRECTORY_PATH + "pub_pubs_relation.csv");
             CSVWriter.convertToCSV(list_context_pubs,RESULTS_DIRECTORY_PATH + "context_pubs_relation.csv");
-            CSVWriter.convertToCSV(list_proceeding,RESULTS_DIRECTORY_PATH + "proceedings.csv");
+            CSVWriter.convertToCSV(list_contexts,RESULTS_DIRECTORY_PATH + "proceedings.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -282,6 +299,5 @@ public class CSVGenerator {
         System.out.println("done.");
          */
     }
-
 }
 
