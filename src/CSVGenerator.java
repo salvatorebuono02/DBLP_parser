@@ -42,7 +42,7 @@ public class CSVGenerator {
     public static void main(String[] args) {
 
         final String RESULTS_DIRECTORY_PATH = "results/";
-        final int INIT_PERSON = 10;
+        final int INIT_NUM_PERSONS = 10;
         final int MAX_AUTHORS = 1000;
 
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
@@ -84,7 +84,7 @@ public class CSVGenerator {
         List<Person> authors = new ArrayList<>();
         int i = 0;
         for (Person person : dblp.getPersons()) {
-            if (i == INIT_PERSON) break;
+            if (i == INIT_NUM_PERSONS) break;
             authors.add(person);
             i++;
         }
