@@ -31,11 +31,9 @@
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
-import org.dblp.mmdb.Person;
-import org.dblp.mmdb.Publication;
-import org.dblp.mmdb.RecordDb;
-import org.dblp.mmdb.RecordDbInterface;
+import org.dblp.mmdb.*;
 import org.xml.sax.SAXException;
 
 
@@ -44,7 +42,8 @@ public class CSVGenerator {
     public static void main(String[] args) {
 
         final String RESULTS_DIRECTORY_PATH = "results/";
-        final int MAX_ROWS = 20000;
+        final int INIT_PERSON = 10;
+        final int MAX_AUTHORS = 1000;
 
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
         System.setProperty("entityExpansionLimit", "1000");
@@ -79,9 +78,24 @@ public class CSVGenerator {
         List<List<String>> list_publication = new ArrayList<>();
         List<List<String>> list_pub_in_pubs = new ArrayList<>();
         List<List<String>> list_context_pubs = new ArrayList<>();
+
+
+        Set<Person> authors_map = new HashSet<>();
+        List<Person> authors = new ArrayList<>();
         int i = 0;
         for (Person person : dblp.getPersons()) {
-            if(i == MAX_ROWS) break;
+            if (i == INIT_PERSON) break;
+            authors.add(person);
+            i++;
+        }
+
+        boolean stopAddingAuthors = false;
+        Map<String, Boolean> visited = new HashMap<>();
+        while (!authors.isEmpty()) {
+
+            //Person person = authors_map.iterator().next();
+            Person person = authors.remove(0);
+            visited.put(person.getPid(), true);
 
             // authors.csv
             if (!person.getPublications().isEmpty()) {
@@ -91,14 +105,40 @@ public class CSVGenerator {
                 person.getFields("url").forEach(u -> row_author.add(u.value()));
                 list_authors.add(row_author);
 
+                /*
+                Collection<Person> coauthors = dblp.coauthors(person).collect(Collectors.toList());
+                if (!coauthors.isEmpty()) authors.addAll(coauthors);
+                 */
+
                 // author_pubs_relation.csv
                 for(Publication publication : person.getPublications()) {
+
+                    // visiting coauthors
+                    if (!stopAddingAuthors) {
+                        // removing person from choautors list
+                        List<String> coautors = publication.getNames().stream().map(PersonName::name).filter(n -> !n.equals(person.getPrimaryName().name())).toList();
+                        for (String coauthor : coautors) {
+                            Person coauthor_person = dblp.getPersonByName(coauthor);
+                            String coauthor_person_pid = coauthor_person.getPid();
+
+                            // i need to insert in the map the coauthors never seen
+                            if (!visited.containsKey(coauthor_person_pid))
+                                visited.put(coauthor_person_pid, false);
+
+                            if (!visited.get(coauthor_person_pid)) {
+                                visited.put(coauthor_person_pid, true);
+                                if (authors.size() > MAX_AUTHORS) stopAddingAuthors = true;
+                                //System.out.println("adding " + coauthor_person_pid);
+                                authors.add(coauthor_person);
+                            }
+                        }
+
+                    }
                     //TODO remove the proceedings (or adding in another relation for person - EDITOR_OF -> proceedings
                     if (!util_pubs.contains(publication)) util_pubs.add(publication);
                     // Adding the following pair: < key of the author, key of the publication written by that author >
                     list_author_pubs.add(Arrays.asList(person.getPid(), publication.getKey()));
                 }
-                i++;
             }
         }
 
@@ -151,7 +191,7 @@ public class CSVGenerator {
         try {
             CSVWriter.convertToCSV(list_authors, RESULTS_DIRECTORY_PATH + "authors.csv");
             CSVWriter.convertToCSV(list_author_pubs, RESULTS_DIRECTORY_PATH + "author_pubs_relation.csv");
-            CSVWriter.convertToCSV(list_publication, RESULTS_DIRECTORY_PATH + "publication.csv");
+            CSVWriter.convertToCSV(list_publication, RESULTS_DIRECTORY_PATH + "publications.csv");
             CSVWriter.convertToCSV(list_pub_in_pubs,RESULTS_DIRECTORY_PATH + "pub_pubs_relation.csv");
             CSVWriter.convertToCSV(list_context_pubs,RESULTS_DIRECTORY_PATH + "context_pubs_relation.csv");
         } catch (IOException e) {

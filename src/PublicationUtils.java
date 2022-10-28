@@ -53,7 +53,7 @@ public abstract class PublicationUtils {
 
     public static List<String> getCitations(Publication publication){
         if(!publication.getFields("cite").isEmpty())
-            return publication.getFields("cite").stream().map(Field::value).collect(Collectors.toList());
+            return publication.getFields("cite").stream().map(Field::value).filter(c->!c.equals("...")).collect(Collectors.toList());
         return new ArrayList<>();
     }
 
