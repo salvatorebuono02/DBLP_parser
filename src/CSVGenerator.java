@@ -41,6 +41,7 @@ public class CSVGenerator {
     public static void main(String[] args) {
 
         final String RESULTS_DIRECTORY_PATH = "results/";
+        List<String> exploredContextNames = new ArrayList<>();
         final int INIT_NUM_PERSONS = 10;
         final int MAX_NUM_AUTHORS = 500;
 
@@ -62,7 +63,7 @@ public class CSVGenerator {
         // set of publications we need to insert into the database given authors
         Set<Publication> util_pubs = new HashSet<>();
         // set of contexts we need to insert into the database given authors
-        Set<Publication> util_contexts = new HashSet<>();
+        Set<Context> util_contexts = new HashSet<>();
 
         int i = 0;
         List<Person> authors_with_orcid = dblp.getPersons().stream().filter(person1 -> {
@@ -111,16 +112,24 @@ public class CSVGenerator {
                     //TODO remove the proceedings (or adding in another relation for person - EDITOR_OF -> proceedings
 
                     if(Objects.equals(publication.getTag(), "proceedings")){
-                        // TODO Context
-                        util_contexts.add(publication);
-
+                        String contextTitle = PublicationUtils.getTitle(publication);
+                        if (!exploredContextNames.contains(contextTitle)) {
+                            Context newContext = new Context(publication);
+                            util_contexts.add(newContext);
+                            exploredContextNames.add(contextTitle);
+                        }
                     }
                     else if (Objects.equals(publication.getTag(), "article")) {
                         String journalName = publication.getJournal().getTitle();
-
-                        // TODO create context and id to add the relation
-                        util_contexts.add(publication);
-                        util_pubs.add(publication);
+                        if (!exploredContextNames.contains(journalName)) {
+                            Context newContext = new Context(journalName, publication.getKey());
+                            util_contexts.add(newContext);
+                            util_pubs.add(publication);
+                            exploredContextNames.add(journalName);
+                        }
+                        else {
+                            Objects.requireNonNull(findContextByName(journalName, util_contexts)).insertNewArticle(publication.getKey());
+                        }
                     }
                     else {
                         util_pubs.add(publication);
@@ -131,8 +140,6 @@ public class CSVGenerator {
             }
         }
 
-
-        // construct all types of publication csv starting from the util publication list
         // publications.csv
         for (Publication publication : util_pubs) {
 
@@ -172,27 +179,22 @@ public class CSVGenerator {
                     publication_entries.add(generateCSVEntry(dblp.getPublication(c))); // add the citation as a publication in our db
                 });
             }
-
-            // adding possible contexts (book) of the current publication
-            // NO. ASSUMPTION: book no contesto
-            /*
-            Publication book = dblp.getPublication(PublicationUtils.getCrossRef(publication));
-            if (book != null) util_contexts.add(book);
-
-             */
         }
+        // adding possible contexts (book) of the current publication
+        // NO. ASSUMPTION: book no context
+
 
         // contexts.csv
-        for (Publication context : util_contexts){
-            context_entries.add(generateCSVEntry(context));
+        for (Context c : util_contexts){
+            context_entries.add(generateCSVEntry(c));
 
             //context_pub_relation.csv
             // TODO Context.dammiFigli
-            List<String> pubs_in_proceedings = PublicationUtils.getPublicationsIn(context);
+            List<String> pubs_in_proceedings = c.getPublications_related();
             if(!pubs_in_proceedings.isEmpty()){
                 pubs_in_proceedings.forEach(p -> {
-                    // Adding the following pair: < key of the context, key of the publication presented in that context >
-                    context_pubs_entries.add(Arrays.asList(context.getKey(), p));
+                    // Adding the following pair: < key of the c, key of the publication presented in that c >
+                    context_pubs_entries.add(Arrays.asList(c.getId(), p));
 
                     publication_entries.add(generateCSVEntry(dblp.getPublication(p))); // add the p as a publication in our db
                 });
@@ -272,11 +274,8 @@ public class CSVGenerator {
         entry_publication.add(publication.getKey());
         // entry_publication.add(PublicationUtils.getTypeOfISBN(context));
         entry_publication.add(PublicationUtils.getTitle(publication));
-
-        // TODO how to manage those differences? all in one csv?
-        // TODO Editor field??
         switch (publication.getTag()) {
-            case "proceeding", "book",  -> {
+            case "proceeding" -> {
                 entry_publication.add(String.valueOf(publication.getYear()));
                 entry_publication.add(PublicationUtils.getPublisher(publication));
                 entry_publication.add(PublicationUtils.getURL(publication));
@@ -325,6 +324,13 @@ public class CSVGenerator {
         return entry_publication;
     }
 
+    private static List<String> generateCSVEntry(Context context) {
+        List<String> entry_context = new ArrayList<>();
+        entry_context.add(context.getId());
+        entry_context.add(context.getName());
+        return entry_context;
+    }
+
     public static <T> boolean hasDuplicate(Iterable<T> all) {
         Set<T> set = new HashSet<T>();
         // Set#add returns false if the set does not change, which
@@ -332,5 +338,13 @@ public class CSVGenerator {
         for (T each: all) if (!set.add(each)) return true;
         return false;
     }
+
+    public static Context findContextByName(String name, Set<Context> contexts) {
+        for(Context c : contexts)
+            if (c.getName().equals(name))
+                return c;
+        return null;
+    }
+
 }
 
