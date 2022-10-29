@@ -44,9 +44,7 @@ public class CSVGenerator {
         List<String> exploredContextNames = new ArrayList<>();
         final int INIT_NUM_PERSONS = 10;
         final int MAX_NUM_AUTHORS = 500;
-
         RecordDbInterface dblp = loadXML(args);
-
 
         // Unique entries to be inserted in the db
         Set<List<String>> author_entries = new HashSet<>();
@@ -97,9 +95,9 @@ public class CSVGenerator {
 
                     // visiting coauthors
                     if (!stopAddingAuthors) {
-                        // removing person from choautors list
-                        List<String> coautors = publication.getNames().stream().map(PersonName::name).filter(n -> !n.equals(person.getPrimaryName().name())).toList();
-                        for (String coauthor : coautors) {
+                        // removing person from coauthors list
+                        List<String> coauthors = publication.getNames().stream().map(PersonName::name).filter(n -> !n.equals(person.getPrimaryName().name())).toList();
+                        for (String coauthor : coauthors) {
                             Person coauthor_person = dblp.getPersonByName(coauthor);
 
                             if (authors.size() > MAX_NUM_AUTHORS) stopAddingAuthors = true;
@@ -139,33 +137,17 @@ public class CSVGenerator {
                 }
             }
         }
-
         // publications.csv
         for (Publication publication : util_pubs) {
-
-            /*
-            if (publication.getKey().equals("books/daglib/p/JinM12"))
-                System.out.println("ciao");
-
-
-            if(publication.getKey().equals("conf/adbis/NardelliP99"))
-                PublicationUtils.getCitations(publication);
-
-             */
-
-            /*
-            // TODO handle editor
+            /*  TODO handle editor
             entry_publication.add(publication.getKey());
             entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
             entry_publication.add(PublicationUtils.getTitle(publication));
             entry_publication.add(String.valueOf(publication.getYear()));
             entry_publication.add(PublicationUtils.getPages(publication));
             entry_publication.add(publication.getTag());
-
-
-            //entry_publication.add(PublicationUtils.getCrossRef(publication));
+            entry_publication.add(PublicationUtils.getCrossRef(publication));
             entry_publication.add(publication.getMdate());
-
              */
             publication_entries.add(generateCSVEntry(publication));
 
@@ -189,18 +171,15 @@ public class CSVGenerator {
             context_entries.add(generateCSVEntry(c));
 
             //context_pub_relation.csv
-            // TODO Context.dammiFigli
             List<String> pubs_in_proceedings = c.getPublications_related();
             if(!pubs_in_proceedings.isEmpty()){
                 pubs_in_proceedings.forEach(p -> {
                     // Adding the following pair: < key of the c, key of the publication presented in that c >
                     context_pubs_entries.add(Arrays.asList(c.getId(), p));
-
                     publication_entries.add(generateCSVEntry(dblp.getPublication(p))); // add the p as a publication in our db
                 });
             }
         }
-
         for (List<String> entry : publication_entries) {
             for (List<String> entry2 : publication_entries) {
                 if (entry.get(0).equals(entry2.get(0)) && !entry.equals(entry2))
@@ -265,7 +244,6 @@ public class CSVGenerator {
         // first affiliation (assumption only one)
         // TODO if we want to insert a random one, simply put instead of ""
         author.getFields("note").stream().findFirst().ifPresentOrElse(uni -> entry_author.add(uni.value()), () -> entry_author.add(""));
-
         return entry_author;
     }
 
