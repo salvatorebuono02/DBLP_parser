@@ -107,14 +107,25 @@ public class CSVGenerator {
                         }
 
                     }
+
                     //TODO remove the proceedings (or adding in another relation for person - EDITOR_OF -> proceedings
-                    if(!Objects.equals(publication.getTag(), "proceedings") || !Objects.equals(publication.getTag(), "book")){
+
+                    if(Objects.equals(publication.getTag(), "proceedings")){
+                        // TODO Context
+                        util_contexts.add(publication);
+
+                    }
+                    else if (Objects.equals(publication.getTag(), "article")) {
+                        String journalName = publication.getJournal().getTitle();
+
+                        // TODO create context and id to add the relation
+                        util_contexts.add(publication);
+                        util_pubs.add(publication);
+                    }
+                    else {
                         util_pubs.add(publication);
                         // Adding the following pair: < key of the author, key of the publication written by that author >
                         author_pub_entries.add(Arrays.asList(person.getPid(), publication.getKey()));
-                    }
-                    else {
-                        util_contexts.add(publication);
                     }
                 }
             }
@@ -152,7 +163,6 @@ public class CSVGenerator {
             publication_entries.add(generateCSVEntry(publication));
 
             // pub_pubs_relation.csv (citations of a publication)
-            // TODO è inutile farlo per i proceedings
             List<String> citations = PublicationUtils.getCitations(publication);
             if (!citations.isEmpty()) {
                 citations.forEach(c -> {
@@ -164,8 +174,12 @@ public class CSVGenerator {
             }
 
             // adding possible contexts (book) of the current publication
+            // NO. ASSUMPTION: book no contesto
+            /*
             Publication book = dblp.getPublication(PublicationUtils.getCrossRef(publication));
             if (book != null) util_contexts.add(book);
+
+             */
         }
 
         // contexts.csv
@@ -173,6 +187,7 @@ public class CSVGenerator {
             context_entries.add(generateCSVEntry(context));
 
             //context_pub_relation.csv
+            // TODO Context.dammiFigli
             List<String> pubs_in_proceedings = PublicationUtils.getPublicationsIn(context);
             if(!pubs_in_proceedings.isEmpty()){
                 pubs_in_proceedings.forEach(p -> {
@@ -261,7 +276,7 @@ public class CSVGenerator {
         // TODO how to manage those differences? all in one csv?
         // TODO Editor field??
         switch (publication.getTag()) {
-            case "proceeding" -> {
+            case "proceeding", "book",  -> {
                 entry_publication.add(String.valueOf(publication.getYear()));
                 entry_publication.add(PublicationUtils.getPublisher(publication));
                 entry_publication.add(PublicationUtils.getURL(publication));
@@ -294,6 +309,7 @@ public class CSVGenerator {
             }
             case "article" -> {
                 entry_publication.add(String.valueOf(publication.getYear()));
+                // TODO not attribute, but relation to add in util_context
                 if(publication.getJournal() != null)
                     entry_publication.add(publication.getJournal().getTitle());
                 else
