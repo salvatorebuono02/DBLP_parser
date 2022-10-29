@@ -36,7 +36,6 @@ public abstract class PublicationUtils {
         return "";
     }
 
-
     public static String getURL(Publication publication) {
         Field URL = publication.getFields("url").stream().findFirst().orElse(null);
         if (URL == null)
@@ -45,7 +44,7 @@ public abstract class PublicationUtils {
     }
 
     public static String getCrossRef(Publication publication){
-        Field crossref = publication.getFields("cite").stream().findFirst().orElse(null);
+        Field crossref = publication.getFields("crossref").stream().findFirst().orElse(null);
         if (crossref == null)
             return "";
         return crossref.value();
@@ -79,5 +78,12 @@ public abstract class PublicationUtils {
         if (publisher == null)
             return "";
         return publisher.value();
+    }
+
+    public static String getVolume(Publication publication) {
+        Field volume = publication.getFields("volume").stream().findFirst().orElse(null);
+        if (volume == null)
+            return "";
+        return volume.value();
     }
 }
