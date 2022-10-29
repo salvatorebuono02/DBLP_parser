@@ -47,13 +47,13 @@ public class CSVGenerator {
         RecordDbInterface dblp = loadXML(args);
 
 
-        // List of authors in the database
-        List<List<String>> author_entries = new ArrayList<>();
-        List<List<String>> author_pub_entries = new ArrayList<>(); // relation author->PRODUCE->publication
-        List<List<String>> publication_entries = new ArrayList<>();
-        List<List<String>> context_entries = new ArrayList<>();
-        List<List<String>> citation_entries = new ArrayList<>();
-        List<List<String>> context_pubs_entries = new ArrayList<>();
+        // Unique entries to be inserted in the db
+        Set<List<String>> author_entries = new HashSet<>();
+        Set<List<String>> author_pub_entries = new HashSet<>(); // relation author->PRODUCE->publication
+        Set<List<String>> publication_entries = new HashSet<>();
+        Set<List<String>> context_entries = new HashSet<>();
+        Set<List<String>> citation_entries = new HashSet<>();
+        Set<List<String>> context_pubs_entries = new HashSet<>();
 
         // set of authors that we will consider
         List<Person> authors = new ArrayList<>();
@@ -82,7 +82,7 @@ public class CSVGenerator {
         for (int count = 0; count < authors.size(); count++){
 
             Person person = authors.get(count);
-            System.out.println("popping " + person.getPrimaryName().name() + ", " + person.getPid());
+            // System.out.println("popping " + person.getPrimaryName().name() + ", " + person.getPid());
             //Person person = authors.get(i);
             //visited.put(person.getPid(), true);
 
@@ -184,6 +184,16 @@ public class CSVGenerator {
             }
         }
 
+        for (List<String> entry : publication_entries) {
+            for (List<String> entry2 : publication_entries) {
+                if (entry.get(0).equals(entry2.get(0)) && !entry.equals(entry2))
+                    System.out.println(entry + " - " + entry2);
+            }
+        }
+
+        System.out.println("author_pub_entries has duplicate: " + hasDuplicate(author_pub_entries));
+        System.out.println("publication_entries has duplicate: " + hasDuplicate(publication_entries));
+        System.out.println("context_pubs_entries has duplicate: " + hasDuplicate(context_pubs_entries));
         try {
             CSVWriter.convertToCSV(author_entries, RESULTS_DIRECTORY_PATH + "authors.csv");
             CSVWriter.convertToCSV(author_pub_entries, RESULTS_DIRECTORY_PATH + "author_pubs_relation.csv");
@@ -297,6 +307,14 @@ public class CSVGenerator {
 
 
         return entry_publication;
+    }
+
+    public static <T> boolean hasDuplicate(Iterable<T> all) {
+        Set<T> set = new HashSet<T>();
+        // Set#add returns false if the set does not change, which
+        // indicates that a duplicate element has been added.
+        for (T each: all) if (!set.add(each)) return true;
+        return false;
     }
 }
 
