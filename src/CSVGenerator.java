@@ -38,6 +38,15 @@ import org.xml.sax.SAXException;
 
 public class CSVGenerator {
 
+
+    // List of University
+    final static List<String> association_list = new ArrayList<>(Arrays.asList("MIT", "Politecnico di Milano", "CERN", "Max " +
+                    "Planck Institute", "Harvard University", "Stanford University", "University of Cambridge",
+            "Brookhaven National Laboratory", "Bell Laboratories", "SLAC", "Politecnico di Bari", "Universita La " +
+                    "Sapienza", "CNR", "Fermilab", "University of Oxford", "University of California"));
+
+
+
     public static void main(String[] args) {
 
         final String RESULTS_DIRECTORY_PATH = "results/";
@@ -48,11 +57,14 @@ public class CSVGenerator {
 
         // Unique entries to be inserted in the db
         Set<List<String>> author_entries = new HashSet<>();
+        Set<List<String>> association_entries = new HashSet<>();
         Set<List<String>> author_pub_entries = new HashSet<>(); // relation author->PRODUCE->publication
         Set<List<String>> publication_entries = new HashSet<>();
         Set<List<String>> context_entries = new HashSet<>();
         Set<List<String>> citation_entries = new HashSet<>();
         Set<List<String>> context_pubs_entries = new HashSet<>();
+        Set<List<String>> author_association_entries = new HashSet<>(); // relation author->PRODUCE->publication
+
 
         // set of authors that we will consider
         List<Person> authors = new ArrayList<>();
@@ -62,6 +74,12 @@ public class CSVGenerator {
         Set<Publication> util_pubs = new HashSet<>();
         // set of contexts we need to insert into the database given authors
         Set<Context> util_contexts = new HashSet<>();
+
+        int j=1;
+        for(String a:association_list){
+            association_entries.add(generateCSVEntry(a,j));
+            j++;
+        }
 
         int i = 0;
         List<Person> authors_with_orcid = dblp.getPersons().stream().filter(person1 -> {
@@ -89,6 +107,10 @@ public class CSVGenerator {
             if (!person.getPublications().isEmpty()) {
 
                 author_entries.add(generateCSVEntry(person));
+
+                //author_association_rel.csv
+                String universityId=getRandomAssociation(association_entries);
+                author_association_entries.add(Arrays.asList(person.getPid(),universityId));
 
                 // author_pubs_relation.csv
                 for(Publication publication : person.getPublications()) {
@@ -197,9 +219,24 @@ public class CSVGenerator {
             CSVWriter.convertToCSV(citation_entries,RESULTS_DIRECTORY_PATH + "pub_pubs_relation.csv");
             CSVWriter.convertToCSV(context_pubs_entries,RESULTS_DIRECTORY_PATH + "context_pubs_relation.csv");
             CSVWriter.convertToCSV(context_entries,RESULTS_DIRECTORY_PATH + "contexts.csv");
+            CSVWriter.convertToCSV(association_entries,RESULTS_DIRECTORY_PATH + "associations.csv");
+            CSVWriter.convertToCSV(author_association_entries,RESULTS_DIRECTORY_PATH + "author_association_relation.csv");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String getRandomAssociation(Set<List<String>> association_entries) {
+        Random random=new Random();
+        int item=random.nextInt(association_entries.size());
+        int k=0;
+        for (List<String> association:association_entries){
+            if(k==item)
+                return association.get(0);
+            k++;
+        }
+        return null;
     }
 
     private static RecordDbInterface loadXML(String[] args) {
@@ -300,6 +337,12 @@ public class CSVGenerator {
 
 
         return entry_publication;
+    }
+    private static List<String> generateCSVEntry(String association,Integer idx) {
+        List<String> entry_association=new ArrayList<>();
+        entry_association.add("association/"+String.valueOf(idx));
+        entry_association.add(association);
+        return entry_association;
     }
 
     private static List<String> generateCSVEntry(Context context) {
