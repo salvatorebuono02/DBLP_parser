@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 public class CSVGenerator {
 
 
-    // List of University
+    // List of associations
     final static List<String> association_list = new ArrayList<>(Arrays.asList("MIT", "Politecnico di Milano", "CERN", "Max " +
                     "Planck Institute", "Harvard University", "Stanford University", "University of Cambridge",
             "Brookhaven National Laboratory", "Bell Laboratories", "SLAC", "Politecnico di Bari", "Universita La " +
@@ -47,12 +47,14 @@ public class CSVGenerator {
 
 
 
+    private static final int MAX_NUM_CITATIONS_PER_PUB = 5;
+    private static final String RESULTS_DIRECTORY_PATH = "results/";
+    private static final int INIT_NUM_PERSONS = 10;
+    private static final int MAX_NUM_AUTHORS = 500;
+
     public static void main(String[] args) {
 
-        final String RESULTS_DIRECTORY_PATH = "results/";
         List<String> exploredContextNames = new ArrayList<>();
-        final int INIT_NUM_PERSONS = 10;
-        final int MAX_NUM_AUTHORS = 500;
         RecordDbInterface dblp = loadXML(args);
 
         // Unique entries to be inserted in the db
@@ -75,17 +77,17 @@ public class CSVGenerator {
         // set of contexts we need to insert into the database given authors
         Set<Context> util_contexts = new HashSet<>();
 
-        int j=1;
-        for(String a:association_list){
-            association_entries.add(generateCSVEntry(a,j));
+        int j = 1;
+        for(String a : association_list){
+            association_entries.add(generateCSVEntry(a, j));
             j++;
         }
 
+        // if we don't add orcid, useless
         int i = 0;
         List<Person> authors_with_orcid = dblp.getPersons().stream().filter(person1 -> {
             List<String> url = person1.getFields("url").stream().map(Field::value).filter(u -> PersonIDType.of(u) != null && PersonIDType.of(u).equals(PersonIDType.ORCID)).toList();
             return !url.isEmpty();
-
         }).toList();
 
         for (Person person : authors_with_orcid) {
@@ -159,6 +161,9 @@ public class CSVGenerator {
                 }
             }
         }
+
+
+        // construct all types of publication csv starting from the util publication list
         // publications.csv
         for (Publication publication : util_pubs) {
             /*  TODO handle editor
@@ -176,6 +181,7 @@ public class CSVGenerator {
             // pub_pubs_relation.csv (citations of a publication)
             List<String> citations = PublicationUtils.getCitations(publication);
             if (!citations.isEmpty()) {
+                if (citations.size() > MAX_NUM_CITATIONS_PER_PUB) citations = citations.subList(0, MAX_NUM_CITATIONS_PER_PUB);
                 citations.forEach(c -> {
                     // Adding the following pair: < key of the publication, key of another publication cited in that publication >
                     citation_entries.add(Arrays.asList(publication.getKey(), c));
@@ -193,7 +199,7 @@ public class CSVGenerator {
             context_entries.add(generateCSVEntry(c));
 
             //context_pub_relation.csv
-            List<String> pubs_in_proceedings = c.getPublications_related();
+            List<String> pubs_in_proceedings = c.getRelatedPublications();
             if(!pubs_in_proceedings.isEmpty()){
                 pubs_in_proceedings.forEach(p -> {
                     // Adding the following pair: < key of the c, key of the publication presented in that c >
@@ -202,6 +208,9 @@ public class CSVGenerator {
                 });
             }
         }
+
+       /*
+        CHECKS
         for (List<String> entry : publication_entries) {
             for (List<String> entry2 : publication_entries) {
                 if (entry.get(0).equals(entry2.get(0)) && !entry.equals(entry2))
@@ -212,6 +221,10 @@ public class CSVGenerator {
         System.out.println("author_pub_entries has duplicate: " + hasDuplicate(author_pub_entries));
         System.out.println("publication_entries has duplicate: " + hasDuplicate(publication_entries));
         System.out.println("context_pubs_entries has duplicate: " + hasDuplicate(context_pubs_entries));
+
+        */
+
+
         try {
             CSVWriter.convertToCSV(author_entries, RESULTS_DIRECTORY_PATH + "authors.csv");
             CSVWriter.convertToCSV(author_pub_entries, RESULTS_DIRECTORY_PATH + "author_pubs_relation.csv");
@@ -272,15 +285,17 @@ public class CSVGenerator {
         List<String> entry_author = new ArrayList<>();
         entry_author.add(author.getPid());
         entry_author.add(author.getPrimaryName().name());
+        //TODO add orcid??
+        /*
         List<String> urls = author.getFields("url").stream().map(Field::value).toList();
         if (!urls.isEmpty()) {
             entry_author.add(urls.get(0));
             // TODO if we want to insert a random one, simply put instead of ""
             urls.stream().filter(u -> PersonIDType.of(u) != null && PersonIDType.of(u).equals(PersonIDType.ORCID)).findFirst().ifPresentOrElse(orcid -> entry_author.add(PersonIDType.ORCID.normalize(orcid)), () -> entry_author.add(""));
         }
-        // first affiliation (assumption only one)
-        // TODO if we want to insert a random one, simply put instead of ""
-        author.getFields("note").stream().findFirst().ifPresentOrElse(uni -> entry_author.add(uni.value()), () -> entry_author.add(""));
+         */
+        author.getFields("url").stream().findFirst().ifPresent(u -> entry_author.add(u.value()));
+
         return entry_author;
     }
 
@@ -289,6 +304,9 @@ public class CSVGenerator {
         entry_publication.add(publication.getKey());
         // entry_publication.add(PublicationUtils.getTypeOfISBN(context));
         entry_publication.add(PublicationUtils.getTitle(publication));
+
+        // TODO how to manage those differences? all in one csv?
+        // TODO Editor field??
         switch (publication.getTag()) {
             case "proceeding" -> {
                 entry_publication.add(String.valueOf(publication.getYear()));
@@ -338,9 +356,9 @@ public class CSVGenerator {
 
         return entry_publication;
     }
-    private static List<String> generateCSVEntry(String association,Integer idx) {
-        List<String> entry_association=new ArrayList<>();
-        entry_association.add("association/"+String.valueOf(idx));
+    private static List<String> generateCSVEntry(String association, int idx) {
+        List<String> entry_association = new ArrayList<>();
+        entry_association.add("association/" + idx);
         entry_association.add(association);
         return entry_association;
     }
@@ -349,15 +367,13 @@ public class CSVGenerator {
         List<String> entry_context = new ArrayList<>();
         entry_context.add(context.getId());
         entry_context.add(context.getName());
+        if (context.getType().equals("conf")) {
+            entry_context.add(String.valueOf(context.getPublication().getYear()));
+            entry_context.add(PublicationUtils.getPublisher(context.getPublication()));
+            entry_context.add(PublicationUtils.getURL(context.getPublication()));
+            //entry_context.add(context.getPublication().getTag());
+        }
         return entry_context;
-    }
-
-    public static <T> boolean hasDuplicate(Iterable<T> all) {
-        Set<T> set = new HashSet<T>();
-        // Set#add returns false if the set does not change, which
-        // indicates that a duplicate element has been added.
-        for (T each: all) if (!set.add(each)) return true;
-        return false;
     }
 
     public static Context findContextByName(String name, Set<Context> contexts) {
@@ -366,6 +382,16 @@ public class CSVGenerator {
                 return c;
         return null;
     }
+
+    /* CHECK
+    public static <T> boolean hasDuplicate(Iterable<T> all) {
+        Set<T> set = new HashSet<T>();
+        // Set#add returns false if the set does not change, which
+        // indicates that a duplicate element has been added.
+        for (T each: all) if (!set.add(each)) return true;
+        return false;
+    }
+     */
 
 }
 
