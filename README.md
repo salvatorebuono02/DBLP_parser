@@ -66,3 +66,13 @@ RETURN a, coauthor
 MATCH (a:Author {name: "Marco Brambilla"})
 RETURN a
 ```
+- Get the top 10 of the most contributing authors, together with the number of publications that they wrote. 
+```sql
+MATCH (author:Author)-[:PRODUCE]->(:Publication)
+WITH author, count(*) AS publications
+ORDER BY publications DESC
+LIMIT 10
+RETURN author, publications
+```
+- Get the total number of publications year by year.
+**TODO**: Per questa query serve che la data sia di tipo date, non string!
