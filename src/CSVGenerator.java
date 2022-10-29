@@ -302,56 +302,27 @@ public class CSVGenerator {
     private static List<String> generateCSVEntry(Publication publication) {
         List<String> entry_publication = new ArrayList<>();
         entry_publication.add(publication.getKey());
-        // entry_publication.add(PublicationUtils.getTypeOfISBN(context));
+        entry_publication.add(publication.getTag());
         entry_publication.add(PublicationUtils.getTitle(publication));
+        if(publication.getBooktitle() != null)
+            entry_publication.add(publication.getBooktitle().getTitle());
+        else
+            entry_publication.add("");
+        entry_publication.add(String.valueOf(publication.getYear()));
+        entry_publication.add(PublicationUtils.getVolume(publication));
+        entry_publication.add(PublicationUtils.getPages(publication));
+        entry_publication.add(PublicationUtils.getPublisher(publication));
+        entry_publication.add(PublicationUtils.getURL(publication));
+        if(publication.getJournal() != null)
+            entry_publication.add(publication.getJournal().getTitle());
+        else
+            entry_publication.add("");
+        entry_publication.add(PublicationUtils.getSchool(publication));
+
 
         // TODO how to manage those differences? all in one csv?
         // TODO Editor field??
-        switch (publication.getTag()) {
-            case "proceeding" -> {
-                entry_publication.add(String.valueOf(publication.getYear()));
-                entry_publication.add(PublicationUtils.getPublisher(publication));
-                entry_publication.add(PublicationUtils.getURL(publication));
-                entry_publication.add(publication.getTag());
-            }
-            case "book" -> {
-                entry_publication.add(String.valueOf(publication.getYear()));
-                entry_publication.add(PublicationUtils.getVolume(publication));
-                entry_publication.add(PublicationUtils.getPublisher(publication));
-                entry_publication.add(PublicationUtils.getURL(publication));
-                //TODO add ISBN
-                entry_publication.add(publication.getTag());
-            }
-            case "mastersthesis", "phdthesis" -> {
-                entry_publication.add(String.valueOf(publication.getYear()));
-                entry_publication.add(PublicationUtils.getSchool(publication));
-                entry_publication.add(PublicationUtils.getURL(publication));
-                entry_publication.add(publication.getTag());
-            }
-            case "inproceedings", "incollection" -> {
-                entry_publication.add(String.valueOf(publication.getYear()));
-                if(publication.getBooktitle() != null)
-                    entry_publication.add(publication.getBooktitle().getTitle());
-                else
-                    entry_publication.add("");
-                entry_publication.add(PublicationUtils.getVolume(publication));
-                entry_publication.add(PublicationUtils.getPages(publication));
-                entry_publication.add(PublicationUtils.getURL(publication));
-                entry_publication.add(publication.getTag());
-            }
-            case "article" -> {
-                entry_publication.add(String.valueOf(publication.getYear()));
-                // TODO not attribute, but relation to add in util_context
-                if(publication.getJournal() != null)
-                    entry_publication.add(publication.getJournal().getTitle());
-                else
-                    entry_publication.add("");
-                entry_publication.add(PublicationUtils.getVolume(publication));
-                entry_publication.add(PublicationUtils.getPages(publication));
-                entry_publication.add(PublicationUtils.getURL(publication));
-                entry_publication.add(publication.getTag());
-            }
-        }
+
 
 
         return entry_publication;
