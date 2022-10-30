@@ -1,1006 +1,503 @@
-00/0,Roberto Ciotti
-00/1,Jami Kangasoja
-00/10,Salah Chenikher
-00/100,Kenji Doya
-00/1000,Arnaud Charnoz
-00/10000,Onur Yilmaz
-00/10001,Ousmane Diallo
-00/10002,Roberto Sommariva
-00/10003,Antonio Manuel Fernandez Villamor
-00/10004,Trieu Phat Luu
-06/5901,Ferruccio Barsi
-86/2818,Alan A. Bertossi
-25/927,Francesco Betti Sorbelli
-o/StephanOlariu,Stephan Olariu,http://www.cs.odu.edu/~olariu/olariu.html
-p/MCPinotti,Maria Cristina Pinotti,http://www1.isti.cnr.it/~pinotti/
-n/AlfredoNavarra,Alfredo Navarra,http://www.di.univaq.it/navarra/
-90/2326,Vlady Ravelomanana
-73/4824,Christian Bertin
-79/5224,Irek Defée
-87/4335,Mika Rustari
-47/4421,Komi Midzodzi Pekpe
-91/5891,Jean-Philippe Cassar
-21/6802,Stefan Elfwing
-37/6513,Eiji Uchibe
-s/BernhardSendhoff,Bernhard Sendhoff,http://www.el-tec.de/
-21/1981,Edgar Körner
-04/3491,Olaf Sporns
-r/HRitter,Helge J. Ritter,http://www.techfak.uni-bielefeld.de/~helge/
-c/HIChristensen,Henrik I. Christensen,http://www.nada.kth.se/~hic/
-97/5838,Takamitsu Matsubara
-75/6424,Jun Morimoto
-49/5303,Jun Nakanishi
-81/1336,Masa-aki Sato
-68/5288,Shuji Yoshizawa
-c/GenciCapi,Genci Capi,http://www.fit.ac.jp/~capi/
-29/6286,Takashi Bando
-48/2040,Tomohiro Shibata
-27/3253,Shin Ishii
-36/1902,Nicolas Schweighofer
-82/11038,K. Shishida
-28/8442,Cheol E. Han
-59/1249,Yasumasa Okamoto
-56/605,Saori C. Tanaka
-13/3484,Shigeto Yamawaki
-53/11033,Hideaki Ogasawara
-08/11008,Tomokazu Doi
-15/3100,Mitsuo Kawato
-16/7361,Takashi Nakano
-70/6041,Junichiro Yoshimoto
-20/6691,Kazuyuki Samejima
-46/6540,Go Okada
-54/5304,Kazutaka Ueda
-80/2766,Hiroyuki Miyamoto
-07/6845,Michael Klein
-18/5661,Hans Kamp
-p/GuntherPalm,Günther Palm,http://www.informatik.uni-ulm.de/ni/staff/GPalm.html
-29/3675,Masumi Ishikawa
-95/5761,Markus Diesmann
-31/6085,DeLiang Wang,http://www.cse.ohio-state.edu/~dwang/,http://scholar.google.com/citations?user=yO59sggAAAAJ
-62/2807,John G. Taylor
-29/435,Stephen Grossberg
-22/522,Peter Dayan,http://www.gatsby.ucl.ac.uk/~dayan/
-97/543,Michael E. Hasselmo
-88/2501,Vassilis Cutsuridis
-75/9817,Tjitske Heida
-d/WlodzislawDuch,Wlodzislaw Duch,http://www.fizyka.umk.pl/~duch/
-42/1206,Mathieu Bertin
-30/4045,Chandrasekhar V. S. Pammi
-00/4508,Krishna P. Miyapuram
-30/5645,Ahmed
-50/1424,Raju S. Bapi
-54/10432,Yusuke Fujiwara
-82/11403,Okito Yamashita
-19/7230,Dai Kawawaki
-20/5028,Keisuke Toyama
-54/2585,Norikazu Sugimoto
-85/6710,Masahiko Haruno
-63/4120,Hiroyuki Nakahara
-36/1501,Tetsuro Morimura
-p/JanPeters1,Jan Peters 0001,http://jan-peters.net,http://www.ias.informatik.tu-darmstadt.de/Member/JanPeters,http://www.kyb.mpg.de/~jrpeters,http://scholar.google.com/citations?user=-kIVAcAAAAAJ,http://dl.acm.org/author_page.cfm?id=81100524321
-10/5777,Ken-ichi Katagiri
-86/2007,Allen I. Selverston
-78/2612,Fredrik Bissmarck
-88/4099,Okihide Hikosaka
-155/5798,Ken Kinjo
-58/6223,Shinya Kuroda
-87/5412,Kenji Yamamoto
-144/0539,Masato Hoshino
-69/1036,Hiroshi Tsujino
-91/6237,Jan Morén
-85/4097,Yasumasa Ueda
-73/4271,Minoru Kimura
-25/6902,Peter F. Rowat
-26/2197,Terrence J. Sejnowski,http://cnl.salk.edu/,http://scholar.google.com/citations?user=m1qAiOUAAAAJ,http://dl.acm.org/author_page.cfm?id=81100503159
-23/2806,Mary E. T. Boyle
-87/4141,Anders Eriksson
-152/8090,Ujjval Pamnani
-87/7230,Takumi Kamioka
-14/620,Makoto Otsuka
-75/4384,Takeshi Yamakawa
-92/5234,Yasuo Nagayuki
-87/6016,Jeffery R. Wickens
-07/847,Stéphane Nicolau
-45/605,A. Vemuri
-41/11099,H. S. Wu
-89/11100,M. H. Huang
-80/11101,Y. Ho
-25/1377,Alexandre Hostettler
-69/238,Clement Forest
-99/2655,Luc Soler
-18/1992,Jacques Marescaux
-77/2771,Vincent Agnus
-18/500,Grégoire Malandain
-91/3109,Mohamed Tajine
-17/2252,Jean-Baptiste Fasquel
-77/5144,Johan Moreau
-43/1475,Didier Mutter
-21/7030,Diane Lingrand
-64/5595,Johan Montagnat
-15/2039,Pierre Malick Koulibaly
-52/6710,Jacques Darcourt
-35/9879,Mustafa U. Torun
-a/AliNAkansu,Ali N. Akansu,http://web.njit.edu/~ali/
-53/131,Orhan Dagdeviren
-10/5670,Kayhan Erciyes
-20/10723,Sercan Demirci
-26/10723,Yagiz Kaymak
-56/10723,Serkan Ergun
-89/8661,Ahmet Yildirim
-25/3419,Joel J. P. C. Rodrigues
-02/4425,Mbaye Sene
-l/JaimeLloret,Jaime Lloret Mauri,http://personales.gan.upv.es/jlloret/index_en.html
-25/4653,Jianwei Niu
-12/4838,Idrissa Sarr
-86/10001,Alex Mace
-02/10002,Zoë Fleming
-44/6297,Wenjia Wang
-57/10002,Juan Carlos Yelmo Garcia
-47/10007,Hup Boon Lim
-65/827,Xingda Qu
-83/3590,K. H. Low
-79/509,Kay Hiang Hoon,http://research.ntu.edu.sg/expertise/academicprofile/pages/StaffProfile.aspx?ST_EMAILID=MKHHOON
-05/10077,Adela Tow
-39/1692,S. Anticaglia
-76/6084,L. Iamele
-19/6318,Christian Lavault
-94/2755,Piero Maestrini
-g/FGrandoni2,Fabrizio Grandoni 0002,http://bonda.cnuce.cnr.it/Documentation/People/Fab.html
-66/677,Giuseppe Alia
-27/2569,Enrico Martinelli
-b/AzzedineBoukerche,Azzedine Boukerche,http://www.site.uottawa.ca/~boukerch/
-03/1639,Roberto Battiti
-64/4149,Maurizio A. Bonuccelli
-75/2019,Paolo Barsocchi
-12/5586,Francesco Potorti
-132/6375,Daniela Cavallaro
-27/430,Richard B. Tan
-z/SiQingZheng,Si-Qing Zheng,http://www.utdallas.edu/~sizheng/
-55/6061,Luigi V. Mancini
-01/6449,Federico Rossini
-m/AlessandroMai,Alessandro Mei,http://www.dsi.uniroma1.it/~mei/
-88/2656,Fabrizio Luccio
-23/3893,Elena Lodi
-p/LindaPagli,Linda Pagli,http://www.di.unipi.it/~pagli/
-27/6342,Elia Ardizzoni
-60/6697,Shashank Ramaprasad
-81/4826,Romeo Rizzi
-s/MVSShashanka,Madhusudana V. S. Shashanka,http://cns.bu.edu/~mvss/
-15/1316,Allessandro Gori
-23/1627,Massimo Bonometto
-33/6163,Paolo Carraresi
-01/5473,Giorgio Gallo
-16/3468,Mauro Brunato
-b/AmotzBarNoy,Amotz Bar-Noy,http://www.sci.brooklyn.cuny.edu/~amotz/
-r/CSRaghavendra,Cauligi S. Raghavendra,http://ceng.usc.edu/~raghu/
-47/2340,Anil M. Shende
-59/1749,Phalguni Gupta
-r/MarcoRoccetti,Marco Roccetti,http://www.cs.unibo.it/~roccetti/
-95/4201,Sabrina Moretti
-33/6619,Silvano Martello,http://www.or.deis.unibo.it/martello.html
-f/AndreaFusiello,Andrea Fusiello,http://profs.sci.univr.it/~fusiello/
-73/6519,Alessandra Menapace
-64/1478,Lan Wang
-83/207,Mona El-Kadi Rizvi
-19/100,Edwin C. Foudriat
-m/KurtMaly,Kurt Maly,http://www.cs.odu.edu/~maly/
-79/6263,Petia Todorova
-57/299,Gongjun Yan
-38/1669,Michele C. Weigle
-02/4170,Rong Lin
-z/AlbertYZomaya,Albert Y. Zomaya,http://www.it.usyd.edu.au/~zomaya/
-92/3860,Matthew Clements
-92/1375,Jin Wang
-119/7120,Samiur Arif
-79/2597,Danda B. Rawat
-01/3332,Dimitrie C. Popescu
-13/3004,Nageswara S. V. Rao
-43/4566,Sudheer Dharanikota
-48/6735,Liping Zhang
-00/3116,David Game
-61/4300,Zhaofang Wen
-53/6486,James L. Schwing
-71/700,Jingyuan Zhang
-s/DavidSimplotRyl,David Simplot-Ryl,http://www.lifl.fr/~simplot/
-s/IvanStojmenovic,Ivan Stojmenovic,http://www.csi.uottawa.ca/~ivan/
-47/6038,Koji Nakano
-09/3344,Anjlica Malla
-r/MonaERizvi,Mona E. Rizvi
-40/251,Biing-Feng Wang
-27/5146,Tatsuya Hayashi
-a/HusseinMAbdelWahab,Hussein M. Abdel-Wahab,http://www.cs.unc.edu/~wahab/
-96/930,Tiziana Calamoneri
-96/1282,Rossella Petreschi
-98/6536,Venkatavasu Bokka
-34/5507,Larry Wilson
-50/1284,Himabindu Gurla
-40/5812,Dharmavani Bhagavathi
-94/6494,Peter J. Looges
-87/3259,Weiming Yang
-45/6794,Ismail Khalil,http://www.iiwas.org/ismail/
-57/6834,Hady S. AbdelSalam
-11/2809,Shaharuddin Salleh
-60/5159,Bahrom Sanugi
-48/4432,Hishamuddin Jamaluddin
-08/5340,Kiew Leh Yieng
-33/790,Nur Arina B. Aziz
-97/9673,Mohd Ismail Abd Aziz
-88/1230,Ding Wen
-05/3969,Syed Rashid Ali Rizvi
-72/5751,Rajendra Shirhatti
-03/4993,Beverly Jamison
-05/2476,Vassilis Giakoumakis
-97/5946,Shahram Mohrehkesh
-142/8985,Xianping Wang
-46/6360,Derek G. Corneil
-s/LornaKStewart,Lorna Stewart,http://www.cs.ualberta.ca/~stewart/
-66/6855,Wenhui Shen
-65/4331,W. Shen
-92/3292,Wei Xiong Zhang
-01/518,W. M. Denny
-13/6909,Saverio Caminiti
-14/1101,Ashraf Wadaa
-29/1345,Mohamed Eltoweissy
-70/5448,K. Jones
-06/6596,Ekaterina Shurkova
-89/6680,Ruzana Ishak
-55/9489,Hajar Mousannif
-76/1987,Qingwen Xu
-78/1499,Mohd. Ismail Abdul Aziz
-17/5519,Mohamed F. Younis,http://www.cs.umbc.edu/~younis/index.html
-37/5698,H. Smith
-76/1013,Adrian Yates
-89/35,Michael Haydock
-w/JieWu1,Jie Wu 0001,http://www.cis.temple.edu/~wu/,http://www.cse.fau.edu/~jie/
-o/CMichaelOverstreet,C. Michael Overstreet,http://www.cs.odu.edu/~cmo/
-d/SajalKDas,Sajal K. Das,https://sites.google.com/a/mst.edu/sdas/,http://en.wikipedia.org/wiki/Sajal_K._Das,http://ranger.uta.edu/~das/
-62/1798,Sushil K. Prasad
-98/6029,Gen-Huey Chen
-44/1409,Stuart Campbell
-68/5181,Mohan Kumar
-08/5754,Waleed A. Youssef
-96/5424,Sameh M. Yamany
-10/897,Thomas Luckenbach
-78/4536,Henry Meyniel
-93/1494,S. Toida
-06/2774,M. Zubair
-05/9342,Samy El-Tawab
-157/5207,Ahmed Alhafdhi
-73/9875,Dusadee Treeumnuk
-71/3660,J. Randall
-62/2815,Hiryoung Kim
-03/6837,Sridhar Natarajan
-s/AlanPSprague,Alan P. Sprague,http://www.cis.uab.edu/sprague/
-70/9488,Shazirawati Mohd Puzi
-22/2155,Mahmoud Abuelela
-s/IainAStewart,Iain A. Stewart,http://www.dur.ac.uk/i.a.stewart/
-58/9489,Maznah Kamat
-37/9489,Abdul Samad Ismail
-b/ABrandstadt,Andreas Brandstädt,http://wwwteo.informatik.uni-rostock.de/~ab/ab.html
-78/1300,Van Bang Le,http://www.informatik.uni-rostock.de/~le/
-40/2827,Fikret Erçal
-n/JeffreyVNickerson,Jeffrey V. Nickerson,http://www.stevens.edu/jnickerson/
-65/4845,Chính T. Hoàng
-27/6968,Frédéric Maffray
-23/206,Myriam Preissmann
-25/7022,Pierre Duchet
-22/1490,Luitpold Babel
-k/TonKloks,Ton Kloks
-31/6569,Jan Kratochvíl
-k/DieterKratsch,Dieter Kratsch,http://lita.sciences.univ-metz.fr/~kratsch/
-m/HaikoMuller,Haiko Müller,http://www.comp.leeds.ac.uk/hm/
-c/BCourcelle,Bruno Courcelle,http://www.labri.fr/perso/courcell/ActSci.html
-p/TomPfeifer,Tom Pfeifer,http://www.tssg.org/people/tpfeifer/
-f/AloisFerscha,Alois Ferscha,http://www.pervasive.jku.at/About_Us/Staff/Ferscha/
-n/SagarNaik,Sagar Naik
-65/4599,David S. L. Wei
-59/1604,Chutima Boonthum-Denecke
-72/2781,Irwin B. Levinstein
-06/6326,E. Pigli
-66/6237,Daniel Patterson
-65/3256,C. E. Grosch
-a/SGAkl,Selim G. Akl,http://research.cs.queensu.ca/~akl/
-g/DenisGracanin,Denis Gracanin,http://people.cs.vt.edu/~gracanin/,http://scholar.google.com/citations?user=dhwyJggAAAAJ
-70/9385,Mohammad S. Almalag
-k/EkkehardKohler,Ekkehard Köhler,http://www.math.tu-berlin.de/coga/people/ekoehler/index.html
-67/5121,Elias Dahlhaus
-h/PeterLHammer,Peter L. Hammer,http://rutcor.rutgers.edu/peterhammer.html
-56/560,Hoang Nam Nguyen
-37/4211,Khaled Ibrahim
-57/5551,Mecit Cetin
-119/5668,Puya Ghazizadeh
-m/RaviMukkamala,Ravi Mukkamala,http://www.cs.odu.edu/~mukka/mukka.html
-80/4500,Ihn-Han Bae
-24/2258,Sun-Jin Oh
-32/1273,Binh Thanh Doan
-13/972,Silvia Giordano
-15/5766,Damla Turgut
-82/2448,Giuseppe Anastasi
-33/5086,Isabelle Guérin Lassous,http://perso.ens-lyon.fr/isabelle.guerin-lassous/
-92/3202,Aftab Ahmad
-09/5441,Hongke Zhang,http://iplab.bjtu.edu.cn/2011/0407/19.html
-c/JiannongCao,Jiannong Cao,http://www4.comp.polyu.edu.hk/~csjcao/
-r/DBJohnson,David B. Johnson,http://www.cs.rice.edu/~dbj/
-57/1667,Weijia Jia
-22/5330,Pedro M. Ruiz,http://ants.dif.um.es/~pedrom/
-63/4542,Guoliang Xing
-57/257,Gyanesh Choudhary
-159/1185,Aaron Walden
-58/8831,Vikas Ganjigunte Ashok
-80/2430,Ajay Gupta
-04/1183,Weiying Zhu
-99/5721,Min Song
-16/2141,Kennie H. Jones
-72/2271,Kenneth N. Lodding
-06/6463,Chunsheng Xin
-23/5009,Jacir Luiz Bordim
-18/3881,JiangTao Cui
-i/OscarHIbarra,Oscar H. Ibarra,http://www.cs.ucsb.edu/~ibarra/,http://dl.acm.org/author_page.cfm?id=81100347717
-r/JDPRolim,José D. P. Rolim,http://cui.unige.ch/~rolim/
-46/2933,Frank Mueller
-61/2985,Binoy Ravindran
-37/1069,Jan Gustafsson
-40/5811,Hiroaki Takada
-90/1985,Ronald A. Olsson
-k/LaxmikantVKale,Laxmikant V. Kalé,http://charm.cs.uiuc.edu/~kale/
-75/2988,Peter H. Beckman
-57/5861,Matthew Haines
-72/3408,Hossam A. ElGindy,http://www.cse.unsw.edu.au/db/staff/staff_details.php?ID=elgindyh
-86/2647,Denis Caromel
-38/859,Serge Chaumette
-f/GeoffreyFox,Geoffrey Fox,http://www.soic.indiana.edu/people/profiles/fox-geoffrey-charles.shtml
-46/7028,Yi Pan
-l/KeqinLi,Keqin Li,http://www.cs.newpaltz.edu/faculty/li.html
-67/1120,Tao Yang
-09/1905,G. Ghiola
-40/858,Gianni Conte
-51/6932,Dominique Méry
-77/189,Beverly A. Sanders
-57/6120,Devesh Bhatt
-p/ViktorKPrasanna,Viktor K. Prasanna,http://ceng.usc.edu/~prasanna/
-17/4829,Marco Conti
-12/1859,Enrico Gregori
-119/2636,Amanda Daniel
-k/AndreasKassler,Andreas Kassler,http://www.cs.kau.se/~andreask/
-l/MALangston,Michael A. Langston,http://www.cs.utk.edu/~langston/
-12/6759,Ramy Eltarras
-c/IngRayChen,Ing-Ray Chen,http://people.cs.vt.edu/~irchen/
-73/6747,Dennis E. Ray
-64/4137,J. Christian Wild
-33/4085,Deane Sibol
-99/1849,George Panayides
-17/759,Tijen Ireland
-00/2872,George Kantsios
-02/3946,Bhed Bahadur Bista
-22/3152,Alexander Markhasin
-k/AdrianKosowski,Adrian Kosowski,http://sphere.pl/~kosowski/
-87/3227,Falguni Sarkar
-49/3388,Vincenzo Auletta
-00/1118,Amelia De Vivo
-32/6668,Vittorio Scarano,http://www.di.unisa.it/~vitsca/
-p/GeppinoPucci,Geppino Pucci,http://www.dei.unipd.it/~geppo/
-58/10606,Dominik Pajak
-b/GerthStoltingBrodal,Gerth Stølting Brodal,http://www.brics.dk/~gerth/
-66/465,"Gianlorenzo D'Angelo"
-s/GabrieleDiStefano,Gabriele Di Stefano,http://gs.ing.univaq.it/~gabriele/
-25/5808,Yu-Chee Tseng
-92/1623,Wen-Chih Peng
-36/4847,Victor C. M. Leung,http://www.ece.ubc.ca/~vleung/,http://dl.acm.org/author_page.cfm?id=81100299209
-21/7029,Wen-Tsuen Chen
-23/2981,Yufei Guo
-67/6840,Trivikram Dash
-89/4458,Navrati Saxena
-41/1147,Kalyan Basu
-83/9401,Giacomo Ghidini
-46/647,Aris A. Papadopoulos
-m/JulieAMcCann,Julie A. McCann,http://www.doc.ic.ac.uk/~jamm/
-50/3517,Andrea Formisano
-65/892,Carlo Luchetti
-36/5719,Giuseppe Lancia
-77/5034,Amitabha Bagchi
-136/7969,Sainyam Galhotra
-136/8000,Tarun Mangla
-48/1923,Mario Di Francesco
-49/6305,Vincenzo A. Crupi
-02/11192,A. Di Saverio
-126/7654,Daniele Diodati
-82/4386,Mauro Conti
-c/BrunoCrispo,Bruno Crispo,http://www.cs.vu.nl/~crispo/
-36/1036,Gianfranco Bilardi
-c/BrunoCodenotti,Bruno Codenotti,http://www.imc.pi.cnr.it/~codenotti/
-77/6796,G. Del Corso
-59/2622,Giovanni Resta
-10/7020,Serafino Cicerone
-f/DanieleFrigioni,Daniele Frigioni,http://www.diel.univaq.it/frigioni/
-54/2681,Michael Schachtebeck
-09/3739,Anita Schöbel
-f/MicheleFlammini,Michele Flammini,http://www.di.univaq.it/di/home.php?users_username=flammini
-k/RalfKlasing,Ralf Klasing,http://www.labri.fr/perso/klasing/
-p/StephanePerennes,Stéphane Pérennes,http://www-sop.inria.fr/mascotte/personnel/Stephane.Perennes/me.html
-66/3206,Andrzej Proskurowski,http://www.cs.uoregon.edu/People/Faculty/Andrzej_Proskurowski.php
-b/VittorioBilo,Vittorio Bilò,http://www.di.univaq.it/bilo/index1.html
-29/2397,Giovanna Melideo
-25/1523,Luca Moscardelli
-g/CyrilGavoille,Cyril Gavoille,http://dept-info.labri.u-bordeaux.fr/~gavoille/
-k/LukaszKuszner,Lukasz Kuszner,http://www.sphere.pl/~kuszner/
-14/5718,Giorgio Gambosi
-21/1998,Marco Autili
-10/4346,Leonardo Mostarda
-t/MassimoTivoli,Massimo Tivoli,http://www.di.univaq.it/tivoli
-64/6044,Gaia Nicosia
-g/LeszekGasieniec,Leszek Gasieniec,http://www.csc.liv.ac.uk/~leszek/,http://scholar.google.com/citations?user=TbQXQ7EAAAAJ
-m/RussellAMartin,Russell Martin,http://cgi.csc.liv.ac.uk/cgi-bin/staff.pl?user=martin
-55/1332,Xiaohui Zhang
-14/6340,Rudi Cilibrasi
-74/3704,Zvi Lotker
-v/PMBVitanyi,Paul M. B. Vitányi,http://homepages.cwi.nl/~paulv/
-c/MauroCaporuscio,Mauro Caporuscio,http://www.maurocaporuscio.net/
-93/6999,Damien Charlet
-i/ValerieIssarny,Valérie Issarny,http://www-rocq.inria.fr/arles/members/issarny.html
-58/11472,Krishna Doddapaneni
-41/6741,Enver Ever
-72/1844,Orhan Gemikonakli
-87/1307,Alessandro Aloisio
-45/11303,R. Luchmun
-130/6514,Purav Shah
-95/6087,Alberto Tofani
-09/329,Nicolas Nisse
-83/4341,Karol Suchan
-19/6970,Adriano Di Pasquale
-32/2616,Fabio Fioravanti
-91/4734,Luca Forlizzi
-93/5131,Francesco Lo Presti
-n/EnricoNardelli,Enrico Nardelli,http://www.mat.uniroma2.it/~nardelli/,http://scholar.google.com/citations?user=3jgjiFUAAAAJ,http://dl.acm.org/author_page.cfm?id=81100512939
-p/GProietti,Guido Proietti,http://www.di.univaq.it/~proietti/index_personal
-i/PaolaInverardi,Paola Inverardi,http://www.di.univaq.it/inverard/paola.html
-96/3284,Alessandro Gasparini
-32/9764,"Mattia D'Emidio"
-m/JeanFredericMyoupo,Jean Frédéric Myoupo,http://www.laria.u-picardie.fr/~myoupo/
-34/1137,Loÿs Thimonier
-67/2037,Cyril Banderier
-68/2354,Hsien-Kuei Hwang
-74/8896,Vytas Zacharovas
-75/1163,Jean-François Marckert
-85/4356,Jean Cardinal
-68/3212,Mario Valencia-Pabon
-76/3461,Anne-Elisabeth Baert
-73/4207,Jean-Marie Le Bars
-49/5123,Alphonse Laza Rijamamy
-88/4800,Hervé Daudé
-m/ConradoMartinez,Conrado Martínez,http://www.lsi.upc.es/~conrado/
-93/8015,Vonjy Rasendrahasina
-24/4662,Romain Mellier
-35/1540,Gabriel Antoine Louis Paillard
-50/6333,Fayçal Djerourou
-07/10651,Amaro F. de Sousa
-128/8453,Gonzalo Figuera
-35/4402,Manuel Friedrich
-07/170,Mario Guglielmo
-54/2487,Mourad Cherfaoui
-45/590,Christophe Guillon
-b/KoenraadDeBosschere,Koen De Bosschere,http://www.elis.ugent.be/~kdb/
-39/4442,Claude-Pierre Jeannerod
-51/9379,Christophe Mouilleron
-26/5113,Jean-Michel Muller
-30/2489,Guillaume Revy
-84/9379,Jingyan Jourdan-Lu
-10/732,Herve Knochel
-72/4281,Christophe Monat
-05/1711,Adrian Hornsby
-38/10693,I. Bouzazizi
-44/818,Carol Rus
-124/7298,Kalervo Kontola
-58/1890,Igor D. D. Curcio
-52/4358,Florin Lohan
-133/3725,Marius Vlad
-135/7826,Aurelian Pop
-135/7890,Prakash Sastry
-33/2401,Daidi Zhong
-07/3283,Anssi Huttunen
-08/1498,Yrjö Neuvo
-27/587,Mari Zakrzewski
-25/6301,Sakari Junnila
-55/5392,Antti Vehkaoja
-11/7355,Harri Kailanto
-43/2044,Antti-Matti Vainio
-62/4922,Jukka Lekkala
-05/5346,Jukka Vanhala
-42/1835,Jari Hyttinen
-65/8117,Francesca De Simone
-56/4366,Marco Carli
-84/4064,Alessandro Neri
-43/1272,Ronan MacLaverty
-147/2546,Marc Freynet
-147/2440,Pekka Luoma
-147/2460,Jyri Lankinen
-68/4727,Roberto Castagno
-89/6384,Serkan Kiranyaz
-127/2498,Shaoning Yang
-88/3921,Magnus Armholt
-48/11046,Assia Hakem
-19/156,Vincent Cocquempot
-03/11045,Talel Zouari
-74/9526,Moufida Lahmari-Ksouri
-143/5820,K. M. D. Motchon
-143/6007,S. De Bievre
-13/6720,Philippe Vanheeghe
-44/1680,Belkacem Ould Bouamama
-46/3216,Masakazu Yanase
-01/1390,Minoru Asada
-06/1725,"Sho'ji Suzuki"
-33/6143,Yasutake Takahashi
-55/6549,Masateru Nakamura
-11/3898,Chizuko Mishima
-48/2325,Hiroshi Ishizuka
-86/5238,Tatsunori Kato
-12/4516,Koh Hosoda
-89/2537,Takahashi Tamura
-69/3340,Shoichi Ikenoue
-97/6417,Shujiro Inui
-21/4520,Hiroyoshi Kawanishi
-40/5304,Takashi Tamura
-50/1692,Shoichi Noda
-53/2582,Sukoya Tawaratsumida
-j/YaochuJin,Yaochu Jin,http://www.soft-computing.de/jin.html
-95/2025,Stefan Menzel
-44/3263,Lars Gräning
-s/GeorgSchneider3,Georg Schneider 0003
-93/1044,Heiko Wersing
-41/908,Werner von Seelen
-25/889,Dudy Lim
-64/4136,Yew-Soon Ong
-89/6298,Markus Olhofer
-b/HGBeyer,Hans-Georg Beyer,http://www2.staff.fh-vorarlberg.ac.at/~hgb/
-11/1244,Benjamin Inden
-08/4318,Robert Haschke
-34/1337,Michael Hüsken
-09/2584,Martin Kreutz
-77/6558,Minh Nghia Le
-50/3146,Ke Tang
-54/1184,Xin Yu
-26/3646,Xin Yao
-12/3752,Martina Hasenjäger
-78/8890,Thomas Bihrer
-61/8228,Xiaofen Lu
-30/4064,Vineet R. Khare
-85/7854,Dilyana Domont-Yankulova,http://www.rtr.tu-darmstadt.de/rtr/alumnis_rtr/alumnidetails_rtr_5195.de.jsp
-l/BuSungLee,Bu-Sung Lee,http://www.ntu.edu.sg/home/ebslee/
-37/3789,Robin Gruna
-98/5231,Lisa Schramm
-03/735,Ingo Paenke
-10/8269,Tadeusz J. Kawecki
-05/7185,Ben Jones
-75/694,Aimin Zhou
-98/1240,Qingfu Zhang
-18/3625,Edward P. K. Tsang
-77/5335,Tatsuya Okabe
-19/5824,Anja M. Reimetz
-56/5896,Claus Weihs
-56/5967,Razvan Enache
-05/1050,Xavier Domont
-26/4818,Martin Heckmann
-97/3445,Frank Joublin
-39/5329,Christian Goerick
-00/3090,Yi Cao
-26/4992,Michal Kowalczykiewicz
-43/1032,Yan Meng
-52/8284,Edgar Reehuis
-b/ThomasBack,Thomas Bäck,http://www.liacs.nl/~baeck/
-25/9133,Yuyang Zhang
-91/9967,Abhay Sampath
-93/3338,Hee-Khiang Ng
-85/3686,Lars Freund
-42/6802,Shuja Parvez
-126/1934,Thomas Ramsay
-16/3700,Peter Stagge
-23/4619,Ruojing Wen
-v/vdMalsburg,Christoph von der Malsburg,http://www.neuroinformatik.ruhr-uni-bochum.de/ini/PEOPLE/malsburg/top.html
-22/5913,Jan C. Vorbrüggen
-41/2767,Till Steiner
-e/MichaelTMEmmerich,Michael T. M. Emmerich,http://www.liacs.nl/~emmerich/
-83/6982,Michael Nashvili
-04/6283,Andrea Soltoggio
-37/5375,Toyotaka Sonoda
-79/6114,Toshiyuki Arima
-85/8571,Haobo Fu
-38/6146,Christian Igel
-32/3457,Jon Rowe
-55/3877,Chrisantha Fernando
-29/1005,Pan Zhang
-93/467,Lei Jia
-91/5058,Thorsten Schnier
-08/6198,Lars Willmes
-30/8047,Jens Trommler
-81/8046,Martin Brenn
-92/4220,Neale Samways
-16/4287,Kwasi Foli
-144/6947,Alexandro Mark
-69/8354,Chun-Wei Seah
-24/4480,Peter R. Lewis
-130/2075,Vander Valente Martins
-28/4234,Jens Schmüdderich
-90/7020,Volker Willert
-64/4497,Julian Eggert
-53/5127,Sven Rebhan
-20/6444,Gerhard Sagerer,http://aiweb.techfak.uni-bielefeld.de/user/sagerer
-86/1574,Alexander Andreopoulos
-08/3078,Stephan Hasler
-03/5472,Herbert Janssen
-t/JohnKTsotsos,John K. Tsotsos,http://www.cs.toronto.edu/DCS/People/Faculty/tsotsos.html
-57/1707,Sven Schrader
-67/3510,Marc-Oliver Gewaltig
-05/135,Ursula Körner
-64/1171,Andreas Richter
-33/3551,Tobias Rodemann
-96/2882,Tomohiko Masutani
-25/17,Stephan Kirstein
-g/HorstMichaelGross,Horst-Michael Groß,https://www.tu-ilmenau.de/neurob/team/prof-dr-horst-michael-gross/
-41/7227,Kenji Hosoda
-57/2267,Masataka Watanabe
-49/3485,Hiroshi Tamura
-40/727,Ichiro Fujita
-15/1060,Alexander Denecke
-21/194,Michael Gienger
-70/1032,Jochen J. Steil,http://www.cor-lab.de/users/jsteil,http://scholar.google.com/citations?user=K5XMwe4AAAAJ,http://dl.acm.org/author_page.cfm?id=81100521991
-58/4157,Michael Götting
-31/5839,Rüdiger Kupper
-31/2026,Andreas Knoblauch
-32/2838,Holger Brandl
-36/4421,Mark Dunn
-90/5889,Inna Mikhailova
-52/7361,Florian Hauser
-25/2548,Wolfgang Einhäuser
-33/2074,Jörg Hipp
-79/543,Peter König
-41/4825,Sven Hellbach
-78/2570,M. Gross
-59/3335,H. Shimizu
-87/1602,T. Tsuda
-99/7400,Alexander Kolarow
-35/5883,Daniel Weiler
-65/2118,Florian Röhrbein
-43/4191,Bernd Schneiders
-98/434,Ute Bauer-Wersing
-07/1306,Nils Einecke
-t/MarcToussaint,Marc Toussaint,http://homepages.inf.ed.ac.uk/mtoussai/
-54/4194,Sören Strauss
+48/5344,Wen-Chyuan Chiang
+94/3182,Damien Fay
+21/6686,Charles A. Bouman,https://engineering.purdue.edu/~bouman/
+06/10753,Andrea Prosperetti,http://www.me.jhu.edu/prosper/
+47/5841-2,Chris V. Jones 0002
+95/1442,Eric Jul
+25/4412,Brian D. Fisher,http://interaction-science.iat.sfu.ca/
+97/6382,Gerardo Leyva
+40/230,Ou Liu
+05/8301,Lori L. Barski
+140/4878,Rita Gupta
+55/3454,Ivana Kovacevic
+82/5066,Yan-Qun He
+145/4381,Guillermo Jara
+55/5559,Wei Chu
+46/5115,Yasuaki Inoue
+65/1984,Huanan Gu
+64/1510,Masayuki Hiromoto
+13/6508,Wenzel Kalus
+42/7075,Gloria Cerasela Crisan
+48/5939,Dan Feng
+g/ZoubinGhahramani,Zoubin Ghahramani,http://www.gatsby.ucl.ac.uk/~zoubin/
+10/10992,Brett P. Lyons
+48/4595,Takashi Sato
+14/4282,Alexandru Floares
+53/1494,Xiao-ying Tai
+73/2665,Vukasin Pejovic
+80/4171,Xiaolin Chen
+57/1674,Chaojing Tang
+14/6306,Rainer Leupers,http://www.ice.rwth-aachen.de/institute/members/personen/rainer-leupers/
+43/4600,Hwee Pink Tan
+31/6313,Mingjun Sun
+39/6756,Daniel Kuntze
+35/295,Jian Liu
+85/5373,Chi Jui Raymond Lin
+91/6073,Janardan Devlukia
+81/1014,Xiuchao Wu
+54/3448,Ramón F. Brena
+67/1961,Joerg Meyer
+67/2772,Emmanuel Martinez
+92/4738,Minjung Kim
+15/6945,Pedro Alvarez
+80/2767,Pan Zeng
+34/706,Juan Manuel Montero-Martínez,http://scholar.google.com/citations?user=ewRIhckAAAAJ
+q/LuisQuesada,Luis Quesada,http://4c.ucc.ie/~lquesada/
+20/426,John Angus
+140/4856,Andreas Bikfalvi
+30/7396,Xin Guo Ming
+29/1144,Carlos Carreras
+02/1964,Jason Smith
+128/0448,Jiamei Jin
+72/1999,Heinrich Meyr,http://www.ice.rwth-aachen.de/institute/members/personen/heinrich-meyr/
+75/2613,Thorsten Höllrigl,http://dsn.tm.kit.edu/staff_hoellrigl.php
+30/9511,Mohammad Shamma
+145/8554,Raul Aguirre-Gamboa
+92/3937,Qing Yu
+45/5758,Sachiko Ogawara
+54/6965,Long Xie
+63/6849,Yinliang Yue
+25/1055,Paul Tan
+29/1036,Teresa McShane
+71/109,Ritchie Argue
+128/0181,Samar Al-Hajj
+99/1580,Jeffrey Weisberg
+24/1058,Stephen F. Levinson
+60/3,Yi Yuan
+09/3549,Zhangcai Huang
+52/10995,Carolynn Mackenzie
+142/2122,Bo Shuai
+38/1967,Gabriel Caffarena
+k/AntonioKruger,Antonio Krüger,http://www.dfki.de/~krueger/
+42/6171,David L. Wild
+72/5904,Gérald Collaud
+70/6008,John Dill
+52/6020,Alessia Gaiba
+54/5942,Sanjay Chaudhary
+43/4720,Tao Luo
+29/4638,Chang Wen Chen
+92/6289-13,Jie Chen 0013
+80/9990,Patricia Arroba
+77/4490,Ignacio Recio
+62/2318,Kevin E. Spaulding
+64/5630,Qiang Wang
+06/6420,Sen Wu
+147/1321,Yanwen Xie
+140/4841,Roy Bicknell
+21/2592,David Botta
+78/3213,Chen Wu
+18/3322,Jason C. H. Chen
+141/5918,Axel Acosta Aponte
+84/4472,Martin Wolff
+67/1862,Deborah J. Rubens
+02/10990,S. John Curnow
+81/482,Daniel Ha
+70/2927,Jiazhi Liang
+48/6586,Javier Macías Guarasa,http://scholar.google.es/citations?user=3_ioMEsAAAAJ
+02/4052,Meng Yao
+c/PaidiJCreed,Páidí Creed,http://homepages.inf.ed.ac.uk/s0566130/
+06/5204,Caitlin Akai
+39/233,Guosun Zeng
+68/6811,Yiwen Zhu
+68/7047,Juan-Pablo García-Vázquez
+54/367,Judie Mulholland
+45/1674,Conor Ryan
+h/ThomasSHuang,Thomas S. Huang,http://beckman.illinois.edu/directory/person/t-huang1
+47/2382,Octavio Nieto-Taladriz
+75/4589,XiangFeng Wei
+l/PeterJFLucas,Peter J. F. Lucas,http://www.cs.ru.nl/~peterl/
+122/5259,K. Gudmundsson
+88/3437,Juntao Cui
+83/9991,Iván Ovejero
+59/9684,Jelena Milojkovic
+32/1939,Zhiping Fan
+85/4013,Juan Carlos Vallejo
+34/10992,Diego A. Rodriguez
+127/9766,Ian Pike
+37/2206,Caroline Ziemkiewicz
+76/11077,Mara Hajdu-Macelaru
+41/3654,Vincent Armant
+22/8374,Stefan A. Carp
+05/10997,Stephen G. George
+148/7604,Joshua Schnell
+26/4870,Jian Ma
+07/5608,Chihiro Takahashi
+35/5625,Fang Wang
+43/2165,J. Christopher Beck
+41/6165,Changde Lu
+f/EugeneCFreuder,Eugene C. Freuder,http://www.4c.ucc.ie/ef.html
+09/5886,José Manuel Moya
+97/10997,Ayesha Sabah
+56/8409,Kamil Swierkot
+36/7694,Chenglei Zhao
+148/2804,Paul Bulzu
+125/2574,Tejas Naphade
+99/1693,Anjun Chen
+83/1269,Hiroshi Tsutsui
+00/4789,Carlos A. López-Barrio
+b/DABurke,David A. Burke,http://4c.ucc.ie/~dburke/
+35/8300,Allan C. Cheung
+00/3600a,Francisco Tirado-Andres,http://www.researcherid.com/rid/F-5770-2014
+17/246,Haifeng Li
+45/4363,Kingshuk Karuri
+91/4932,James Little
+w/ZhengWang,Zheng Wang,http://www.usenix.org/publications/library/proceedings/usenix-nt97/usage_abstracts/Zheng_Wang.html
+98/7619,Ena Tobin
+130/2843,Juan Domingo Sandoval González
+b/AndreasButz,Andreas Butz,http://www.medien.ifi.lmu.de/team/andreas.butz/
+66/10995,Grant D. Stentiford
+117/5256,Thuy T. Truong
+06/4457,Edward A. Ashton
+21/6986,Brian Corrie
+120/7682,Cristian Pascan
+47/2482,Christian Sohler,http://ls2-www.cs.tu-dortmund.de/~sohler/
+03/4608,Zhigang Ding
+06/6260,Marta Cascante
+s/CJSreenan,Cormac J. Sreenan,http://www.cs.ucc.ie/~cjs/
+17/1422,Reynald Hoskinson
+41/1021,Leena Ketonen
+28/7048,Ainhoa Montero de Espinosa
+05/8664,Alie El-Din Mady
+w/DanielWeiskopf,Daniel Weiskopf,http://wwwvis.informatik.uni-stuttgart.de/~weiskopf/
+138/4416,Alba Rozas
+72/10994,Ioanna Katsiadaki
+35/11387,Giorgio Ganis
+89/5529,Harold Ishebabi
+43/3166,Zhi Li
+31/1379,William Ribarsky
+72/767,Lourdes Peñalver
+43/1191,Wei Jia
+54/5659,Shuai Fang
+76/4973,Oana Andreea Dini
+13/255,R. Victor Klassen
+89/4094,Lijun Zhu
+68/3405,Kevin I.-J. Ho
+55/6749,Hong Yu
+30/3209,Eric L. Miller,http://www.ece.tufts.edu/~elmiller/elmhome/index.html
+89/894,Yanling Wang
+07/3584,Stephen H. Westin
+87/3352,David Baker
+61/8068,Lanny Sitanayah
+92/4338,Kevin J. Parker
+20/4118,Nicola Marchetti
+28/1851,Monica Barbu-McInnis
+27/6297,Heidi Lam
+20/2744,Brian C. Porter
+42/7323,Nadya A. Calderón
+97/523,Violeta Tomasevic
+70/1741,Lei Xie
+61/938,Julio Martín
+58/7399,David Stynes
+67/2413,André Gagné
+06/10998,Amer M. Diab
+33/10993,Olga Hrydziuszko
+69/6074,Susana G. Kalko
+92/7047,Javier Blesa
+129/0733,S. K. Alam
+131/5156,Javier Rodríguez Escolar
+46/10745,Jeffrey L. Evelhoch
+23/8346,Richard H. Moore
+99/4535,Anupam Chattopadhyay,http://www.ice.rwth-aachen.de/institute/members/personen/anupam-chattopadhyay/
+122/3939,Seán Óg Murphy
+158/4839,Jerome A. Arokkiam
+04/1006,Xingtong Liu
+66/5765,Agustín Rubio
+28/4692,Michel J. Berg
+73/1149,Jian Xu
+72/448,Ted Scully
+24/10889,Jaime García-Palacios
+06/10990,Katie L. Bartie
+12/2435,István Gergely Czibula
+28/3042,Tatiana Tabirca
+14/3921,John M. Herbert
+16/2583,William Chao
+09/4423,Xingyang Guo
+66/5390,Brahim Hnich
+81/2985,Jianhong Ma
+28/3781,Petrica C. Pop,http://ppop.ubm.ro/
+74/197,Qijia Tian
+82/858,Barry A. Po
+71/11105,Erika Schneider
+82/3050,Christiane Lammersen,http://ls2-www.cs.uni-dortmund.de/~lammersen/
+03/3742,Juan A. López
+04/103,Rubén San-Segundo-Hernández
+f/SidneyFels,Sidney Fels,http://www.ece.ubc.ca/~ssfels/
+56/11106,Patricia C. González
+95/9190,Hon Cheong Lam
+72/7673,Gabriela Czibula
+33/2110,Johannes Blömer,http://www.cs.uni-paderborn.de/fachgebiete/ag-bloemer/personen/johannes.html
+53/2088,Dusan Stepanovic
 94/4084,Chen Zhang
-90/4780,Botond Szatmáry
-15/4829,Barnabás Póczos
-81/2260,András Lörincz
-90/3591,Sebastian Clever
-05/3968,Paul F. M. J. Verschure
-96/6834,Jonny Wray
-49/6080,Giulio Tononi
-93/973,Gerald M. Edelman
-27/4320,Rolf Kötter
-94/10998,Mikail Rubinov
-09/6631,Jean-Philippe Thivierge
-21/1906,Michael Breakspear
-22/10997,Bratislav Misic
-29/4242,Anthony Randal McIntosh
-77/1162,Joaquín Goñi
-155/7324,Richard F. Betzel
-38/5515,Max Lungarella
-32/11014,Leonardo L. Gollo
-41/1141,Claudio R. Mirasso
-87/11014,Jeffrey Alstott
-70/3658,Patric Hagmann
-93/5978,Leila Cammoun
-69/3721,William H. Alexander
-78/10925,Jonathan D. Zwi
-36/1788,Anil K. Seth
-34/6029,Jeffrey L. Krichmar,http://www.socsci.uci.edu/~jkrichma/
-50/4750,Teresa K. Pegors
-32/10925,Daniel Bulwinkle
-22/11217,Benjamin B. Lahey
-74/11216,Kristin McNealy
-26/11218,Annchen Knodt
-08/11225,David H. Zald
-00/11223,Stephen B. Manuck
-96/11222,Janine D. Flory
-26/11220,Brooks Applegate
-94/11216,Paul J. Rathouz
-25/11223,Ahmad R. Hariri
-43/5096,Dae-Jin Kim
-152/2141,Elysia Poggi Davis
-152/1947,Curt A. Sandman
-116/9153,"Brian F. O'Donnell"
-152/1882,Claudia Buss
-116/9149,William P. Hetrick
-88/11373,Kiho Im
-125/4664,Michael J. Paldino
-140/2156,Annapurna Poduri
-30/516,P. Ellen Grant
-96/11382,R. Matthew Hutchison
-60/1573,Thilo Womelsdorf
-122/9436,Elena A. Allen
-40/10729,Peter A. Bandettini
-48/3821,Vince D. Calhoun,http://www.ece.unm.edu/~vcalhoun/
-38/6030,Maurizio Corbetta
-116/9727,Stefania Della Penna
-83/51,Jeff H. Duyn
-15/3741,Gary H. Glover
-80/6247,Javier Gonzalez-Castillo
-05/10731,Daniel A. Handwerker
-55/11396,Shella D. Keilholz
-73/11382,Vesa Kiviniemi
-87/3801,David A. Leopold
-71/7603,Francesco de Pasquale
-73/5286,Martin Walter
-43/8258,Catie Chang
-60/11540,Christopher J. Honey
-29/3720,Hu Cheng
-67/10745,Maite Aznárez-Sanado
-w/YangWang,Yang Wang
-138/7913,Santiago Josa
-10/4353,Gonzalo Arrondo
-125/4087,Vincent P. Mathews
-125/4005,Tom A. Hummer
-125/3939,William G. Kronenberger
-138/7773,Andrea Avena-Koenigsberger
-32/2887,Andrew J. Saykin
-96/10744,María A. Pastor
-92/848,Karl J. Friston,http://www.fil.ion.ucl.ac.uk/~karl/,http://en.wikipedia.org/wiki/Karl_J._Friston
-138/7563,Joshua Kahan
-00/2502,Adeel Razi
-s/KlaasEStephan,Klaas E. Stephan,http://www.fil.ion.ucl.ac.uk/~kstephan/
-83/11369,Joana Cabral
-43/3735,Etienne Hugues
-35/4888,Gustavo Deco
-20/8266,George L. Chadderdon
-76/1098,Luciano da Fontoura Costa
-25/9681,Trygve B. Leergaard
-28/4561,Claus C. Hilgetag
-16/9679,Andrew T. Reid
-27/958,Antje Krumnack
-w/EgonWanke,Egon Wanke,http://www.cs.uni-duesseldorf.de/~wanke/
-06/8355,Artemy Kolchinsky
-43/8267,Martijn P. van den Heuvel
-138/7240,Alessandra Griffa
-r/LuisMateusRocha,Luis Mateus Rocha,http://informatics.indiana.edu/rocha/
-155/7369,Molly A. Erickson
-155/7543,Malene Abell
-99/7723,Larry Yaeger
-89/5030,Virgil Griffith
-122/9422,Patrick D. Skosnik
-122/9489,Ben J. Pruce
-122/9425,Margaret S. Brumbaugh
-122/9453,Jennifer M. Vollmer
-67/6968,Aina Puce
-122/9504,Sharlene D. Newman
-14/4462,Nikolaus Almássy
-95/1662,Steven Williams
-56/6523,Xin Shuai
-41/924,Sean Dougherty
-76/5904,Daniel Polani
-p/RolfPfeifer,Rolf Pfeifer,http://www.ifi.unizh.ch/ailab/people/pfeifer/index.html
-42/4337,Yasuo Kuniyoshi
-07/4034,Carsten Schürmann
-19/9808,Matthias Schöpfer
-42/4148,Michael Pardowitz
-72/3054,Guilherme De A. Barreto
-a/AFRAraujo,Aluizio F. R. Araújo,http://www.cin.ufpe.br/~aluizioa/aluizio-homepage.htm
-64/3055,C. Dücker
-24/290,Martin Meier
-99/48,Sebastian Weng
-74/5956,Robert Rae
-31/691,Claudia Nölker
-24/2339,Thomas Martinetz,http://www.inb.mu-luebeck.de/staff/martinetz.html
-31/3141,Klaus Schulten
-69/3694,Enno Littmann
-73/6027,Jörg Ontrup
-61/3377,Sören W. Scholz
-53/6035,Ralf Wagner
-16/5060,Tim W. Nattkemper,http://www.cebitec.uni-bielefeld.de/~11602
-43/81,Walter Schubert
-04/745,Matthias Kaper
-92/4908,Peter Meinicke
-99/8616,Ulf Großekathöfer
-92/690,Thomas Lingner
-54/5170,Thomas Hermann
-16/5498,Frank Röthling
-136/9600,Gereon H. Büscher
-48/731,Risto Koiva
-61/4198,Elke Braun
-14/1385,Gunther Heidemann,http://wwwvis.informatik.uni-stuttgart.de/~gh/
-17/1748,Claus Bahlmann
-o/KlausObermayer,Klaus Obermayer,http://ni.cs.tu-berlin.de/
-04/5408,Stefan Klanke
-98/4508,Roland Memisevic
-53/823,Kai Essig
-16/929,Marc Pomplun
-36/4668,Christian Piepenbrock
-72/5653,Andrea Drees
-15/3291,Axel Wismüller
-77/1057,Frank Vietze
-38/371,Johannes Behrends
-92/4806,Anke Meyer-Bäse,http://people.sc.fsu.edu/~ameyerbaese/
-61/2653,Maximilian Reiser
-88/311,Dmitry V. Lebedev
-46/1514,Stefan Jockusch
-m/RistoMiikkulainen,Risto Miikkulainen,http://www.cs.utexas.edu/~risto/
-72/7576,Andrea Finke
-93/7576,Alexander Lenhardt
-90/1361,Holger Bekel
-37/6955,Wolf-Jürgen Beyn
-02/3163,Ingo Bax
-m/DieterMetzing,Dieter Metzing,http://coli.lili.uni-bielefeld.de/personal/metzing.html
-58/579,Jan-Torsten Milde
-50/3654,Nils Jungclaus
-81/4845,Franz Kummert
-35/4038,Markus Fislage
-45/8229,Jonathan Maycock
-20/8218,Daniel Dornbusch
-72/7735,Christof Elbrechter
-74/8704,Thomas Schack
-05/3849,Axel Saalbach
-44/2560,Christian Bauckhage,http://www.iais.fraunhofer.de/bauckhage.html
-81/6660,Sven Wachsmuth
-50/3725,Marc Hanheide
-18/1185,Sebastian Wrede
-c/HCruse,Holk Cruse,http://www.uni-bielefeld.de/biologie/Kybernetik/staff/holk/index.html
-88/1843,Dominik R. Dersch
-15/3191,Klaus Hahn
-84/175,Jörg A. Walter
-03/6436,Jan Steffen
-75/3010,Oliver Lange
-25/2378,H. M. Müller
-83/2283,S. Weiss
-95/9787,Eckard Riedenklau
-54/2376,Monica K. Hurdal
-50/6960,Patrick C. McGuire
-00/3758,Jens Ormö
-99/3880,Enrique Díaz Martínez
-79/4250,José Antonio Rodríguez Manfredi
-72/4113,Javier Gómez-Elvira
-04/1057,Markus Oesker
-52/4623,Eduardo Sebastián-Martínez
-33/3597,K. Neuffer
-89/892,A. Giaquinta
-99/191,F. Camps Martinez
-74/454,A. Lepinette Malvitte
-01/5535,J. Perez Mercader
-31/6511,Jannik Fritsch
-98/4099,Gernot A. Fink,http://ls12-www.cs.tu-dortmund.de/~fink/,http://dl.acm.org/author_page.cfm?id=81100118362
-00/7481,C. Gross
-91/7480,L. Wendt
-10/7479,A. Bonnici
-05/7483,V. Souza-Egipsy
-40/7479,B. H. Foing
-09/726,R. Bose
-56/2999,S. Walter
-92/3884,Alexandra Bartolo
-98/1891,Kenneth P. Camilleri
-63/3045,Christopher L. Spiteri
-63/6966,Jonathan C. Borg
-98/2346,Philip J. Farrugia
-08/888,Lorenz Sichelschmidt
-18/5403,Karin Wagner
-92/2211,Thomas Clermont
-r/GRickheit,Gert Rickheit,http://www.sfb360.uni-bielefeld.de/rickheit/
-69/6327,Thorsten Twellmann
-68/1347,Sethu Vijayakumar
-72/872-1,Qiang Li 0001,https://sites.google.com/site/qiangliresearch/,https://ni.www.techfak.uni-bielefeld.de/people/qli
-29/6941,Bram Bolder
-60/4520,Erik Weitnauer
-55/10005,Lukas Twardon
-67/7972,Hendrik Koesling
-122/9319,Sebastian Hammerl
-91/6290,Florian Hoppe
-22/6022,Manfred Heumann
-89/7448,Alan Kenny
-86/3821,Séamus McLoone
-45/5296,Tomás Ward
-76/1660,Boris Velichkovsky
-97/2301,Andre Uckermann
-153/7859,Claudius Strub
-37/5353,Florentin Wörgötter,http://www.ifi.informatik.uni-goettingen.de/staff/florentin_woergoetter.html
-75/3481,Yulia Sandamirskaya
-62/11168,Ján Jockusch
-57/1040,Erhan Öztop
-30/10068,Samuel John
-31/1692,Dirk Lücke
-12/7010,Matthias Schröder
-b/MarioBotsch,Mario Botsch,http://graphics.ethz.ch/~mbotsch/
-09/8370,Eugen Kafer
-07/8369,Christoph Hermes
-66/6261,Christian Wöhler
-54/10487,Nils Hachmeister
-22/10487,Hannes Riechmann
-67/7407,Alexandra Barchunova
-94/2018,Mathias Franzius
-01/2735,Tanja Kämpfe
-56/3108,Thomas Käster
-51/6791,Michael Pfeiffer
-55/3118,Daniel Wessling
-41/4389,Daniel Schlüter
-44/5668,Axel Christian Varchmin
-136/9584,Benjamin Rudgalwis
-136/9677,Holger Jakusch
-75/10005,Matthias Behnisch
-l/ChristianLange2,Christian Lange 0002
-35/2755,Stella Paschalidou
-43/2654,Dirk Beckmann
-50/1203,Oliver Höner
-47/1980,Thomas Henning
-p/NadinePfeifferLessmann,Nadine Pfeiffer-Leßmann,http://www.techfak.uni-bielefeld.de/~nlessman/
-w/IpkeWachsmuth,Ipke Wachsmuth,http://www.techfak.uni-bielefeld.de/techfak/persons/ipke/,http://dl.acm.org/author_page.cfm?id=81100076036
-10/7973,Tobit Kollenberg
-65/7972,Alexander Neumann
-00/7973,Dorothe Schneider
-87/7972,Tessa-Karina Tews
-05/7554,Angelika Dierker
-80/11304,Daniel Prinzhorn
-42/6813,Katharina Tluk von Toschanowitz
-h/BarbaraHammer,Barbara Hammer,http://www2.in.tu-clausthal.de/~hammer/
-v/RolandVollmar,Roland Vollmar,http://liinwww.ira.uka.de/~vollmar/
-c/VolkerClaus,Volker Claus,http://www.informatik.uni-stuttgart.de/ifi/fk/menschen/claus/
-89/2426,A. Meyering
-p/StefanPosch,Stefan Posch,http://users.informatik.uni-halle.de/~posch/
-68/6291,Robert Kubisch
-126/0168,I. Steuwer
-77/5849,Gerda L. Leinsinger
-65/5565,Slobodan Vukanovic
-34/5021,E. Carbone
-60/3225,B. M. Velichkovskv
-43/9073,Christian Weymayr
-12/5814,Gregory D. Hager
-36/2794,Jeffrey A. Fayman
-60/6647,Paolo Pirjanian
-32/5978,Ehud Rivlin
-91/4026,Zoran Zivkovic
-32/2001,Olaf Booij
-48/5225,Ben J. A. Kröse,http://staff.science.uva.nl/~krose/,http://benkrose.wordpress.com/
-31/1733,Elin Anna Topp
-91/1511,Olle Wijk
-82/1211,Danica Kragic
-60/4015,Patric Jensfelt,http://www.csc.kth.se/~patric/
-83/5784,John Folkesson
-99/192,Simone Frintrop
-35/553,Erich Rome
-39/1444,Andrzej Pronobis
-04/7038,Barbara Caputo
-07/2806,Ville Kyrki
-18/5485,Lars Petersson
-55/6781,Mårten Björkman,http://www.csc.kth.se/~celle/
-69/1593,Jan-Olof Eklundh
-j/JanaKosecka,Jana Kosecka,http://cs.gmu.edu/~kosecka/
-b/RuzenaBajcsy,Ruzena Bajcsy,http://www.eecs.berkeley.edu/~bajcsy/
-98/4648,Niels O. Kirkeby
-72/1132,Steen Kristensen
-09/3790,Lars Knudsen
-81/2609,Erik Granum
-50/3289,James L. Crowley
-02/6564,Claus S. Andersen
-53/6293,Claus B. Madsen
-40/4841,Jan J. Sorensen
-29/6577,Judson P. Jones
-80/5732,Philipp Althaus
-72/6136,Christian Smith
-22/2757,Allison M. Okamura
-37/5216,Maja J. Mataric,http://robotics.usc.edu/~maja/
-k/KKyriakopoulos,Kostas J. Kyriakopoulos,http://users.ntua.gr/kkyria/
-a/RonaldCArkin,Ronald C. Arkin,http://www-static.cc.gatech.edu/aimosaic/faculty/arkin/
-76/4940,David W. Eggert
-b/KevinWBowyer,Kevin W. Bowyer,http://www.cse.nd.edu/~kwb/,http://scholar.google.com/citations?user=XZkvOTEAAAAJ
-d/CharlesRDyer,Charles R. Dyer,http://www.cs.wisc.edu/~dyer/
-g/DmitryBGoldgof,Dmitry B. Goldgof,http://marathon.csee.usf.edu/~goldgof/
-94/6968,Mattias Bratt
-09/1238,Wolfgang Förstner
-72/3836,Carl Lundberg
-23/6943,Roger Reinhold
-49/5439,David Wooden
-81/2633,Matthew Powers
-e/MagnusEgerstedt,Magnus Egerstedt,http://users.ece.gatech.edu/~magnus/
-b/TuckerRBalch,Tucker R. Balch,http://www-static.cc.gatech.edu/~tucker/
-121/4663,Jae-Kwan Ryu
-36/2537,Nak Young Chong
-13/624,Bum-Jae You
-21/31,Geunho Lee
-25/6942,James Everett Young
-33/2794,Ja-Young Sung
-99/3995,Amy Voida
-69/5965,Ehud Sharlin
-03/6674,Takeo Igarashi
-g/RebeccaEGrinter,Rebecca E. Grinter,http://www.cc.gatech.edu/~beki/Beki.html
+84/467,Dong Hyun Jeong
+36/2787,Francesco Falciani
+60/8299,Christopher M. Miceli
+31/10993,Kevin J. Chipman
+17/8409,Christoph Raupach
+97/840,John G. Strang
+119/6542,Raquel Cuevas-Diaz-Duran
+19/1046,Camelia-Mihaela Pintea,http://cmpintea.weebly.com/
+29/8374,Juliette Selb
+53/8451,Yu-huan Chi
+147/9375,Yuxian Yang
+44/6083,Qingxi Hu
+64/2956,Shigeru Owada
+03/4775,Wenqi Huang
+00/4330,Daniel J. Sandin
+25/4120,Yuan Yao
+45/5234,Alfio Vidotto
+119/9861,Stephen A. McAleavey
+97/8704,Lei Zhang
+40/920,Norman C. Hutchinson
+40/4731,Jianhui Zhang
+98/4249,Jason Chou-Hong Chen
+d/LindaDoyle,Linda Doyle,http://www.mee.tcd.ie/~ledoyle/
+38/3525,TieYuan Yin
+75/7710,Xiaodong Qiao
+04/2026,Lei Tian
+91/10996,Katherine Howlett
+42/5784,Kun Tan
+148/6854,Laurel L. Haak,http://orcid.org/0000-0001-5109-3700
+d/DumitruDumitrescu,Dumitru Dumitrescu
+26/1791,Xiangdong Zhang
+74/937,Slobodan Petrovic
+16/9527,Carlo Manna
+w/CarolynRWatters,Carolyn R. Watters,http://www.cs.dal.ca/~watters/
+02/10996,Joseph K. Abraham
+18/6691,Jianming Miao
+30/8409,Marcus Märtens
+91/6933,Volker Krummel
+01/3896,Fai Yeung
+140/4937,Sarah Durant
+62/3289,Claudia Rangel
+29/3081,Fan Yang
+53/1302,Harutoshi Ogai
+82/1411,Yuwei Zong
+147/1702,Jorge I. Galván-Tejada
+t/JamesJThomas,James J. Thomas
+16/6552,Gregory Boverman
+71/1207,Cleve J. Liang
+05/8306,Rodney L. Miller
+07/492,Muge Wang
+10/2701,P. Pete Chong
+00/9330,Dinghua Guan
+132/1056,Carlos Eric Galván-Tejada
+81/926,Yujin Wu
+38/3595,Amit K. Awasthi,http://orcid.org/0000-0002-5500-0361
+00/9530,Andrew Wade
+156/4710,Peimin Cong
+66/9922,David B. Payne
+60/397,Patrick Olivier
+156/0437,Neha Shukla
+96/1998,Menouer Boubekeur
+03/2363,Dongming Xu
+54/1973,Adriana Birlutiu
+147/1643,Enrique Garcia-Ceja
+62/11121,Mihai Manea
+52/4330,Joe Bater
+154/5571,Juan-Pablo Garcií-Vázquez
+74/1527,Elliot Marston
+39/2191,Vanco B. Litovski
+b/KelloggSBooth,Kellogg S. Booth,http://www.cs.ubc.ca/~ksbooth/
+140/4840,Igor Marin de Mas
+124/8742,Anya Samak,http://anyasamak.com/
+71/6543,Marco Ruffini
+90/10991,Tim D. Williams
+55/9771,Karl Baum
+84/5624,Dutch T. Meyer
+141/0649,Farhad Merchant
+12/8300,S. Kubilay Pakin
+47/4694,Corado Leita
+156/4647,Yihua Du
+n/SKNandy,S. K. Nandy,http://www.serc.iisc.ernet.in/~nandy/
+77/5514,Duanning Zhou
+52/10889,Avelino Samartín
+90/3406,Yun Yang
+20/2855,Lulin Chen
+67/1220,Goutam Paul,http://www.goutampaul.com/
+68/67,Claudius Stern
+06/2243,Quan Zhang
+22/3940,Huaiqing Wang
+131/1784,Gilberto Montes
+34/2233,Slobodan Bojanic
+95/10995,Michael J. Leaver
+152/2965,J. Ruben Delgado-Contreras
+79/5113,Gary Strangman
+10/7712,Yunliang Zhang
+37/8121,Zoltán Endre Rákossy,http://www.ice.rwth-aachen.de/institute/members/personen/zoltan-endre-rakossy/
+96/1582,Haitao Wu
+48/2373,Jonathan Cagan
+08/4186,Dan Shao
+33/3967,WenJia Feng
+46/10327,Gaurav Tiwari
+65/8300,Hei Tao Fung
+77/5016,Ron Chi-Wai Kwok
+132/1915,Binze Yang
+49/2935,Álvaro Araujo
+16/3631,Hong Jiang
+95/9772,Joshua Farber
+71/2577,David A. Boas
+44/3300,Jiamao Liu
+151/7474,"Liam O'Toole"
+74/56,Mengjun Li
+85/5419,Makrina Agelidis
+47/3209,Tomas Eric Nordlander
+49/1220,Kenneth N. Brown,http://www.cs.ucc.ie/~kb11/
+95/6333,Yukihiro Nakamura
+121/2799,Agustín Tena
+148/8115,Di H. Cross
+77/4424,Colin Swindells
+o/BarryOSullivan,"Barry O'Sullivan",http://www.cs.ucc.ie/~osullb/
+85/3647,Bernhard E. Riecke
+11/5950,Atta Badii
+73/5078,Juan-Mariano de Goyeneche
+41/4417,Maria Lioumi
+17/3574,Randall C. Smith
+26/4345,David H. Foos
+32/2104,Roger S. Gaborski
+03/4834,Sascha Losko
+14/3766,Syavash Nobarany,http://syavash.nobarany.com/Syavash_Nobarany
+148/7388,Duane E. Williams
+48/4040,Silvia Miksch
+59/4131,Liping Zhou
+63/5236,Gabriel Negara
+b/MichaelBurch,Michael Burch,http://www.visus.uni-stuttgart.de/index.php?id=940
+46/10308,Keerti Srivastava
+51/7654,Zhenyu Gu
+k/DanielAKeim,Daniel A. Keim,http://www.vis.uni-konstanz.de/mitglieder/keim/
+89/5066,Anna Liu
+49/101,Yuehu Zhou
+148/8198,Ilya V. Ponomarev
+16/3273,Hiroyuki Ochi
+154/1013,Saim Ghafoor
+50/10327,José María Quinteiro-González
+131/1752,José M. Celaya-Padilla
+17/1790,David W. Fowler
+133/8090,Robert M. Lerner
+69/1477,Remco Chang
+119/8784,Kuno Kurzhals
+26/926,L. Gao
+26/4432,Huifeng Wu
+72/7620,Mateo Burillo
+85/2025,Rodrigo Werlinger
+63/5800,Marc Christie
+s/DerekHSleeman,Derek H. Sleeman,http://www.csd.abdn.ac.uk/~sleeman/
+99/5376,Jun Pan
+77/1436,J. H. Sims Williams
+00/10753,Edip Can
+148/2988,Denisa Ardevan
+21/7407,Mohamed Wahbi
+00/3956,Nic Wilson
+68/3554,Ning Gu
+87/1010,Wei Xie
+80/6820,R. C. Mittal
+13/4262,Seung Kim
+21/4210,Juan Domingo
+45/5119,Paul D. Sutton
+31/8848,Jose Moya Fernandez
+28/2459,Roberto Therón,https://usal.academia.edu/RobertoTheron/
+77/8977,Richard Arias-Hernández
+62/6349,Tarik Hadzic
+66/2021,Zorana Bankovic
+83/3200,Jordi Villà-Freixa
+92/476,Sunder Lal
+83/6233,Pedro Malagón
+51/6031,Daria Terekhov
+38/364,Shaohua Zhang
+48/4559,Jake Wires
+60/5376,Yahong Li
+65/2401,David S. Ebert,http://cobweb.ecn.purdue.edu/~ebertd/
+81/10828,Chengjin An
+66/1002-1,Christoph Scholz 0001,http://www.kde.cs.uni-kassel.de/scholz
+39/8891,Mario Moises Alvarez
+50/6450,Kristofer S. J. Pister
+41/3,Kevin J. Webb
+98/5150,Dongshan Fu
+119/6546,Roberto-Rafael Ramos-Rodriguez
+83/1617,Christine Wei Wu
+70/5879,Andrew Warfield
+30/6659,Carlos E. Pedreira
+39/1526,Marcel R. Ackermann,http://www.dagstuhl.de/en/about-dagstuhl/organization/marcel-r-ackermann/
+04/1919,Daniel Villanueva
+85/2779,Seungseok Oh
+83/5763,Mario Alvarez
+24/3497,Chris A. McMahon
+97/3465,Camelia Chira
+58/6576,Xiaofei Wang
+82/4467,Seth Hollar
+131/1779,José C. Carrasco-Jiménez
+59/10993,Stuart Egginton
+61/3149,Dana H. Brooks
+27/2745,Rick P. Millane
+133/8560,Juan Rodriguez-Rojas
+33/10570,Ayesha Khalid
+33/7676,HanFen Zang
+130/1381,Khawar Shahzad
+67/624,John Kangchun Perng
+71/4893,Saara Totterman
+131/1771,Sigfrido Iglesias
+52/5085,Zhi-Ping Fan
+59/2248,Qianqian Fang
+67/1742,Victor Trevino
+54/1851,Mark R. Viant
+01/5330,Tanja Stankovic
+36/5543,Steve DiPaola
+43/7049,David Fraga
+47/6517,Konstantin Beznosov
+02/5166,Armagan Tarim
+29/10992,John B. Taggart
+29/1150,Jelena Popovic
+74/10998,"Laura O'Neill"
+29/6668,Robert R. Buckley
+k/PaulBKantor,Paul B. Kantor,http://www.scils.rutgers.edu/~kantor/
+75/1739,Karsten Menzel
+48/2429,Elena Romero
+19/6137,Tera Marie Green
+64/3611,Adam Milstein
+13/10671,Alexandre Mouradian
+148/7960,Brian K. Lawton
+139/2228,Matthew A. Probus
+81/3402,Corina Pop Sitar
+12/3184,Dieter Maier
+55/9191,Linda T. Kaastra
+27/10920,Mona Haraty
+84/5925,Nuo Li
+90/4799,Daniel B. Kopans
+117/0866,Thomas A. Zeffiro
+73/2458,Zhensheng Zhang
+75/1051,Min Chu
+87/3365,Vladimir Misic
+63/3872,Katrin Sameith
+13/10537,Sorin V. Sabau
+37/9987,Josep Roca
+20/3849,David Kammler
+85/184,Philipp Antczak
+02/5336,Gerd Ascheid,http://www.ice.rwth-aachen.de/institute/members/personen/gerd-ascheid/
+61/10997,Anna Stincone
+25/5488,Miguel Hernandez
+20/9775,Eduard Schreyer
+29/8664,Gregory Provan
+25/5545,Jiebo Luo
+38/4496,Lee Iverson
+14/5727,Fernando López
+06/6238,José G. Tamez-Peña,http://homepages.mty.itesm.mx/jose.tamezpena/
+132/1740,Kengo Ichiki
+14/4834,Jing Huang
+61/10990,Kim Clarke
+39/1926,Yucai Wang
+55/1550,William M. Pottenger
+n/PetraNeumann,Petra Isenberg,http://petra.isenberg.cc/wiki/pmwiki.php
+63/6588,Elizabeth Sotheran
+35/7092-33,Wei Wang 0033
+74/2406,Jingjing Zhao
+66/8451,Ze-ya Ding
+95/6103,Matthew J. Beal
+87/1222,Xi Zhang
+29/4374,Nil Turan
+95/4130,Ima Hajshirmohammadi
+132/0082,Sonam Devgan Kaul
+148/7836,Yvette Seger
+156/4624,Zhejie Chi
+00/505,Karan Singh
+65/1677,Larry Molinelli
+62/782,Philipp Adelt
+d/StephanDiehl,Stephan Diehl,http://www.st.uni-trier.de/~diehl/

@@ -2,12 +2,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class CSVWriter {
 
-    public static void convertToCSV(List<List<String>> dataLines, String CSVFileName) throws IOException {
+    public static void convertToCSV(Set<List<String>> dataLines, String CSVFileName) throws IOException {
         File csvOutputFile = new File(CSVFileName);
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             dataLines.stream()
