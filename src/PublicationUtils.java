@@ -24,15 +24,18 @@ public abstract class PublicationUtils {
     }
 
     // TODO meaning?
-    public static String getTypeOfISBN(Publication publication) {
-        Field DOI = publication.getFields("ee").stream().findFirst().orElse(null); // DOI not always present... we should distinguish each type of pubs (some has ISBN)
+    public static String getISBN(Publication publication) {
         Field ISBN = publication.getFields("isbn").stream().findFirst().orElse(null);
-        if ( //publication.getIdTypes().contains(PublicationIDType.DOI) &&
-                DOI != null)
-            return DOI.value();
         if (//publication.getIdTypes().contains(PublicationIDType.ISBN) &&
             ISBN != null)
             return ISBN.value();
+        return "";
+    }
+    public static String getDOI(Publication publication) {
+        Field DOI = publication.getFields("ee").stream().findFirst().orElse(null); // DOI not always present... we should distinguish each type of pubs (some has ISBN)
+        if ( //publication.getIdTypes().contains(PublicationIDType.DOI) &&
+                DOI != null)
+            return DOI.value();
         return "";
     }
 

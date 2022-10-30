@@ -304,19 +304,13 @@ public class CSVGenerator {
         entry_publication.add(publication.getKey());
         entry_publication.add(publication.getTag());
         entry_publication.add(PublicationUtils.getTitle(publication));
-        if(publication.getBooktitle() != null)
-            entry_publication.add(publication.getBooktitle().getTitle());
-        else
-            entry_publication.add("");
+        entry_publication.add(PublicationUtils.getDOI(publication));
         entry_publication.add(String.valueOf(publication.getYear()));
         entry_publication.add(PublicationUtils.getVolume(publication));
         entry_publication.add(PublicationUtils.getPages(publication));
         entry_publication.add(PublicationUtils.getPublisher(publication));
         entry_publication.add(PublicationUtils.getURL(publication));
-        if(publication.getJournal() != null)
-            entry_publication.add(publication.getJournal().getTitle());
-        else
-            entry_publication.add("");
+        entry_publication.add(PublicationUtils.getISBN(publication));
         entry_publication.add(PublicationUtils.getSchool(publication));
 
 
