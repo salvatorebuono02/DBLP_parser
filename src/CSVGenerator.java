@@ -33,55 +33,42 @@ import java.io.IOException;
 import java.util.*;
 
 import org.dblp.mmdb.*;
+import org.dblp.mmdb.Publication;
 import org.xml.sax.SAXException;
 
 
 public class CSVGenerator {
 
+    private static RecordDbInterface dblp = null;
 
-    // List of associations
-    final static List<String> association_list = new ArrayList<>(Arrays.asList("MIT", "Politecnico di Milano", "CERN", "Max " +
-                    "Planck Institute", "Harvard University", "Stanford University", "University of Cambridge",
-            "Brookhaven National Laboratory", "Bell Laboratories", "SLAC", "Politecnico di Bari", "Universita La " +
-                    "Sapienza", "CNR", "Fermilab", "University of Oxford", "University of California"));
-
-
-
-    private static final int MAX_NUM_CITATIONS_PER_PUB = 5;
     private static final String RESULTS_DIRECTORY_PATH = "results/";
+    private static final int MAX_NUM_CITATIONS_PER_PUB = 10;
     private static final int INIT_NUM_PERSONS = 10;
     private static final int MAX_NUM_AUTHORS = 500;
 
+    // Unique entries to be inserted in the db
+    private static final Set<List<String>> author_entries = new HashSet<>();
+    private static final Set<List<String>> association_entries = AssociationUtils.generateCSVEntriesViaJSON();
+    private static final Set<List<String>> author_pub_entries = new HashSet<>(); // relation author->PRODUCE->publication
+    private static final Set<List<String>> publication_entries = new HashSet<>();
+    private static final Set<List<String>> context_entries = new HashSet<>();
+    private static final Set<List<String>> citation_entries = new HashSet<>();
+    private static final Set<List<String>> context_pubs_entries = new HashSet<>();
+    private static final Set<List<String>> author_association_entries = new HashSet<>(); // relation author->PRODUCE->publication
+
     public static void main(String[] args) {
 
-        List<String> exploredContextNames = new ArrayList<>();
         RecordDbInterface dblp = loadXML(args);
 
-        // Unique entries to be inserted in the db
-        Set<List<String>> author_entries = new HashSet<>();
-        Set<List<String>> association_entries = new HashSet<>();
-        Set<List<String>> author_pub_entries = new HashSet<>(); // relation author->PRODUCE->publication
-        Set<List<String>> publication_entries = new HashSet<>();
-        Set<List<String>> context_entries = new HashSet<>();
-        Set<List<String>> citation_entries = new HashSet<>();
-        Set<List<String>> context_pubs_entries = new HashSet<>();
-        Set<List<String>> author_association_entries = new HashSet<>(); // relation author->PRODUCE->publication
-
-
         // set of authors that we will consider
-        List<Person> authors = new ArrayList<>();
+        List<Author> authors = new ArrayList<>();
         //List<Person> authors = new ArrayList<>();
 
         // set of publications we need to insert into the database given authors
-        Set<Publication> util_pubs = new HashSet<>();
+        Set<MyPublication> util_pubs = new HashSet<>();
         // set of contexts we need to insert into the database given authors
         Set<Context> util_contexts = new HashSet<>();
-
-        int j = 1;
-        for(String a : association_list){
-            association_entries.add(generateCSVEntry(a, j));
-            j++;
-        }
+        Set<String> exploredContextNames = new HashSet<>();
 
         // if we don't add orcid, useless
         int i = 0;
@@ -92,71 +79,64 @@ public class CSVGenerator {
 
         for (Person person : authors_with_orcid) {
             if (i == INIT_NUM_PERSONS) break;
-            authors.add(person);
+            Author author = new Author(person);
+            authors.add(author);
             i++;
         }
 
         boolean stopAddingAuthors = false;
-        //Map<String, Boolean> visited = new HashMap<>();
         for (int count = 0; count < authors.size(); count++){
 
-            Person person = authors.get(count);
-            // System.out.println("popping " + person.getPrimaryName().name() + ", " + person.getPid());
-            //Person person = authors.get(i);
-            //visited.put(person.getPid(), true);
+            Author author = authors.get(count);
 
-            // authors.csv
-            if (!person.getPublications().isEmpty()) {
+            // author.csv
+            if (!author.getPublications().isEmpty()) {
 
-                author_entries.add(generateCSVEntry(person));
+                author_entries.add(author.generateCSVEntry());
 
-                //author_association_rel.csv
-                String universityId=getRandomAssociation(association_entries);
-                author_association_entries.add(Arrays.asList(person.getPid(),universityId));
+                //author_association_relation.csv
+                author_association_entries.add(Arrays.asList(author.getPid(), AssociationUtils.getRandomAssociation().getId()));
 
-                // author_pubs_relation.csv
-                for(Publication publication : person.getPublications()) {
-
+                for(Publication pub :  author.getPublications()) {
+                    MyPublication publication = new MyPublication(pub);
                     // visiting coauthors
                     if (!stopAddingAuthors) {
-                        // removing person from coauthors list
-                        List<String> coauthors = publication.getNames().stream().map(PersonName::name).filter(n -> !n.equals(person.getPrimaryName().name())).toList();
-                        for (String coauthor : coauthors) {
-                            Person coauthor_person = dblp.getPersonByName(coauthor);
+                        for (String coauthor_name : author.getCoauthorNamesIn(publication)) {
+                            Author coauthor = new Author(dblp.getPersonByName(coauthor_name));
 
                             if (authors.size() > MAX_NUM_AUTHORS) stopAddingAuthors = true;
 
-                            if (!authors.contains(coauthor_person)) authors.add(coauthor_person);
+                            if (!authors.contains(coauthor)) authors.add(coauthor);
                         }
-
                     }
 
-                    //TODO remove the proceedings (or adding in another relation for person - EDITOR_OF -> proceedings
-
-                    if(Objects.equals(publication.getTag(), "proceedings")){
+                    // filtering publications by type (context or publication)
+                    // TODO: we are losing relation author -> context
+                    if(Objects.equals(publication.getTag(), "proceedings")) {
                         String contextTitle = PublicationUtils.getTitle(publication);
                         if (!exploredContextNames.contains(contextTitle)) {
-                            Context newContext = new Context(publication);
-                            util_contexts.add(newContext);
+                            util_contexts.add(new Conference(publication));
                             exploredContextNames.add(contextTitle);
                         }
                     }
                     else if (Objects.equals(publication.getTag(), "article")) {
-                        String journalName = publication.getJournal().getTitle();
-                        if (!exploredContextNames.contains(journalName)) {
-                            Context newContext = new Context(journalName, publication.getKey());
-                            util_contexts.add(newContext);
-                            util_pubs.add(publication);
-                            exploredContextNames.add(journalName);
-                        }
-                        else {
-                            Objects.requireNonNull(findContextByName(journalName, util_contexts)).insertNewArticle(publication.getKey());
+                        if (publication.getJournal() != null) {
+                            String journalName = publication.getJournal().getTitle();
+                            if (!exploredContextNames.contains(journalName)) {
+                                util_contexts.add(new Journal(publication));
+                                util_pubs.add(publication);
+                                exploredContextNames.add(journalName);
+                            } else {
+                                getContextByName(journalName, util_contexts).ifPresent(c -> c.insertNewArticle(publication.getKey()));
+                            }
                         }
                     }
                     else {
                         util_pubs.add(publication);
+
+                        // author_pubs_relation.csv
                         // Adding the following pair: < key of the author, key of the publication written by that author >
-                        author_pub_entries.add(Arrays.asList(person.getPid(), publication.getKey()));
+                        author_pub_entries.add(Arrays.asList(author.getPid(), publication.getKey()));
                     }
                 }
             }
@@ -165,28 +145,26 @@ public class CSVGenerator {
 
         // construct all types of publication csv starting from the util publication list
         // publications.csv
-        for (Publication publication : util_pubs) {
-            /*  TODO handle editor
-            entry_publication.add(publication.getKey());
-            entry_publication.add(PublicationUtils.getTypeOfISBN(publication));
-            entry_publication.add(PublicationUtils.getTitle(publication));
-            entry_publication.add(String.valueOf(publication.getYear()));
-            entry_publication.add(PublicationUtils.getPages(publication));
-            entry_publication.add(publication.getTag());
-            entry_publication.add(PublicationUtils.getCrossRef(publication));
-            entry_publication.add(publication.getMdate());
-             */
-            publication_entries.add(generateCSVEntry(publication));
+        for (MyPublication publication : util_pubs) {
+
+            if (publication.getTag().equals("book")) {
+                System.out.println("book");
+                if (!publication.getCrossRef().equals(""))
+                    System.out.println("book senza padre");
+            }
+
+            publication_entries.add(publication.generateCSVEntry());
 
             // pub_pubs_relation.csv (citations of a publication)
-            List<String> citations = PublicationUtils.getCitations(publication);
+            List<String> citations = publication.getCitations();
             if (!citations.isEmpty()) {
-                if (citations.size() > MAX_NUM_CITATIONS_PER_PUB) citations = citations.subList(0, MAX_NUM_CITATIONS_PER_PUB);
-                citations.forEach(c -> {
+                //if (citations.size() > MAX_NUM_CITATIONS_PER_PUB) citations = citations.subList(0, MAX_NUM_CITATIONS_PER_PUB);
+                citations.forEach(cit -> {
                     // Adding the following pair: < key of the publication, key of another publication cited in that publication >
-                    citation_entries.add(Arrays.asList(publication.getKey(), c));
+                    citation_entries.add(Arrays.asList(publication.getKey(), cit));
 
-                    publication_entries.add(generateCSVEntry(dblp.getPublication(c))); // add the citation as a publication in our db
+                    // Adding the citation as a publication in our db
+                    addNewPublicationAndItsAuthorsEntries(dblp.getPublication(cit));
                 });
             }
         }
@@ -195,34 +173,25 @@ public class CSVGenerator {
 
 
         // contexts.csv
-        for (Context c : util_contexts){
-            context_entries.add(generateCSVEntry(c));
+        for (Context context : util_contexts){
+            context_entries.add(context.generateCSVEntry());
 
             //context_pub_relation.csv
-            List<String> pubs_in_proceedings = c.getRelatedPublications();
+            List<String> pubs_in_proceedings = context.getRelatedPublications();
             if(!pubs_in_proceedings.isEmpty()){
-                pubs_in_proceedings.forEach(p -> {
-                    // Adding the following pair: < key of the c, key of the publication presented in that c >
-                    context_pubs_entries.add(Arrays.asList(c.getId(), p));
-                    publication_entries.add(generateCSVEntry(dblp.getPublication(p))); // add the p as a publication in our db
+                pubs_in_proceedings.forEach(pub -> {
+                    // Adding the following pair: < key of the context, key of the publication presented in that context >
+                    context_pubs_entries.add(context.generateCSVEntry(pub));
+
+                    // Adding the publication presented in that context as a publication in our db
+                    addNewPublicationAndItsAuthorsEntries(dblp.getPublication(pub));
                 });
             }
         }
 
-       /*
-        CHECKS
-        for (List<String> entry : publication_entries) {
-            for (List<String> entry2 : publication_entries) {
-                if (entry.get(0).equals(entry2.get(0)) && !entry.equals(entry2))
-                    System.out.println(entry + " - " + entry2);
-            }
-        }
-
-        System.out.println("author_pub_entries has duplicate: " + hasDuplicate(author_pub_entries));
-        System.out.println("publication_entries has duplicate: " + hasDuplicate(publication_entries));
-        System.out.println("context_pubs_entries has duplicate: " + hasDuplicate(context_pubs_entries));
-
-        */
+        System.out.println("pub entry size: " + publication_entries.size());
+        System.out.println("num of pubs with citations: " + (int) util_pubs.stream().filter(p -> !p.getCitations().isEmpty()).count());
+        System.out.println("author_pubs_rel size: " + author_pub_entries.size());
 
 
         try {
@@ -240,18 +209,6 @@ public class CSVGenerator {
         }
     }
 
-    private static String getRandomAssociation(Set<List<String>> association_entries) {
-        Random random=new Random();
-        int item=random.nextInt(association_entries.size());
-        int k=0;
-        for (List<String> association:association_entries){
-            if(k==item)
-                return association.get(0);
-            k++;
-        }
-        return null;
-    }
-
     private static RecordDbInterface loadXML(String[] args) {
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
         System.setProperty("entityExpansionLimit", "1000");
@@ -264,7 +221,6 @@ public class CSVGenerator {
         String dblpDtdFilename = args[1];
 
         System.out.println("building the dblp main memory DB ...");
-        RecordDbInterface dblp;
         try {
             dblp = new RecordDb(dblpXmlFilename, dblpDtdFilename, false);
         }
@@ -281,82 +237,23 @@ public class CSVGenerator {
         return dblp;
     }
 
-    private static List<String> generateCSVEntry(Person author) {
-        List<String> entry_author = new ArrayList<>();
-        entry_author.add(author.getPid());
-        entry_author.add(author.getPrimaryName().name());
-        //TODO add orcid??
-        /*
-        List<String> urls = author.getFields("url").stream().map(Field::value).toList();
-        if (!urls.isEmpty()) {
-            entry_author.add(urls.get(0));
-            // TODO if we want to insert a random one, simply put instead of ""
-            urls.stream().filter(u -> PersonIDType.of(u) != null && PersonIDType.of(u).equals(PersonIDType.ORCID)).findFirst().ifPresentOrElse(orcid -> entry_author.add(PersonIDType.ORCID.normalize(orcid)), () -> entry_author.add(""));
-        }
-         */
-        author.getFields("url").stream().findFirst().ifPresent(u -> entry_author.add(u.value()));
-
-        return entry_author;
+    private static Optional<Context> getContextByName(String journalName, Set<Context> contexts) {
+        return contexts.stream().filter(c -> c.getTitle().equals(journalName)).findFirst();
     }
 
-    private static List<String> generateCSVEntry(Publication publication) {
-        List<String> entry_publication = new ArrayList<>();
-        entry_publication.add(publication.getKey());
-        entry_publication.add(publication.getTag());
-        entry_publication.add(PublicationUtils.getTitle(publication));
-        entry_publication.add(PublicationUtils.getDOI(publication));
-        entry_publication.add(String.valueOf(publication.getYear()));
-        entry_publication.add(PublicationUtils.getVolume(publication));
-        entry_publication.add(PublicationUtils.getPages(publication));
-        entry_publication.add(PublicationUtils.getPublisher(publication));
-        entry_publication.add(PublicationUtils.getURL(publication));
-        entry_publication.add(PublicationUtils.getISBN(publication));
-        entry_publication.add(PublicationUtils.getSchool(publication));
+    private static void addNewPublicationAndItsAuthorsEntries(Publication publicationToAdd) {
+        MyPublication publication = new MyPublication(publicationToAdd);
 
+        // add publicationToAdd's info
+        publication_entries.add(publication.generateCSVEntry());
 
-        // TODO how to manage those differences? all in one csv?
-        // TODO Editor field??
-
-
-
-        return entry_publication;
+        // add all the authors publicationToAdd (both in authors.csv and author_pubs_relation.csv)
+        publication.getNames().forEach(authorName -> {
+            Author author = new Author(authorName.getPerson());
+            author_entries.add(author.generateCSVEntry());
+            author_pub_entries.add(Arrays.asList(author.getPid(), publication.getKey()));
+        });
     }
-    private static List<String> generateCSVEntry(String association, int idx) {
-        List<String> entry_association = new ArrayList<>();
-        entry_association.add("association/" + idx);
-        entry_association.add(association);
-        return entry_association;
-    }
-
-    private static List<String> generateCSVEntry(Context context) {
-        List<String> entry_context = new ArrayList<>();
-        entry_context.add(context.getId());
-        entry_context.add(context.getName());
-        if (context.getType().equals("conf")) {
-            entry_context.add(String.valueOf(context.getPublication().getYear()));
-            entry_context.add(PublicationUtils.getPublisher(context.getPublication()));
-            entry_context.add(PublicationUtils.getURL(context.getPublication()));
-            //entry_context.add(context.getPublication().getTag());
-        }
-        return entry_context;
-    }
-
-    public static Context findContextByName(String name, Set<Context> contexts) {
-        for(Context c : contexts)
-            if (c.getName().equals(name))
-                return c;
-        return null;
-    }
-
-    /* CHECK
-    public static <T> boolean hasDuplicate(Iterable<T> all) {
-        Set<T> set = new HashSet<T>();
-        // Set#add returns false if the set does not change, which
-        // indicates that a duplicate element has been added.
-        for (T each: all) if (!set.add(each)) return true;
-        return false;
-    }
-     */
 
 }
 
