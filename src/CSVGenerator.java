@@ -46,7 +46,7 @@ public class CSVGenerator {
     private static final int MAX_NUM_CITATIONS_PER_PUB = 10;
     private static final int MAX_NUM_PUBS_PER_CONTEXT = 10;
     private static final int INIT_NUM_AUTHORS = 10;
-    private static final int MAX_NUM_VISITING_AUTHORS = 300;
+    private static final int MAX_NUM_VISITING_AUTHORS = 200;
 
     // Unique entries to be inserted in the db
     private static final Set<List<String>> author_entries = new HashSet<>();
