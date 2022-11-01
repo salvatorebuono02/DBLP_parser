@@ -1,4 +1,4 @@
-package org.dblp.mmdb;
+import org.dblp.mmdb.*;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -32,28 +32,6 @@ public class Author extends Person {
         this.getFields("url").stream().findFirst().ifPresent(u -> entry_author.add(u.value()));
 
         return entry_author;
-    }
-
-
-
-    /**
-     * Return the internal count of the number of missing publications to be linked to this person
-     * record. This value is only used during the construction of the MMDB graph.
-     *
-     * @return The count.
-     */
-    @Override
-    public int count() {
-        return author.count();
-    }
-
-    /**
-     * Increment the internal count of the number of missing publications to be linked to this
-     * person record. This method is only used during the construction of the MMDB graph.
-     */
-    @Override
-    public void incr() {
-        author.incr();
     }
 
     /**
@@ -124,16 +102,6 @@ public class Author extends Person {
     @Override
     public String getAggregatedMdate() {
         return author.getAggregatedMdate();
-    }
-
-    /**
-     * Links a publication to this person.
-     *
-     * @param publ The publication to add.
-     */
-    @Override
-    public void addPublication(Publication publ) {
-        author.addPublication(publ);
     }
 
     /**
@@ -378,16 +346,6 @@ public class Author extends Person {
     }
 
     /**
-     * Retrieve the internal array of the person names in this record.
-     *
-     * @return The person names.
-     */
-    @Override
-    public PersonName[] getNamesArray() {
-        return author.getNamesArray();
-    }
-
-    /**
      * Retrieves an unmodifiable List view of the person names in this record.
      *
      * @return The person names as unmodifiable List.
@@ -408,27 +366,6 @@ public class Author extends Person {
     }
 
     /**
-     * Retrieve the internal byte array of the XML of this record.
-     *
-     * @return The XML byte array.
-     */
-    @Override
-    public byte[] getXmlBytes() {
-        return author.getXmlBytes();
-    }
-
-    /**
-     * Retrieves the tag name starting at the given position in the XML byte array.
-     *
-     * @param pos The starting position of the first character of the tag name.
-     * @return The tag name.
-     */
-    @Override
-    public String getTag(int pos) {
-        return author.getTag(pos);
-    }
-
-    /**
      * Get the tag name of this record's root element.
      *
      * @return The tag name.
@@ -436,18 +373,6 @@ public class Author extends Person {
     @Override
     public String getTag() {
         return author.getTag();
-    }
-
-    /**
-     * Skips over the tag name at the given position in the XML byte array to find the beginning of
-     * the following attributes or the closing <code>'&gt;'</code>.
-     *
-     * @param pos The starting position.
-     * @return The position of the following attributes or the closing <code>'&gt;'</code>.
-     */
-    @Override
-    public int skipTag(int pos) {
-        return author.skipTag(pos);
     }
 
     /**
@@ -471,21 +396,6 @@ public class Author extends Person {
     }
 
     /**
-     * Get a new (name,value) map for the XML attributes in the byte array starting at a given
-     * position.
-     * <p>
-     * The parsing ends as soon as the first non-attribute character is encountered (e.g., a closing
-     * <code>'&gt;'</code>)
-     *
-     * @param pos The position of the first attribute in the XML byte array.
-     * @return The (name,value) map.
-     */
-    @Override
-    public Map<String, String> collectAttributes(int pos) {
-        return author.collectAttributes(pos);
-    }
-
-    /**
      * Checks whether this record's root element has any attributes beside the mandatory 'key' and
      * 'mdate' attributes.
      *
@@ -495,31 +405,6 @@ public class Author extends Person {
     @Override
     public boolean hasAdditionalAttribute() {
         return author.hasAdditionalAttribute();
-    }
-
-    /**
-     * Get a (name,value) map of the additional attributes in this record's root element beside the
-     * mandatory 'key' and 'mdate' attributes.
-     * <p>
-     * The parsing ends as soon as the first non-attribute character is encountered (e.g., a closing
-     * <code>'&gt;'</code>)
-     *
-     * @return The (name,value) map.
-     */
-    @Override
-    public Map<String, String> getAdditionalAttributes() {
-        return author.getAdditionalAttributes();
-    }
-
-    /**
-     * Returns a sequential Stream of the (name,value) map entries of the additional attributes in
-     * this record's root element beside the mandatory 'key' and 'mdate' attributes.
-     *
-     * @return The stream of map entries.
-     */
-    @Override
-    public Stream<Map.Entry<String, String>> additionalAttributes() {
-        return author.additionalAttributes();
     }
 
     /**
@@ -543,46 +428,6 @@ public class Author extends Person {
     @Override
     public Stream<Map.Entry<String, String>> attributes() {
         return author.attributes();
-    }
-
-    /**
-     * Returns a standardized XML fragment for the mandatory 'key' and 'mdate' attributes for this
-     * record; including the leading space, but without the closing '&gt;'.
-     *
-     * @return The XML fragment.
-     */
-    @Override
-    public String recordAttributes() {
-        return author.recordAttributes();
-    }
-
-    /**
-     * Injects the given <code>tag</code> at the given position in the StringBuilder object,
-     * overwriting the single placeholder digit at <code>pos+1</code>. Also injects the closing tag.
-     * Between opening and closing tag, <code>value</code> is inserted with {@code '&','<','>'}
-     * characters escaped.
-     *  @param sb The StringBuilder.
-     * @param pos The position of the opening {@code <} of the compressed placeholder tag.
-     * @param tag The actual tag name to inject.
-     * @param value The text content.
-     */
-    @Override
-    public void fillPlaceholderTag(StringBuilder sb, int pos, String tag, String value) {
-        author.fillPlaceholderTag(sb, pos, tag, value);
-    }
-
-    /**
-     * Build and return the complete dblp XML element of this record as a String from the compressed
-     * byte array stored in this record.
-     * <p>
-     * Non-ASCII characters in the text content of the returned XML are not escaped (i.e., it's
-     * encoded as Java UTF-16).
-     *
-     * @return The complete dblp record as a String.
-     */
-    @Override
-    public StringBuilder xmlBuild() {
-        return author.xmlBuild();
     }
 
     /**

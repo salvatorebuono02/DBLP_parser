@@ -1,3 +1,5 @@
+import org.dblp.mmdb.Publication;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -6,11 +8,11 @@ public class Journal implements Context {
     //private final String type = "journal";
     private final String id;
     private final String title;
-    private final MyPublication publication;
+    private final Publication publication;
 
     private final List<String> relatedPublications = new ArrayList<>();
 
-    public Journal(MyPublication publication) {
+    public Journal(Publication publication) {
         this.publication = publication;
         this.id = generateContextKey();
         this.title = publication.getJournal().getTitle();

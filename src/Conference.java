@@ -1,3 +1,5 @@
+import org.dblp.mmdb.Publication;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +40,7 @@ public class Conference implements Context {
         entry_context.add(this.title);
         entry_context.add(this.getConfName());
         entry_context.add(String.valueOf(this.publication.getYear()));
+        entry_context.add(this.publication.getVolume());
         entry_context.add(this.publication.getPublisher());
         entry_context.add(this.publication.getURL());
         //entry_context.add(context.getPublication().getTag());

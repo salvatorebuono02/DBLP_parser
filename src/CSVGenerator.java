@@ -31,6 +31,7 @@
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.dblp.mmdb.*;
 import org.dblp.mmdb.Publication;
@@ -43,8 +44,9 @@ public class CSVGenerator {
 
     private static final String RESULTS_DIRECTORY_PATH = "results/";
     private static final int MAX_NUM_CITATIONS_PER_PUB = 10;
-    private static final int INIT_NUM_PERSONS = 10;
-    private static final int MAX_NUM_AUTHORS = 500;
+    private static final int MAX_NUM_PUBS_PER_CONTEXT = 10;
+    private static final int INIT_NUM_AUTHORS = 10;
+    private static final int MAX_NUM_VISITING_AUTHORS = 300;
 
     // Unique entries to be inserted in the db
     private static final Set<List<String>> author_entries = new HashSet<>();
@@ -56,19 +58,19 @@ public class CSVGenerator {
     private static final Set<List<String>> context_pubs_entries = new HashSet<>();
     private static final Set<List<String>> author_association_entries = new HashSet<>(); // relation author->PRODUCE->publication
 
+    // set of authors that we will consider
+    private static final List<Author> authors = new ArrayList<>();
+    //List<Person> authors = new ArrayList<>();
+
+    // set of publications we need to insert into the database given authors
+    private static final Set<MyPublication> util_pubs = new HashSet<>();
+    // set of contexts we need to insert into the database given authors
+    private static final Set<Context> util_contexts = new HashSet<>();
+    private static final Set<String> exploredContextNames = new HashSet<>();
+
     public static void main(String[] args) {
 
-        RecordDbInterface dblp = loadXML(args);
-
-        // set of authors that we will consider
-        List<Author> authors = new ArrayList<>();
-        //List<Person> authors = new ArrayList<>();
-
-        // set of publications we need to insert into the database given authors
-        Set<MyPublication> util_pubs = new HashSet<>();
-        // set of contexts we need to insert into the database given authors
-        Set<Context> util_contexts = new HashSet<>();
-        Set<String> exploredContextNames = new HashSet<>();
+        dblp = loadXML(args);
 
         // if we don't add orcid, useless
         int i = 0;
@@ -78,7 +80,7 @@ public class CSVGenerator {
         }).toList();
 
         for (Person person : authors_with_orcid) {
-            if (i == INIT_NUM_PERSONS) break;
+            if (i == INIT_NUM_AUTHORS) break;
             Author author = new Author(person);
             authors.add(author);
             i++;
@@ -104,40 +106,14 @@ public class CSVGenerator {
                         for (String coauthor_name : author.getCoauthorNamesIn(publication)) {
                             Author coauthor = new Author(dblp.getPersonByName(coauthor_name));
 
-                            if (authors.size() > MAX_NUM_AUTHORS) stopAddingAuthors = true;
+                            if (authors.size() > MAX_NUM_VISITING_AUTHORS) stopAddingAuthors = true;
 
                             if (!authors.contains(coauthor)) authors.add(coauthor);
                         }
                     }
 
                     // filtering publications by type (context or publication)
-                    // TODO: we are losing relation author -> context
-                    if(Objects.equals(publication.getTag(), "proceedings")) {
-                        String contextTitle = PublicationUtils.getTitle(publication);
-                        if (!exploredContextNames.contains(contextTitle)) {
-                            util_contexts.add(new Conference(publication));
-                            exploredContextNames.add(contextTitle);
-                        }
-                    }
-                    else if (Objects.equals(publication.getTag(), "article")) {
-                        if (publication.getJournal() != null) {
-                            String journalName = publication.getJournal().getTitle();
-                            if (!exploredContextNames.contains(journalName)) {
-                                util_contexts.add(new Journal(publication));
-                                util_pubs.add(publication);
-                                exploredContextNames.add(journalName);
-                            } else {
-                                getContextByName(journalName, util_contexts).ifPresent(c -> c.insertNewArticle(publication.getKey()));
-                            }
-                        }
-                    }
-                    else {
-                        util_pubs.add(publication);
-
-                        // author_pubs_relation.csv
-                        // Adding the following pair: < key of the author, key of the publication written by that author >
-                        author_pub_entries.add(Arrays.asList(author.getPid(), publication.getKey()));
-                    }
+                    distributePublication(publication, true);
                 }
             }
         }
@@ -148,12 +124,15 @@ public class CSVGenerator {
         for (MyPublication publication : util_pubs) {
 
             if (publication.getTag().equals("book")) {
-                System.out.println("book");
+                System.out.println("BOOK: " + publication.getFields().stream().map(field -> field.tag() + ": " + field.value() + " - ").collect(Collectors.joining(",")) + "\n");
                 if (!publication.getCrossRef().equals(""))
                     System.out.println("book senza padre");
             }
 
-            publication_entries.add(publication.generateCSVEntry());
+            if (publication.getFields().stream().anyMatch(Field::hasAttributes))
+                System.out.println("HAS ATTR: " + publication.getFields().stream().map(field -> field.tag() + ": " + field.value() + " - ").collect(Collectors.joining(",")) + "\n");
+
+            addPublicationAndItsRelationEntries(publication, true);
 
             // pub_pubs_relation.csv (citations of a publication)
             List<String> citations = publication.getCitations();
@@ -163,8 +142,8 @@ public class CSVGenerator {
                     // Adding the following pair: < key of the publication, key of another publication cited in that publication >
                     citation_entries.add(Arrays.asList(publication.getKey(), cit));
 
-                    // Adding the citation as a publication in our db
-                    addNewPublicationAndItsAuthorsEntries(dblp.getPublication(cit));
+                    // Adding the citation as a publication in the db with related relations
+                    addPublicationAndItsRelationEntries(dblp.getPublication(cit), true);
                 });
             }
         }
@@ -177,14 +156,14 @@ public class CSVGenerator {
             context_entries.add(context.generateCSVEntry());
 
             //context_pub_relation.csv
-            List<String> pubs_in_proceedings = context.getRelatedPublications();
+            List<String> pubs_in_proceedings = context.getRelatedPublications().stream().limit(MAX_NUM_PUBS_PER_CONTEXT).collect(Collectors.toList());
             if(!pubs_in_proceedings.isEmpty()){
                 pubs_in_proceedings.forEach(pub -> {
                     // Adding the following pair: < key of the context, key of the publication presented in that context >
                     context_pubs_entries.add(context.generateCSVEntry(pub));
 
-                    // Adding the publication presented in that context as a publication in our db
-                    addNewPublicationAndItsAuthorsEntries(dblp.getPublication(pub));
+                    // Adding the publication presented in that context as a publication in the db with related relations
+                    addPublicationAndItsRelationEntries(dblp.getPublication(pub), false);
                 });
             }
         }
@@ -208,6 +187,7 @@ public class CSVGenerator {
             e.printStackTrace();
         }
     }
+
 
     private static RecordDbInterface loadXML(String[] args) {
         // we need to raise entityExpansionLimit because the dblp.xml has millions of entities
@@ -237,11 +217,37 @@ public class CSVGenerator {
         return dblp;
     }
 
-    private static Optional<Context> getContextByName(String journalName, Set<Context> contexts) {
-        return contexts.stream().filter(c -> c.getTitle().equals(journalName)).findFirst();
+    private static Optional<Context> getContextByName(String journalName) {
+        return util_contexts.stream().filter(c -> c.getTitle().equals(journalName)).findFirst();
     }
 
-    private static void addNewPublicationAndItsAuthorsEntries(Publication publicationToAdd) {
+    private static void distributePublication(MyPublication publication, boolean addToUtilPubs) {
+        // TODO: we are losing relation author -> context
+        if(publication.getTag().equals("proceedings")) {
+            String contextTitle = PublicationUtils.getTitle(publication);
+            if (!exploredContextNames.contains(contextTitle)) {
+                util_contexts.add(new Conference(publication));
+                exploredContextNames.add(contextTitle);
+            }
+        }
+        else if (publication.getTag().equals("article")) {
+            if (publication.getJournal() != null) {
+                String contextName = publication.getJournal().getTitle();
+                if (!exploredContextNames.contains(contextName)) {
+                    util_contexts.add(new Journal(publication));
+                    if (addToUtilPubs) util_pubs.add(publication);
+                    exploredContextNames.add(contextName);
+                } else {
+                    getContextByName(contextName).ifPresent(c -> c.insertNewArticle(publication.getKey()));
+                }
+            }
+        }
+        else {
+            if (addToUtilPubs) util_pubs.add(publication);
+        }
+    }
+
+    private static void addPublicationAndItsRelationEntries(Publication publicationToAdd, boolean addAlsoItsPossibleContext) {
         MyPublication publication = new MyPublication(publicationToAdd);
 
         // add publicationToAdd's info
@@ -251,8 +257,16 @@ public class CSVGenerator {
         publication.getNames().forEach(authorName -> {
             Author author = new Author(authorName.getPerson());
             author_entries.add(author.generateCSVEntry());
+            // author_pubs_relation.csv
+            // Adding the following pair: < key of the author, key of the publication written by that author >
             author_pub_entries.add(Arrays.asList(author.getPid(), publication.getKey()));
         });
+
+        if (addAlsoItsPossibleContext) {
+            if (publication.hasCrossRef()) {
+                distributePublication(new MyPublication(dblp.getPublication(publication.getCrossRef())), false);
+            }
+        }
     }
 
 }

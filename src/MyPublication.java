@@ -91,6 +91,10 @@ public class MyPublication extends Publication {
         return crossref.value();
     }
 
+    public boolean hasCrossRef() {
+        return !this.getCrossRef().equals("");
+    }
+
     public List<String> getCitations(){
         if(!this.getFields("cite").isEmpty())
             return this.getFields("cite").stream().map(Field::value).filter(c->!c.equals("...")).collect(Collectors.toList());
