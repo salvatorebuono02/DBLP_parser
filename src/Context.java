@@ -1,6 +1,3 @@
-import org.dblp.mmdb.Publication;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public interface Context {
@@ -13,5 +10,8 @@ public interface Context {
 
     List<String> generateCSVEntry(String publicationID);
 
+    String getKey();
+
     String getTitle();
+
 }

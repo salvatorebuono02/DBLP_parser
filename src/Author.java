@@ -34,6 +34,14 @@ public class Author extends Person {
         return entry_author;
     }
 
+    public String getOrcid() {
+        return this.author.getFields("url").stream().map(Field::value).filter(PersonIDType.ORCID::matchesUrl).findFirst().orElse("");
+    }
+
+    public boolean hasOrcid() {
+        return !this.getOrcid().equals("");
+    }
+
     /**
      * Retrieve the PID of this person record.
      *

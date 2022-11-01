@@ -437,4 +437,10 @@ public class MyPublication extends Publication {
     public String toString() {
         return publication.toString();
     }
+
+    public boolean hasContextInfo() {
+        if (this.getTag().equals("inproceedings") || this.getTag().equals("incollection"))
+            return this.hasCrossRef();
+        return true;
+    }
 }

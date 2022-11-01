@@ -3,6 +3,7 @@ import org.dblp.mmdb.Publication;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Conference implements Context {
     private final String id;
@@ -59,5 +60,23 @@ public class Conference implements Context {
     @Override
     public List<String> generateCSVEntry(String publicationID) {
         return Arrays.asList(this.id, publicationID);
+    }
+
+    @Override
+    public String getKey() {
+        return this.id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conference that = (Conference) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
