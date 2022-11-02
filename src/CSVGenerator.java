@@ -43,10 +43,10 @@ public class CSVGenerator {
     private static RecordDbInterface dblp = null;
 
     private static final String RESULTS_DIRECTORY_PATH = "results/";
-    private static final int MAX_NUM_CITATIONS_PER_PUB = 5;
-    private static final int MAX_NUM_PUBS_PER_CONTEXT = 5;
+    private static final int MAX_NUM_CITATIONS_PER_PUB = 10;
+    private static final int MAX_NUM_PUBS_PER_CONTEXT = 10;
     private static final int INIT_NUM_AUTHORS = 10;
-    private static final int MAX_NUM_VISITING_AUTHORS = 150;
+    private static final int MAX_NUM_VISITING_AUTHORS = 200;
 
     // Unique entries to be inserted in the db
     private static final Set<List<String>> author_entries = new HashSet<>();
@@ -110,11 +110,18 @@ public class CSVGenerator {
 
         // construct all types of publication csv starting from the util publication list
         // publications.csv
-        for (MyPublication publication : util_pubs) {
+        Set<MyPublication> very_util_pubs = dblp.getPublications().stream().map(MyPublication::new).filter(p -> !p.getCitations().isEmpty()).limit(util_pubs.size()/3).collect(Collectors.toSet());
+        very_util_pubs.addAll(util_pubs.stream().filter(p -> !p.getCitations().isEmpty()).collect(Collectors.toSet()));
+        util_pubs.removeIf(p -> !p.getCitations().isEmpty());
+        List<MyPublication> list_util_pubs = new ArrayList<>(util_pubs);
+        Collections.shuffle(list_util_pubs);
+        very_util_pubs.addAll(list_util_pubs.stream().limit(util_pubs.size()/2).collect(Collectors.toList()));
+        for (MyPublication publication : very_util_pubs) {
 
             if (publication.getKey().equals("conf/asap/PeesVZM97"))
                 System.out.println("conf/asap/PeesVZM97");
 
+            /*
             if (publication.getTag().equals("book")) {
                 System.out.println("BOOK: " + publication.getFields().stream().map(field -> field.tag() + ": " + field.value() + " - ").collect(Collectors.joining(",")) + "\n");
                 if (!publication.getCrossRef().equals(""))
@@ -124,14 +131,15 @@ public class CSVGenerator {
             if (publication.getFields().stream().anyMatch(Field::hasAttributes))
                 System.out.println("HAS ATTR: " + publication.getFields().stream().map(field -> field.tag() + ": " + field.value() + " - ").collect(Collectors.joining(",")) + "\n");
 
+             */
+
             addPublicationAndItsRelationEntries(publication, true);
 
-            // pub_pubs_relation.csv (citations of a publication)
             List<String> citations = publication.getCitations().stream().limit(MAX_NUM_CITATIONS_PER_PUB).toList();
             if (!citations.isEmpty()) {
                 //if (citations.size() > MAX_NUM_CITATIONS_PER_PUB) citations = citations.subList(0, MAX_NUM_CITATIONS_PER_PUB);
                 citations.forEach(cit -> {
-                    // citations
+                    // pub_pubs_relation.csv (citations of a publication)
                     // Adding the following pair: < key of the publication, key of another publication cited in that publication >
                     citation_entries.add(Arrays.asList(publication.getKey(), cit));
 
@@ -139,6 +147,7 @@ public class CSVGenerator {
                     addPublicationAndItsRelationEntries(dblp.getPublication(cit), true);
                 });
             }
+
         }
         // adding possible contexts (book) of the current publication
         // NO. ASSUMPTION: book no context
@@ -152,7 +161,7 @@ public class CSVGenerator {
 
             context_entries.add(context.generateCSVEntry());
 
-            //context_pub_relation.csv
+            // context_pubs_relation.csv
             List<String> pubs_in_proceedings = context.getRelatedPublications().stream().limit(MAX_NUM_PUBS_PER_CONTEXT).collect(Collectors.toList());
             // List<String> pubs_in_proceedings = context.getRelatedPublications();
             if(!pubs_in_proceedings.isEmpty()){
@@ -167,7 +176,7 @@ public class CSVGenerator {
         }
 
         System.out.println("pub entry size: " + publication_entries.size());
-        System.out.println("num of pubs with citations: " + (int) util_pubs.stream().filter(p -> !p.getCitations().isEmpty()).count());
+        System.out.println("num of pubs with citations: " + (int) very_util_pubs.stream().filter(p -> !p.getCitations().isEmpty()).count());
         System.out.println("author_pubs_rel size: " + author_pub_entries.size());
 
 
@@ -253,7 +262,7 @@ public class CSVGenerator {
             // publications.csv
             publication_entries.add(publication.generateCSVEntry());
 
-            // add all the authors publicationToAdd (both in authors.csv and author_pubs_relation.csv)
+            // add all the authors of publicationToAdd (both in authors.csv and author_pubs_relation.csv)
             publication.getNames().forEach(authorName -> {
                 Author author = new Author(authorName.getPerson());
                 author_entries.add(author.generateCSVEntry());
