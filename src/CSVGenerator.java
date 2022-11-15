@@ -43,9 +43,9 @@ public class CSVGenerator {
     private static RecordDbInterface dblp = null;
 
     private static final String RESULTS_DIRECTORY_PATH = "results/";
-    private static final int MAX_NUM_CITATIONS_PER_PUB = 10;
-    private static final int MAX_NUM_PUBS_PER_CONTEXT = 10;
-    private static final int INIT_NUM_AUTHORS = 10;
+    private static final int MAX_NUM_CITATIONS_PER_PUB = 100;
+    private static final int MAX_NUM_PUBS_PER_CONTEXT = 100;
+    private static final int INIT_NUM_AUTHORS = 15;
     private static final int MAX_NUM_VISITING_AUTHORS = 200;
 
     // Unique entries to be inserted in the db
@@ -118,10 +118,10 @@ public class CSVGenerator {
         very_util_pubs.addAll(list_util_pubs.stream().limit(util_pubs.size()/2).collect(Collectors.toList()));
         for (MyPublication publication : very_util_pubs) {
 
+            /*
             if (publication.getKey().equals("conf/asap/PeesVZM97"))
                 System.out.println("conf/asap/PeesVZM97");
 
-            /*
             if (publication.getTag().equals("book")) {
                 System.out.println("BOOK: " + publication.getFields().stream().map(field -> field.tag() + ": " + field.value() + " - ").collect(Collectors.joining(",")) + "\n");
                 if (!publication.getCrossRef().equals(""))
@@ -266,6 +266,8 @@ public class CSVGenerator {
             publication.getNames().forEach(authorName -> {
                 Author author = new Author(authorName.getPerson());
                 author_entries.add(author.generateCSVEntry());
+                // author_association_relation.csv
+                author_association_entries.add(Arrays.asList(author.getPid(), AssociationUtils.getRandomAssociation().getId()));
                 // author_pubs_relation.csv
                 // Adding the following pair: < key of the author, key of the publication written by that author >
                 author_pub_entries.add(Arrays.asList(author.getPid(), publication.getKey()));
