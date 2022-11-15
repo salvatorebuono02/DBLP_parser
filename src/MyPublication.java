@@ -293,6 +293,9 @@ public class MyPublication extends Publication {
         return publication.getNames();
     }
 
+    public List<String> getNamesString(){
+        return publication.getNames().stream().map(n->n.name()).collect(Collectors.toList());
+    }
     /**
      * Returns a sequential stream with the person names in this record as its source.
      *

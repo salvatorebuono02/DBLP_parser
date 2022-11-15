@@ -29,13 +29,14 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import org.dblp.mmdb.Publication;
+import org.dblp.mmdb.RecordDb;
+import org.dblp.mmdb.RecordDbInterface;
+import org.xml.sax.SAXException;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.dblp.mmdb.*;
-import org.dblp.mmdb.Publication;
-import org.xml.sax.SAXException;
 
 
 public class CSVGenerator {
@@ -57,6 +58,8 @@ public class CSVGenerator {
     private static final Set<List<String>> citation_entries = new HashSet<>();
     private static final Set<List<String>> context_pubs_entries = new HashSet<>();
     private static final Set<List<String>> author_association_entries = new HashSet<>(); // relation author->PRODUCE->publication
+    private static final Set<List<String>> pub_author_citations_entries = new HashSet<>(); // relation author->PRODUCE->publication
+
 
     // set of authors that we will consider
     private static final List<Author> authors = new ArrayList<>();
@@ -115,7 +118,7 @@ public class CSVGenerator {
         util_pubs.removeIf(p -> !p.getCitations().isEmpty());
         List<MyPublication> list_util_pubs = new ArrayList<>(util_pubs);
         Collections.shuffle(list_util_pubs);
-        very_util_pubs.addAll(list_util_pubs.stream().limit(util_pubs.size()/2).collect(Collectors.toList()));
+        very_util_pubs.addAll(list_util_pubs.stream().limit(util_pubs.size() / 2).toList());
         for (MyPublication publication : very_util_pubs) {
 
             if (publication.getKey().equals("conf/asap/PeesVZM97"))
@@ -135,6 +138,18 @@ public class CSVGenerator {
 
             addPublicationAndItsRelationEntries(publication, true);
 
+            //add list of authors for each publication
+
+            List<String> authors_citations= new ArrayList<>();
+            authors_citations.add(publication.getKey());
+            authors_citations.add(publication.getTitle());
+            authors_citations.addAll(publication.getNamesString());
+            //STOP1 is my separator from citation and authors
+            authors_citations.add("STOP1");
+
+
+            //pub_author_citations_entries.add(Collections.singletonList("STOP1"));)
+
             List<String> citations = publication.getCitations().stream().limit(MAX_NUM_CITATIONS_PER_PUB).toList();
             if (!citations.isEmpty()) {
                 //if (citations.size() > MAX_NUM_CITATIONS_PER_PUB) citations = citations.subList(0, MAX_NUM_CITATIONS_PER_PUB);
@@ -147,6 +162,9 @@ public class CSVGenerator {
                     addPublicationAndItsRelationEntries(dblp.getPublication(cit), true);
                 });
             }
+            //add citation to pub_author_entries after the stop in order to have in only 1 row all the info
+            authors_citations.addAll(citations);
+            pub_author_citations_entries.add(authors_citations);
 
         }
         // adding possible contexts (book) of the current publication
@@ -162,7 +180,7 @@ public class CSVGenerator {
             context_entries.add(context.generateCSVEntry());
 
             // context_pubs_relation.csv
-            List<String> pubs_in_proceedings = context.getRelatedPublications().stream().limit(MAX_NUM_PUBS_PER_CONTEXT).collect(Collectors.toList());
+            List<String> pubs_in_proceedings = context.getRelatedPublications().stream().limit(MAX_NUM_PUBS_PER_CONTEXT).toList();
             // List<String> pubs_in_proceedings = context.getRelatedPublications();
             if(!pubs_in_proceedings.isEmpty()){
                 pubs_in_proceedings.forEach(pub -> {
@@ -189,6 +207,7 @@ public class CSVGenerator {
             CSVWriter.convertToCSV(context_entries,RESULTS_DIRECTORY_PATH + "contexts.csv");
             CSVWriter.convertToCSV(association_entries,RESULTS_DIRECTORY_PATH + "associations.csv");
             CSVWriter.convertToCSV(author_association_entries,RESULTS_DIRECTORY_PATH + "author_association_relation.csv");
+            CSVWriter.convertToCSV(pub_author_citations_entries,RESULTS_DIRECTORY_PATH + "pub_author_citations.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
