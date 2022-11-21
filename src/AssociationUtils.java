@@ -44,8 +44,6 @@ public abstract class AssociationUtils {
 
         Set<List<String>> association_entries = new HashSet<>();
         associations.forEach(a -> {
-            String id = "assoc/" + (associations.indexOf(a) + 1);
-            a.setId(id);
             association_entries.add(a.generateCSVEntry());
         });
 

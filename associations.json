@@ -1,5 +1,6 @@
 [
   {
+    "id": "mit",
     "name": "Massachusetts Institute of Technology",
     "country": "United States, Massachusetts",
     "address": "77 Massachusetts Avenue, Cambridge, Massachusetts, 02139-4307",
@@ -7,6 +8,7 @@
     "funding": "Private"
   },
   {
+    "id": "poliba",
     "name":"Politecnico di Bari",
     "country":"Italy",
     "address":"Via Amendola 126B, Bari, 70126",
@@ -14,6 +16,7 @@
     "funding":"Public"
   },
   {
+    "id": "polimi",
     "name":"Politecnico di Milano",
     "country":"Italy",
     "address":"Piazza Leonardo da Vinci 32, Milano, 20133",
@@ -21,6 +24,7 @@
     "funding":"Public"
   },
   {
+    "id": "unimi",
     "name":"Università degli studi di Milano",
     "country":"Italy",
     "address":"Via Festa del Perdono 7, Milano, 20122",
@@ -28,6 +32,7 @@
     "funding":"Public"
   },
   {
+    "id": "ethz",
     "name":"Eidgenössische Technische Hochschule Zürich (ETH Zurich)",
     "country":"Switzerland",
     "address":"ETH Zürich HG, Rämistrasse 101, Zürich, 8092",
@@ -35,6 +40,7 @@
     "funding":"Public"
   },
   {
+    "id": "dtudk",
     "name":"Technical University of Denmark",
     "country":"Denmark",
     "address":"Anker Engelundsvej 1, Bygning 101A, Kgs. Lyngby, 2800",
@@ -42,6 +48,7 @@
     "funding":"Public"
   },
   {
+    "id": "deepmind",
     "name": "DeepMind",
     "country": "England",
     "address": "5 New Street Square, London, EC4A",
@@ -49,6 +56,7 @@
     "funding": "Private"
   },
   {
+    "id": "openai",
     "name": "OpenAI",
     "country": "United States, San Francisco",
     "address": "Poineer building, 3180 18th St, San Francisco, CA 94110",

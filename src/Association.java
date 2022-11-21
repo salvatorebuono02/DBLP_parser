@@ -9,10 +9,7 @@ public class Association {
     private String website;
     private String funding;
 
-    public Association(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    public Association() {}
 
     public String getId() {
         return id;
@@ -22,11 +19,11 @@ public class Association {
         return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public List<String> generateCSVEntry() {
         return Arrays.asList(this.id, this.name, this.country, this.address, this.website, this.funding);
+    }
+
+    public String getUrlDomain() {
+        return this.website.replaceAll("www.", "");
     }
 }

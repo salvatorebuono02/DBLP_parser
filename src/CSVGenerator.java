@@ -80,13 +80,17 @@ public class CSVGenerator {
 
             Author author = authors.get(count);
 
+
+            if (author.getPid().equals("b/ElisaBertino"))
+                System.out.println("b/ElisaBertino");
+
             if (!author.getPublications().isEmpty()) {
 
                 // author.csv
                 author_entries.add(author.generateCSVEntry());
 
                 // author_association_relation.csv
-                author_association_entries.add(Arrays.asList(author.getPid(), AssociationUtils.getRandomAssociation().getId()));
+                author_association_entries.add(Arrays.asList(author.getPid(), author.getAssociation().getId()));
 
                 for(Publication pub :  author.getPublications()) {
                     MyPublication publication = new MyPublication(pub);
@@ -110,12 +114,12 @@ public class CSVGenerator {
 
         // construct all types of publication csv starting from the util publication list
         // publications.csv
-        Set<MyPublication> very_util_pubs = dblp.getPublications().stream().map(MyPublication::new).filter(p -> !p.getCitations().isEmpty()).limit(util_pubs.size()/3).collect(Collectors.toSet());
+        Set<MyPublication> very_util_pubs = dblp.getPublications().stream().map(MyPublication::new).filter(p -> !p.getCitations().isEmpty()).limit(util_pubs.size()* 4L).collect(Collectors.toSet());
         very_util_pubs.addAll(util_pubs.stream().filter(p -> !p.getCitations().isEmpty()).collect(Collectors.toSet()));
         util_pubs.removeIf(p -> !p.getCitations().isEmpty());
         List<MyPublication> list_util_pubs = new ArrayList<>(util_pubs);
         Collections.shuffle(list_util_pubs);
-        very_util_pubs.addAll(list_util_pubs.stream().limit(util_pubs.size()/2).collect(Collectors.toList()));
+        very_util_pubs.addAll(list_util_pubs.stream().limit(util_pubs.size()/16).collect(Collectors.toList()));
         for (MyPublication publication : very_util_pubs) {
 
             /*
@@ -156,8 +160,8 @@ public class CSVGenerator {
         // contexts.csv
         for (Context context : util_contexts){
 
-            if (context.getKey().equals("conf/asap/1997"))
-                System.out.println("conf/asap/1997");
+            //if (context.getKey().equals("conf/asap/1997"))
+                //System.out.println("conf/asap/1997");
 
             context_entries.add(context.generateCSVEntry());
 
@@ -176,7 +180,7 @@ public class CSVGenerator {
         }
 
         System.out.println("pub entry size: " + publication_entries.size());
-        System.out.println("num of pubs with citations: " + (int) very_util_pubs.stream().filter(p -> !p.getCitations().isEmpty()).count());
+        System.out.println("num of pubs with citations: " + (int) very_util_pubs.stream().filter(p -> !p.getCitations().isEmpty() || p.hasContextInfo()).count());
         System.out.println("author_pubs_rel size: " + author_pub_entries.size());
 
 
@@ -265,9 +269,16 @@ public class CSVGenerator {
             // add all the authors of publicationToAdd (both in authors.csv and author_pubs_relation.csv)
             publication.getNames().forEach(authorName -> {
                 Author author = new Author(authorName.getPerson());
-                author_entries.add(author.generateCSVEntry());
-                // author_association_relation.csv
-                author_association_entries.add(Arrays.asList(author.getPid(), AssociationUtils.getRandomAssociation().getId()));
+
+                //if (author.getPid().equals("b/ElisaBertino"))
+                    //System.out.println("b/ElisaBertino");
+
+                if (!authors.contains(author)) {
+                    authors.add(author);
+                    author_entries.add(author.generateCSVEntry());
+                    // author_association_relation.csv
+                    author_association_entries.add(Arrays.asList(author.getPid(), author.getAssociation().getId()));
+                }
                 // author_pubs_relation.csv
                 // Adding the following pair: < key of the author, key of the publication written by that author >
                 author_pub_entries.add(Arrays.asList(author.getPid(), publication.getKey()));

@@ -6,9 +6,13 @@ import java.util.stream.Stream;
 public class Author extends Person {
 
     private final Person author;
+    private final Association association;
+    private final String email;
 
     public Author(Person author) {
         this.author = author;
+        this.association = AssociationUtils.getRandomAssociation();
+        this.email = this.generateEmail();
     }
 
     public List<String> getCoauthorNamesIn(Publication publication) {
@@ -29,17 +33,46 @@ public class Author extends Person {
             urls.stream().filter(u -> PersonIDType.of(u) != null && PersonIDType.ORCID.matches(u)).findFirst().ifPresentOrElse(orcid -> entry_author.add(PersonIDType.ORCID.normalize(orcid)), () -> entry_author.add(""));
         }
          */
-        this.getFields("url").stream().findFirst().ifPresent(u -> entry_author.add(u.value()));
+        entry_author.add(this.getUrl());
+        entry_author.add(this.getOrcid());
+        entry_author.add(this.getEmail());
 
         return entry_author;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    private String generateEmail() {
+        String first = this.author.getPrimaryName().first();
+        String last = this.author.getPrimaryName().last();
+        String suffix = this.author.getPrimaryName().suffix();
+        String email;
+
+        if (suffix != null)
+            email = first + "." + last + "." + suffix + "@" + this.association.getUrlDomain();
+        else
+            email = first + "." + last + "@" + this.association.getUrlDomain();
+
+        return email.replaceAll("\\s+","").replace("-", "").replace("..", ".").toLowerCase();
+
+    }
+
+    public Association getAssociation() {
+        return this.association;
+    }
+
     public String getOrcid() {
-        return this.author.getFields("url").stream().map(Field::value).filter(PersonIDType.ORCID::matchesUrl).findFirst().orElse("");
+        return this.author.getFields("url").stream().map(Field::value).filter(PersonIDType.ORCID::matchesUrl).map(PersonIDType.ORCID::getID).findFirst().orElse("");
     }
 
     public boolean hasOrcid() {
         return !this.getOrcid().equals("");
+    }
+
+    public String getUrl() {
+        return this.getFields("url").stream().map(Field::value).filter(url -> !PersonIDType.ORCID.matchesUrl(url)).findFirst().orElse("");
     }
 
     /**

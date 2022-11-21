@@ -1,8 +1,8 @@
-assoc/6,Technical University of Denmark,Denmark,"Anker Engelundsvej 1, Bygning 101A, Kgs. Lyngby, 2800",www.dtu.dk,Public
-assoc/4,Università degli studi di Milano,Italy,"Via Festa del Perdono 7, Milano, 20122",www.unimi.it,Public
-assoc/2,Politecnico di Bari,Italy,"Via Amendola 126B, Bari, 70126",www.poliba.it,Public
-assoc/3,Politecnico di Milano,Italy,"Piazza Leonardo da Vinci 32, Milano, 20133",www.polimi.it,Public
-assoc/8,OpenAI,"United States, San Francisco","Poineer building, 3180 18th St, San Francisco, CA 94110",www.openai.com,Private
-assoc/7,DeepMind,England,"5 New Street Square, London, EC4A",www.deepmind.com,Private
-assoc/1,Massachusetts Institute of Technology,"United States, Massachusetts","77 Massachusetts Avenue, Cambridge, Massachusetts, 02139-4307",www.mit.edu,Private
-assoc/5,Eidgenössische Technische Hochschule Zürich (ETH Zurich),Switzerland,"ETH Zürich HG, Rämistrasse 101, Zürich, 8092",www.ethz.ch,Public
+polimi,Politecnico di Milano,Italy,"Piazza Leonardo da Vinci 32, Milano, 20133",www.polimi.it,Public
+ethz,Eidgenössische Technische Hochschule Zürich (ETH Zurich),Switzerland,"ETH Zürich HG, Rämistrasse 101, Zürich, 8092",www.ethz.ch,Public
+unimi,Università degli studi di Milano,Italy,"Via Festa del Perdono 7, Milano, 20122",www.unimi.it,Public
+dtudk,Technical University of Denmark,Denmark,"Anker Engelundsvej 1, Bygning 101A, Kgs. Lyngby, 2800",www.dtu.dk,Public
+openai,OpenAI,"United States, San Francisco","Poineer building, 3180 18th St, San Francisco, CA 94110",www.openai.com,Private
+deepmind,DeepMind,England,"5 New Street Square, London, EC4A",www.deepmind.com,Private
+mit,Massachusetts Institute of Technology,"United States, Massachusetts","77 Massachusetts Avenue, Cambridge, Massachusetts, 02139-4307",www.mit.edu,Private
+poliba,Politecnico di Bari,Italy,"Via Amendola 126B, Bari, 70126",www.poliba.it,Public
