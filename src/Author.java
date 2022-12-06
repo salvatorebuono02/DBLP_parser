@@ -1,6 +1,8 @@
 import org.dblp.mmdb.*;
 
+import java.text.Normalizer;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Author extends Person {
@@ -20,7 +22,7 @@ public class Author extends Person {
         return publication.getNames().stream().map(PersonName::name).filter(n -> !n.equals(this.getPrimaryName().name())).toList();
     }
 
-    public List<String> generateCSVEntry() {
+    public List<String> generateCSVEntry(boolean withMultipleURLs) {
         List<String> entry_author = new ArrayList<>();
         entry_author.add(this.getPid());
         entry_author.add(this.getPrimaryName().name());
@@ -33,10 +35,12 @@ public class Author extends Person {
             urls.stream().filter(u -> PersonIDType.of(u) != null && PersonIDType.ORCID.matches(u)).findFirst().ifPresentOrElse(orcid -> entry_author.add(PersonIDType.ORCID.normalize(orcid)), () -> entry_author.add(""));
         }
          */
-        entry_author.add(this.getUrl());
+        if (withMultipleURLs)
+            entry_author.add(this.getURLs());
+        else
+            entry_author.add(this.getFirstURL());
         entry_author.add(this.getOrcid());
         entry_author.add(this.getEmail());
-
         return entry_author;
     }
 
@@ -51,12 +55,20 @@ public class Author extends Person {
         String email;
 
         if (suffix != null)
-            email = first + "." + last + "." + suffix + "@" + this.association.getUrlDomain();
+            email = unaccent(first) + "." + unaccent(last) + "." + unaccent(suffix) + "@" + this.association.getUrlDomain();
         else
-            email = first + "." + last + "@" + this.association.getUrlDomain();
+            email = unaccent(first) + "." + unaccent(last) + "@" + this.association.getUrlDomain();
 
         return email.replaceAll("\\s+","").replace("-", "").replace("..", ".").toLowerCase();
 
+    }
+
+    private String unaccent(String src) {
+        if(src==null)
+            return "";
+        return Normalizer
+                .normalize(src, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "");
     }
 
     public Association getAssociation() {
@@ -71,8 +83,12 @@ public class Author extends Person {
         return !this.getOrcid().equals("");
     }
 
-    public String getUrl() {
+    private String getFirstURL() {
         return this.getFields("url").stream().map(Field::value).filter(url -> !PersonIDType.ORCID.matchesUrl(url)).findFirst().orElse("");
+    }
+
+    public String getURLs() {
+        return this.getFields("url").stream().map(Field::value).filter(url -> !PersonIDType.ORCID.matchesUrl(url)).collect(Collectors.joining("|"));
     }
 
     /**

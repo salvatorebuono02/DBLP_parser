@@ -26,12 +26,6 @@ public class MyPublication extends Publication {
         entry_publication.add(this.getURL());
         entry_publication.add(this.getISBN());
         entry_publication.add(this.getSchool());
-
-
-        // TODO how to manage those differences? all in one csv?
-        // TODO Editor field??
-
-
         return entry_publication;
     }
 

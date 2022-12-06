@@ -68,6 +68,8 @@ public class CSVGenerator {
     private static final Set<Context> util_contexts = new HashSet<>();
     private static final Set<String> exploredContextNames = new HashSet<>();
 
+    private static final boolean WITH_MULTIPLE_AUTHOR_URLS = true;
+
     public static void main(String[] args) {
 
         dblp = loadXML(args);
@@ -87,7 +89,7 @@ public class CSVGenerator {
             if (!author.getPublications().isEmpty()) {
 
                 // author.csv
-                author_entries.add(author.generateCSVEntry());
+                author_entries.add(author.generateCSVEntry(WITH_MULTIPLE_AUTHOR_URLS));
 
                 // author_association_relation.csv
                 author_association_entries.add(Arrays.asList(author.getPid(), author.getAssociation().getId()));
@@ -185,7 +187,10 @@ public class CSVGenerator {
 
 
         try {
-            CSVWriter.convertToCSV(author_entries, RESULTS_DIRECTORY_PATH + "authors.csv");
+            if(WITH_MULTIPLE_AUTHOR_URLS)
+                CSVWriter.convertToCSV(author_entries, RESULTS_DIRECTORY_PATH + "authors_multiURLs.csv");
+            else
+                CSVWriter.convertToCSV(author_entries, RESULTS_DIRECTORY_PATH + "authors.csv");
             CSVWriter.convertToCSV(author_pub_entries, RESULTS_DIRECTORY_PATH + "author_pubs_relation.csv");
             CSVWriter.convertToCSV(publication_entries, RESULTS_DIRECTORY_PATH + "publications.csv");
             CSVWriter.convertToCSV(citation_entries,RESULTS_DIRECTORY_PATH + "pub_pubs_relation.csv");
@@ -275,7 +280,7 @@ public class CSVGenerator {
 
                 if (!authors.contains(author)) {
                     authors.add(author);
-                    author_entries.add(author.generateCSVEntry());
+                    author_entries.add(author.generateCSVEntry(WITH_MULTIPLE_AUTHOR_URLS));
                     // author_association_relation.csv
                     author_association_entries.add(Arrays.asList(author.getPid(), author.getAssociation().getId()));
                 }
